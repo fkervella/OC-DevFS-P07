@@ -3,8 +3,8 @@ import { NextResponse } from 'next/server';
 
 import { decrypt } from './app/lib/session';
 
-const publicRoutes = ['/register', '/'];
-const protectedRoutes = ['/dashboard', '/profile'];
+const publicRoutes = ['/register', '/', '/404'];
+const protectedRoutes = ['/dashboard', '/profile', '/projects', '/projet'];
 
 export default async function proxy(request) {
   const path = request.nextUrl.pathname;
@@ -15,15 +15,14 @@ export default async function proxy(request) {
   const session = cookie ? await decrypt(cookie) : null;
 
   if (!isProtectedRoute && !isPublicRoute) {
-    return NextResponse.next();
+    // La page demandée n'est pas connue
+    return NextResponse.redirect(new URL('/404', request.nextUrl));
   } else if (isProtectedRoute && !session?.userId) {
+    // La page demandée fait partie des routes protégées, et aucun utilisateur n'est connecté
     return NextResponse.redirect(new URL('/', request.nextUrl));
-  } else if (
-    isPublicRoute &&
-    session?.userId &&
-    ['/', '/register', '/'].includes(path)
-  ) {
-    return NextResponse.redirect(new URL('/dashboard', request.nextUrl));
+  } else if (isProtectedRoute && session?.userId) {
+    // La page demandée est protégée et l'utilisateur est connecté
+    return NextResponse.next();
   } else {
     return NextResponse.next();
   }
