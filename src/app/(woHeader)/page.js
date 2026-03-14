@@ -1,5 +1,50 @@
+import Image from 'next/image';
+import Link from 'next/link';
+
+import BlackButton from '@/app/_components/BlackButton';
+import LabelInput from '@/app/_components/LabelInput';
+
 function Login() {
-  return <h1>This is the Login page</h1>;
+  return (
+    <div className="flex flex-row h-screen w-full">
+      <div className="w-[40%] flex flex-col items-center justify-between py-30 px-30">
+        <Image
+          src="/logoAbricot.png"
+          alt="Logo Abricot orange"
+          width={253}
+          height={33}
+          className='"self-start'
+        />
+        <form className="flex flex-col gap-2 w-full max-w-sm items-center">
+          <h1 className="text-5xl font-bold text-orange-600 ">Connexion</h1>
+          <LabelInput name="email" text="Email" />
+          <LabelInput name="password" text="Mot de passe" />
+          <BlackButton text="Se connecter" type="submit" />
+          <Link
+            href="/forgotPassword"
+            className="underline text-orange-600 m-auto"
+          >
+            Mot de passe oublié
+          </Link>
+        </form>
+        <div className="">
+          Pas encore de compte ?{' '}
+          <Link href="/register" className="underline text-orange-600">
+            Créer un compte
+          </Link>
+        </div>
+      </div>
+      <div className="w-[60%] relative h-screen overflow-hidden">
+        <Image
+          src="/loginPage.png"
+          alt="Image page de connexion"
+          fill
+          className="object-cover"
+          priority
+        />
+      </div>
+    </div>
+  );
 }
 
 export default Login;

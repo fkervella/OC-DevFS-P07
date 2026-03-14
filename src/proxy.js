@@ -3,7 +3,7 @@ import { NextResponse } from 'next/server';
 
 import { decrypt } from './app/lib/session';
 
-const publicRoutes = ['/register', '/', '/404'];
+const publicRoutes = ['/register', '/', '/login', 'forgotPassword', '/404'];
 const protectedRoutes = ['/dashboard', '/profile', '/projects', '/projet'];
 
 export default async function proxy(request) {
@@ -23,6 +23,9 @@ export default async function proxy(request) {
   } else if (isProtectedRoute && session?.userId) {
     // La page demandée est protégée et l'utilisateur est connecté
     return NextResponse.next();
+  } else if (request.nextUrl.pathname.startsWith('/login')) {
+    // La page login est la page d'acceuil.
+    return NextResponse.redirect(new URL('/', request.nextUrl));
   } else {
     return NextResponse.next();
   }
