@@ -32,3 +32,11 @@
 - Utilisation de Git
 - Application responsive
 - librairies externes dans package.json à justifier en soutenance
+
+
+# Dette technique :
+- loginPage : 
+    label des inputs à aligner à gauche
+    liens vers pages : forgotPassword et register
+- page 404 :
+    format d'affichage
