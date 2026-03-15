@@ -37,16 +37,14 @@ function Header() {
               height={24}
               className=""
             />
-            <span className="text-base font-normal text-[#D3590B]">
-              Projets
-            </span>
+            <span className="text-base font-normal text-orange">Projets</span>
           </div>
         </Link>
       </nav>
       <div>
         <Link href="/profile" className="">
-          <div className="bg-[#FFE8D9] rounded-full w-[65px] h-[65px] flex justify-center items-center">
-            <span className="text-sm font-normal">TODO</span>
+          <div className="bg-light-orange rounded-full w-16.25 h-16.25 flex justify-center items-center">
+            <span className="text-sm font-normal text-black-font">TODO</span>
           </div>
         </Link>
       </div>

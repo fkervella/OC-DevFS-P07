@@ -1,7 +1,10 @@
 export default function LabelInput({ name, text, type }) {
   return (
     <>
-      <label htmlFor={name} className="black font-normal mt-4 text-sm">
+      <label
+        htmlFor={name}
+        className="black font-normal mt-4 text-sm text-black-font"
+      >
         {text}
       </label>
       <input

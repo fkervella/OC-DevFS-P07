@@ -25,20 +25,20 @@ function Login() {
           action={LoginAction}
           className="flex flex-col gap-2 w-full max-w-sm items-center"
         >
-          <h1 className="text-5xl font-bold text-[#D3590B] ">Connexion</h1>
+          <h1 className="text-5xl font-bold text-orange">Connexion</h1>
           <LabelInput name="email" text="Email" type="text" />
           {state?.errors?.email && <p>{state.errors.email}</p>}
           {action?.errors}
           {pending?.errors}
           <LabelInput name="password" text="Mot de passe" type="password" />
           <BlackButton text="Se connecter" type="submit" />
-          <Link href="/forgotPassword" className="underline text-[#D3590B]">
+          <Link href="/forgotPassword" className="underline text-orange">
             Mot de passe oublié
           </Link>
         </form>
         <div className="">
           Pas encore de compte ?{' '}
-          <Link href="/register" className="underline text-[#D3590B]">
+          <Link href="/register" className="underline text-orange">
             Créer un compte
           </Link>
         </div>
