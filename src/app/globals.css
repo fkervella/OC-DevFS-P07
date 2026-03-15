@@ -5,3 +5,21 @@ body {
     padding: 0;
     min-height: 100vh;
 }
+
+@theme {
+    --color-grey-background: #F9F9FB;
+    --color-orange: #D3590B;
+    --color-black-background: #0F0F0F;
+    --color-black-font: #1F1F1F;
+    --color-light-orange: #FFE8D9;
+    --color-white: white;
+    --color-todo-background: #FFEDE0;
+    --color-todo-font: #EF4444;
+    --color-pending-background: #FFF0D7;
+    --color-pending-font: #E08D00;
+    --color-done-background: #F1FFF7;
+    --color-done-font: #27AE60;
+    --color-grey-background: #E5E7EB;
+    --color-grey-font: #6B7280;
+
+}
