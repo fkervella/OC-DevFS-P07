@@ -6,7 +6,9 @@ export default function RootLayout({ children }) {
       <head>
         <title>Abricot, l&apos;application qu&apos;il vous faut</title>
       </head>
-      <body>{children}</body>
+      <body>
+        <main>{children}</main>
+      </body>
     </html>
   );
 }
