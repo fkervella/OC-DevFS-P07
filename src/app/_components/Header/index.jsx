@@ -3,27 +3,53 @@ import Link from 'next/link';
 
 function Header() {
   return (
-    <div className="header-content">
-      <div className="logoBrand">
+    <div className="bg-white flex flex-row justify-between pt-1 pr-30 pb-1 pl-30 items-center">
+      <div className="">
         <Image
           className="logo"
           src="/logoAbricot.png"
           alt="logo"
-          width={253}
-          height={33}
+          width={150}
+          height={20}
         />
       </div>
-      <nav className="nav">
-        <Link href="/dashboard" className="nav-link">
-          Dashboard
+      <nav className="flex flex-row gap-6 items-center">
+        <Link href="/dashboard" className="">
+          <div className="bg-black rounded-lg flex flex-row pt-4 pr-10 pb-4 pl-10 gap-4 w-fit justify-center">
+            <Image
+              src="/dashboardWhiteIcon.png"
+              alt="Image tableau de bord"
+              width={24}
+              height={24}
+              className=""
+            />
+            <span className="text-white text-base font-normal">
+              Tableau de bord
+            </span>
+          </div>
         </Link>
-        <Link href="/projects" className="nav-link">
-          Projets
-        </Link>
-        <Link href="/profile" className="nav-link">
-          Mon profil
+        <Link href="/projects" className="">
+          <div className="bg-white flex flex-row pt-4 pr-10 pb-4 pl-10 gap-4 w-fit justify-center">
+            <Image
+              src="/projectsOrangeIcon.png"
+              alt="Image projets"
+              width={24}
+              height={24}
+              className=""
+            />
+            <span className="text-base font-normal text-[#D3590B]">
+              Projets
+            </span>
+          </div>
         </Link>
       </nav>
+      <div>
+        <Link href="/profile" className="">
+          <div className="bg-[#FFE8D9] rounded-full w-[65px] h-[65px] flex justify-center items-center">
+            <span className="text-sm font-normal">TODO</span>
+          </div>
+        </Link>
+      </div>
     </div>
   );
 }

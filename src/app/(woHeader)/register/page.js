@@ -18,14 +18,14 @@ function Register() {
           className='"self-start'
         />
         <form className="flex flex-col gap-2 w-full max-w-sm items-center">
-          <h1 className="text-5xl font-bold text-orange-600 ">Inscription</h1>
+          <h1 className="text-5xl font-bold text-[#D3590B] ">Inscription</h1>
           <LabelInput name="email" text="Email" type="text" />
           <LabelInput name="password" text="Mot de passe" type="password" />
           <BlackButton text="S'inscrire" type="submit" />
         </form>
         <div className="">
           Déjà inscrit ?{' '}
-          <Link href="/login" className="underline text-orange-600">
+          <Link href="/login" className="underline text-[#D3590B]">
             Se connecter
           </Link>
         </div>

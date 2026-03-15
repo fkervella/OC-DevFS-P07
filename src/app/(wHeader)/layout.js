@@ -1,3 +1,5 @@
+import '../globals.css';
+
 import Footer from '../_components/Footer';
 import Header from '../_components/Header';
 
@@ -9,7 +11,7 @@ export default function RootLayout({ children }) {
       </head>
       <body>
         <Header />
-        <main>{children}</main>
+        <main className="h-auto">{children}</main>
         <Footer />
       </body>
     </html>
