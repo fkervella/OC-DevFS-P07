@@ -23,9 +23,12 @@ function Register() {
           <LabelInput name="password" text="Mot de passe" type="password" />
           <BlackButton text="S'inscrire" type="submit" />
         </form>
-        <div className="">
+        <div className="font-inter font-normal text-sm">
           Déjà inscrit ?{' '}
-          <Link href="/login" className="underline text-orange">
+          <Link
+            href="/login"
+            className="underline text-orange font-inter font-normal text-sm"
+          >
             Se connecter
           </Link>
         </div>

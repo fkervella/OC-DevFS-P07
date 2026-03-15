@@ -1,8 +1,13 @@
 import '@/app/globals.css';
 
+import { Inter, Manrope } from 'next/font/google';
+
+const inter = Inter({ subsets: ['latin'] });
+const manrope = Manrope({ subsets: ['latin'] });
+
 export default function RootLayout({ children }) {
   return (
-    <html lang="fr">
+    <html lang="fr" className={`${inter.className} ${manrope.className}`}>
       <head>
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>Abricot, l&apos;application qu&apos;il vous faut</title>
