@@ -1,3 +1,5 @@
+'use client';
+
 import Image from 'next/image';
 import Link from 'next/link';
 
@@ -17,8 +19,8 @@ function Register() {
         />
         <form className="flex flex-col gap-2 w-full max-w-sm items-center">
           <h1 className="text-5xl font-bold text-orange-600 ">Inscription</h1>
-          <LabelInput name="email" text="Email" />
-          <LabelInput name="password" text="Mot de passe" />
+          <LabelInput name="email" text="Email" type="text" />
+          <LabelInput name="password" text="Mot de passe" type="password" />
           <BlackButton text="S'inscrire" type="submit" />
         </form>
         <div className="">

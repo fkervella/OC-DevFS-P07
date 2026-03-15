@@ -40,3 +40,5 @@
     liens vers pages : forgotPassword et register
 - page 404 :
     format d'affichage
+- Layout :
+    titre de la page à remonter des pages enfants

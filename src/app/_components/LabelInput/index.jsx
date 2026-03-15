@@ -1,4 +1,4 @@
-export default function LabelInput({ name, text }) {
+export default function LabelInput({ name, text, type }) {
   return (
     <>
       <label htmlFor={name} className="black font-normal mt-4 text-sm">
@@ -7,6 +7,7 @@ export default function LabelInput({ name, text }) {
       <input
         name={name}
         id={name}
+        type={type}
         className="rounded-lg pt-2 pr-2 pb-2 pl-2 border border-gray-200 w-xs"
       ></input>
     </>
