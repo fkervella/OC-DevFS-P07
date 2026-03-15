@@ -3,7 +3,7 @@ import Link from 'next/link';
 
 function Header() {
   return (
-    <div className="bg-white flex flex-row justify-between pt-1 pr-30 pb-1 pl-30 items-center">
+    <div className="bg-white flex flex-col lg:flex-row lg:justify-between gap-2 pt-1 pr-30 pb-1 pl-30 items-center">
       <div className="">
         <Image
           className="logo"
@@ -13,9 +13,9 @@ function Header() {
           height={20}
         />
       </div>
-      <nav className="flex flex-row gap-6 items-center">
+      <nav className="flex flex-col lg:flex-row gap-6 items-center">
         <Link href="/dashboard" className="">
-          <div className="bg-black rounded-lg flex flex-row pt-4 pr-10 pb-4 pl-10 gap-4 w-fit justify-center">
+          <div className="bg-black rounded-lg flex flex-row pt-4 pr-10 pb-4 pl-10 gap-2 lg:gap-4 w-fit justify-center">
             <Image
               src="/dashboardWhiteIcon.png"
               alt="Image tableau de bord"
