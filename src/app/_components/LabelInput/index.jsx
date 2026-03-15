@@ -3,7 +3,7 @@ export default function LabelInput({ name, text, type }) {
     <>
       <label
         htmlFor={name}
-        className="black font-normal mt-4 text-sm text-black-font"
+        className="black font-normal mt-4 text-sm text-black-font font-inter"
       >
         {text}
       </label>
@@ -11,7 +11,7 @@ export default function LabelInput({ name, text, type }) {
         name={name}
         id={name}
         type={type}
-        className="rounded-lg pt-2 pr-2 pb-2 pl-2 border border-gray-200 w-xs"
+        className="rounded-lg pt-2 pr-2 pb-2 pl-2 border border-gray-200 w-xs bg-white"
       ></input>
     </>
   );
