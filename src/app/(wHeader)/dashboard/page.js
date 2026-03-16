@@ -9,7 +9,7 @@ async function Dashboard() {
   // Fetch user-specific data from your database or data source
   //const user = await getUserData(session.userId)
   return (
-    <div className="flex flex-col gap-4 mt-4 pt-10 pr-30 pb-10 pl-30">
+    <div className="flex flex-col gap-4 mt-4 pt-10 pr-30 pb-10 pl-30 bg-background">
       <div className="grid grid-cols-2 grid-rows-2">
         <h1 className="col-start-1 row-start-1 text-black-font text-2xl font-semibold font-manrope">
           Tableau de bord
