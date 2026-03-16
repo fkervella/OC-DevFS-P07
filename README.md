@@ -42,3 +42,9 @@
     format d'affichage
 - Layout :
     titre de la page à remonter des pages enfants
+- header : 
+    responsive à 950px
+- footer :
+    responsive
+- dashboard :
+    recherche

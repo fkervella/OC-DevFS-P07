@@ -7,7 +7,7 @@ body {
 }
 
 @theme {
-    --color-grey-background: #F9F9FB;
+    --color-background: #F9FAFB;
     --color-orange: #D3590B;
     --color-black-background: #0F0F0F;
     --color-black-font: #1F1F1F;
@@ -21,6 +21,7 @@ body {
     --color-done-font: #27AE60;
     --color-grey-background: #E5E7EB;
     --color-grey-font: #6B7280;
+    --color-red-font: #EF4444;
 
     --font-inter: "inter";
     --font-manrope: "manrope";
