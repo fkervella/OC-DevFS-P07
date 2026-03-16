@@ -9,7 +9,7 @@ function TaskInfos({ className }) {
           alt="Logo Abricot orange"
           width={18}
           height={14}
-          className="self-start h-[14px] w-[18px]"
+          className="self-start h-3.5 w-4.5"
         />
         <div className="font-inter font-normal text-xs text-grey-font">
           Nom du projet TODO

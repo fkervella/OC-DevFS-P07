@@ -1,6 +1,8 @@
 import Image from 'next/image';
 import Link from 'next/link';
 
+import UserAvatar from '@/app/_components/UserAvatar';
+
 function Header() {
   return (
     <div className="bg-white flex flex-col lg:flex-row lg:justify-between gap-2 pt-1 pr-30 pb-1 pl-30 items-center">
@@ -43,9 +45,7 @@ function Header() {
       </nav>
       <div>
         <Link href="/profile" className="">
-          <div className="bg-light-orange rounded-full w-16.25 h-16.25 flex justify-center items-center">
-            <span className="text-sm font-normal text-black-font">TODO</span>
-          </div>
+          <UserAvatar name="TODO" />
         </Link>
       </div>
     </div>
