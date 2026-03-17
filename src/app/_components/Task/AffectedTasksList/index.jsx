@@ -1,5 +1,5 @@
-import AffectedTask from '@/app/_components/AffectedTask';
-import AffectedTasksListHeader from '@/app/_components/AffectedTasksListHeader';
+import AffectedTask from '@/app/_components/Task/AffectedTask';
+import AffectedTasksListHeader from '@/app/_components/Task/AffectedTasksListHeader';
 
 function AffectedTasksList() {
   return (

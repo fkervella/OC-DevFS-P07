@@ -1,7 +1,7 @@
 import Image from 'next/image';
 import Link from 'next/link';
 
-import UserAvatar from '@/app/_components/UserAvatar';
+import UserAvatar from '@/app/_components/Common/UserAvatar';
 
 function Header() {
   return (

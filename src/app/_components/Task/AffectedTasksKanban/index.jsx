@@ -1,4 +1,4 @@
-import KanbanTasksList from '@/app/_components/KanbanTasksList';
+import KanbanTasksList from '@/app/_components/Task/KanbanTasksList';
 
 function AffectedTasksKanban() {
   return (

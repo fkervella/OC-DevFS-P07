@@ -1,7 +1,7 @@
 import Image from 'next/image';
 
-import TaskStatus from '@/app/_components/TaskStatus';
-import UserAvatar from '@/app/_components/UserAvatar';
+import UserAvatar from '@/app/_components/Common/UserAvatar';
+import TaskStatus from '@/app/_components/Task/TaskStatus';
 
 function ProjectInfos() {
   return (
@@ -12,7 +12,7 @@ function ProjectInfos() {
           alt="team icon"
           width={24}
           height={22}
-          className="w-3 h-[11px}"
+          className="w-3 h-2.75"
         />
         <div className="text-grey-font text-normal text-xs">Equipe(TODO)</div>
       </div>

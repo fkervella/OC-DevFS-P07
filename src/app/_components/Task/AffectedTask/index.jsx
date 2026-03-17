@@ -1,8 +1,8 @@
-import BlackButton from '@/app/_components/BlackButton';
-import CardDescription from '@/app/_components/CardDescription';
-import CardTitle from '@/app/_components/CardTitle';
-import TaskInfos from '@/app/_components/TaskInfos';
-import TaskStatus from '@/app/_components/TaskStatus';
+import BlackButton from '@/app/_components/Common/BlackButton';
+import CardDescription from '@/app/_components/Common/CardDescription';
+import CardTitle from '@/app/_components/Common/CardTitle';
+import TaskInfos from '@/app/_components/Task/TaskInfos';
+import TaskStatus from '@/app/_components/Task/TaskStatus';
 
 function AffectedTask() {
   return (

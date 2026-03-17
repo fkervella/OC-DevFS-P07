@@ -1,5 +1,5 @@
-import AffectedTask from '@/app/_components/AffectedTask';
-import DisplayNumber from '@/app/_components/DisplayNumber';
+import DisplayNumber from '@/app/_components/Common/DisplayNumber';
+import AffectedTask from '@/app/_components/Task/AffectedTask';
 
 function KanbanTasksList({ title, number }) {
   return (
