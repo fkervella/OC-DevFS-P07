@@ -4,7 +4,7 @@ import { NextResponse } from 'next/server';
 import { decrypt } from '@/app/lib/crypto';
 
 const publicRoutes = ['/register', '/', '/login', 'forgotPassword', '/404'];
-const protectedRoutes = ['/dashboard', '/profile', '/projects', '/projet'];
+const protectedRoutes = ['/dashboard', '/profile', '/projects', '/project'];
 
 export default async function proxy(request) {
   const path = request.nextUrl.pathname;

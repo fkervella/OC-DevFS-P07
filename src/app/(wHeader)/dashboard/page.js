@@ -1,7 +1,7 @@
 //import { verifySession } from '@/app/lib/dal'
-import AffectedTasksKanban from '@/app/_components/AffectedTasksKanban';
-import AffectedTasksList from '@/app/_components/AffectedTasksList';
-import ListeKanbanSelector from '@/app/_components/ListeKanbanSelector';
+import ListeKanbanSelector from '@/app/_components/Project/ListeKanbanSelector';
+import AffectedTasksKanban from '@/app/_components/Task/AffectedTasksKanban';
+import AffectedTasksList from '@/app/_components/Task/AffectedTasksList';
 
 async function Dashboard() {
   //const session = await verifySession()

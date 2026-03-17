@@ -1,7 +1,7 @@
-import BlackButton from '@/app/_components/BlackButton';
-import PageSubtitle from '@/app/_components/PageSubtitle';
-import PageTitle from '@/app/_components/PageTitle';
-import ProjectCard from '@/app/_components/ProjectCard';
+import BlackButton from '@/app/_components/Common/BlackButton';
+import PageSubtitle from '@/app/_components/Common/PageSubtitle';
+import PageTitle from '@/app/_components/Common/PageTitle';
+import ProjectCard from '@/app/_components/Project/ProjectCard';
 
 function Projects() {
   return (
@@ -11,10 +11,16 @@ function Projects() {
         <PageSubtitle subtitle="Gérez vos projets" />
         <BlackButton text="+ Créer un projet" />
       </div>
-      <div className="flex flex-row gap-4">
-        <ProjectCard title="A faire" number="4" />
-        <ProjectCard title="En cours" number="4" />
-        <ProjectCard title="Terminées" number="4" />
+      <div className="flex flex-row gap-4 flex-wrap">
+        <ProjectCard />
+        <ProjectCard />
+        <ProjectCard />
+        <ProjectCard />
+        <ProjectCard />
+        <ProjectCard />
+        <ProjectCard />
+        <ProjectCard />
+        <ProjectCard />
       </div>
     </div>
   );

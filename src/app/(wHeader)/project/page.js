@@ -1,5 +1,60 @@
+import Image from 'next/image';
+
+import BlackButton from '@/app/_components/Common/BlackButton';
+import LeftArrowButton from '@/app/_components/Common/LeftArrowButton';
+import PageSubtitle from '@/app/_components/Common/PageSubtitle';
+import PageTitle from '@/app/_components/Common/PageTitle';
+import ProjectTasksKanban from '@/app/_components/Project/ProjectTasksKanban';
+import ProjectTasksList from '@/app/_components/Project/ProjectTasksList';
+import Team from '@/app/_components/Team';
+
 function Project() {
-  return <>This is the Project page</>;
+  return (
+    <div className="flex flex-col gap-4 mt-4 pt-10 pr-30 pb-10 pl-30 bg-background">
+      <LeftArrowButton page="/projects" />
+      <div className="grid grid-cols-2 grid-rows-2">
+        <PageTitle title="Nom du projet TODO" />
+        <div>Modifier TODO</div>
+        <PageSubtitle subtitle="Développement de la nouvelle version de l'API REST avec authentification JWT TODO" />
+        <BlackButton text="Créer une tâche" />
+      </div>
+      <Team />
+      <div className="flex flex-col gap-4 bg-white pt-10 pr-10 pb-10 pl-10 border border-solid border-grey-background rounded-lg ">
+        <div className="flex flex-row gap-2">
+          <div>Tâches</div>
+          <div>Par ordre de priorité</div>
+          <div>
+            <ul className="flex flex-row gap-4 pl-2">
+              <li className="flex flex-row gap-2 pt-3 pl-4 pb-3 pr-4 bg-light-orange rounded-lg h-fit w-fit">
+                <Image
+                  src="/tasksOrangeIcon.png"
+                  alt="image tâche"
+                  width={16}
+                  height={16}
+                />
+                <div className="text-sm font-normal text-orange">Liste</div>
+              </li>
+              <li className="flex flex-row gap-2 pt-3 pl-4 pb-3 pr-4 bg-white rounded-lg h-fit w-fit">
+                <Image
+                  src="/kanbanOrangeIcon.png"
+                  alt="image kanban"
+                  width={16}
+                  height={16}
+                />
+                <div className="text-sm font-normal text-orange">
+                  Calendrier
+                </div>
+              </li>
+            </ul>
+          </div>
+          <div>Statut</div>
+          <div>Rechercher une tâche</div>
+        </div>
+        <ProjectTasksList />
+        <ProjectTasksKanban />
+      </div>
+    </div>
+  );
 }
 
 export default Project;

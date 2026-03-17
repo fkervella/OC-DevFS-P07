@@ -4,8 +4,8 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { useActionState } from 'react';
 
-import BlackButton from '@/app/_components/BlackButton';
-import LabelInput from '@/app/_components/LabelInput';
+import BlackButton from '@/app/_components/Common/BlackButton';
+import LabelInput from '@/app/_components/Common/LabelInput';
 import { LoginAction } from '@/app/actions/auth.js';
 
 function Login() {

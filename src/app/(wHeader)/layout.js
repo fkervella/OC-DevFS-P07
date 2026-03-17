@@ -2,8 +2,8 @@ import '@/app/globals.css';
 
 import { Inter, Manrope } from 'next/font/google';
 
-import Footer from '../_components/Footer';
-import Header from '../_components/Header';
+import Footer from '../_components/Common/Footer';
+import Header from '../_components/Common/Header';
 
 const inter = Inter({ subsets: ['latin'] });
 const manrope = Manrope({ subsets: ['latin'] });
