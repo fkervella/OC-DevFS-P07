@@ -1,4 +1,7 @@
+'use client';
+
 import Image from 'next/image';
+import { useState } from 'react';
 
 import BlackButton from '@/app/_components/Common/BlackButton';
 import LeftArrowButton from '@/app/_components/Common/LeftArrowButton';
@@ -6,9 +9,12 @@ import PageSubtitle from '@/app/_components/Common/PageSubtitle';
 import PageTitle from '@/app/_components/Common/PageTitle';
 import ProjectTasksKanban from '@/app/_components/Project/ProjectTasksKanban';
 import ProjectTasksList from '@/app/_components/Project/ProjectTasksList';
+import CreateTaskModal from '@/app/_components/Task/CreateTaskModal';
 import Team from '@/app/_components/Team';
 
 function Project() {
+  const [showCreateTaskModal, setShowCreateTaskModal] = useState(false);
+
   return (
     <div className="flex flex-col gap-4 mt-4 pt-10 pr-30 pb-10 pl-30 bg-background">
       <LeftArrowButton page="/projects" />
@@ -17,6 +23,16 @@ function Project() {
         <div>Modifier TODO</div>
         <PageSubtitle subtitle="Développement de la nouvelle version de l'API REST avec authentification JWT TODO" />
         <BlackButton text="Créer une tâche" />
+        <div>
+          <button onClick={() => setShowCreateTaskModal(true)}>
+            Open Modal
+          </button>
+          {showCreateTaskModal && (
+            <CreateTaskModal onClose={() => setShowCreateTaskModal(false)}>
+              Hello from the modal!
+            </CreateTaskModal>
+          )}
+        </div>
       </div>
       <Team />
       <div className="flex flex-col gap-4 bg-white pt-10 pr-10 pb-10 pl-10 border border-solid border-grey-background rounded-lg ">

@@ -19,6 +19,7 @@ export default function RootLayout({ children }) {
         <Header />
         <main className="h-auto">{children}</main>
         <Footer />
+        <div id="modal-root"></div>
       </body>
     </html>
   );
