@@ -11,7 +11,7 @@ export default function LabelInput({ name, text, type, placeHolder }) {
         name={name}
         id={name}
         type={type}
-        placeHolder={placeHolder}
+        placeholder={placeHolder}
         className="rounded-lg pt-2 pr-2 pb-2 pl-2 border border-gray-200 w-xs bg-white"
       ></input>
     </>

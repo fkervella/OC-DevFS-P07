@@ -21,8 +21,12 @@ function Project() {
       <Team />
       <div className="flex flex-col gap-4 bg-white pt-10 pr-10 pb-10 pl-10 border border-solid border-grey-background rounded-lg ">
         <div className="flex flex-row gap-2">
-          <div>Tâches</div>
-          <div>Par ordre de priorité</div>
+          <div className="text-lg text-black-font font-semibold font-manrope col-start-1 row-start-1">
+            Tâches
+          </div>
+          <div className="text-base text-grey-font font-normal font-inter col-start-1 row-start-2">
+            Par ordre de priorité
+          </div>
           <div>
             <ul className="flex flex-row gap-4 pl-2">
               <li className="flex flex-row gap-2 pt-3 pl-4 pb-3 pr-4 bg-light-orange rounded-lg h-fit w-fit">
