@@ -72,6 +72,7 @@ function Project() {
                   alt="image tâche"
                   width={16}
                   height={16}
+                  className="w-{16px] h-auto"
                 />
                 <div className="text-sm font-normal text-orange">Liste</div>
               </li>
@@ -81,6 +82,7 @@ function Project() {
                   alt="image kanban"
                   width={16}
                   height={16}
+                  className="w-{16px] h-auto"
                 />
                 <div className="text-sm font-normal text-orange">
                   Calendrier

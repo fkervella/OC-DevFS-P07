@@ -4,7 +4,7 @@ import { useState } from 'react';
 
 import LabelInput from '@/app/_components/Common/LabelInput';
 
-function CreateTaskModalContent({ onSubmit }) {
+function CreateProjectModalContent({ onSubmit }) {
   const [formData, setFormData] = useState({
     title: '',
     description: '',
@@ -49,18 +49,7 @@ function CreateTaskModalContent({ onSubmit }) {
       </div>
       <div className="mb-4">
         <LabelInput
-          text="Echéance*"
-          name="dueDate"
-          type="text"
-          placeholder=""
-          value={formData.dueDate}
-          onChange={handleChange}
-          required
-        />
-      </div>
-      <div className="mb-4">
-        <LabelInput
-          text="Assigné à :"
+          text="Contributeurs :"
           name="assignedTo"
           type="text"
           placeholder=""
@@ -69,19 +58,16 @@ function CreateTaskModalContent({ onSubmit }) {
           required
         />
       </div>
-      <div className="mb-4">
-        <div>Statut</div>
-      </div>
       <div className="flex justify-end">
         <button
           type="submit"
           className="px-4 py-2 bg-black text-white rounded hover:bg-gray-800 transition-colors"
         >
-          + Ajouter une tâche
+          + Ajouter un projet
         </button>
       </div>
     </form>
   );
 }
 
-export default CreateTaskModalContent;
+export default CreateProjectModalContent;
