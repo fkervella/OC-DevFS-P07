@@ -1,5 +1,7 @@
 import Image from 'next/image';
 
+import { formatDateFR } from '@/app/lib/utils';
+
 function TaskInfos({ className, task = [], projectName = '' }) {
   return (
     <div className={className}>
@@ -22,7 +24,7 @@ function TaskInfos({ className, task = [], projectName = '' }) {
           height={18}
         />
         <div className="font-inter font-normal text-xs text-grey-font">
-          {task.dueDate} TODO
+          {formatDateFR(task.dueDate)}
         </div>
         <div className="font-inter font-normal text-xs text-grey-font"> | </div>
         <Image
@@ -33,7 +35,7 @@ function TaskInfos({ className, task = [], projectName = '' }) {
           className="self-start h-3.75 w-3.75"
         />
         <div className="font-inter font-normal text-xs text-grey-font">
-          {task?.comments?.length} TODO
+          {task?.comments?.length}
         </div>
       </div>
     </div>

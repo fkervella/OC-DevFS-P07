@@ -35,3 +35,24 @@ export function calculateProgressPercentage(tasks) {
 
   return Math.round(averageProgress);
 }
+
+export function formatDateFR(isoString) {
+  try {
+    const date = new Date(isoString);
+
+    if (isNaN(date.getTime())) {
+      return null;
+    }
+
+    const options = {
+      day: 'numeric',
+      month: 'long',
+      year: 'numeric',
+    };
+
+    return new Intl.DateTimeFormat('fr-FR', options).format(date);
+  } catch (error) {
+    console.error('Erreur de formatage:', error);
+    return null;
+  }
+}
