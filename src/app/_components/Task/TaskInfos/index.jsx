@@ -1,6 +1,6 @@
 import Image from 'next/image';
 
-function TaskInfos({ className }) {
+function TaskInfos({ className, task = [] }) {
   return (
     <div className={className}>
       <div className="flex flex-row gap-2">
@@ -12,7 +12,7 @@ function TaskInfos({ className }) {
           className="self-start h-3.5 w-4.5"
         />
         <div className="font-inter font-normal text-xs text-grey-font">
-          Nom du projet TODO
+          {task?.project?.name}
         </div>
         <div className="font-inter font-normal text-xs text-grey-font"> | </div>
         <Image
@@ -23,7 +23,7 @@ function TaskInfos({ className }) {
           className="self-start h-4.5 w-4"
         />
         <div className="font-inter font-normal text-xs text-grey-font">
-          9 mars TODO
+          {task.dueDate} TODO
         </div>
         <div className="font-inter font-normal text-xs text-grey-font"> | </div>
         <Image
@@ -34,7 +34,7 @@ function TaskInfos({ className }) {
           className="self-start h-3.75 w-3.75"
         />
         <div className="font-inter font-normal text-xs text-grey-font">
-          2 TODO
+          {task?.comments?.length} TODO
         </div>
       </div>
     </div>

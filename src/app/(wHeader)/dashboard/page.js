@@ -2,12 +2,16 @@
 import ListeKanbanSelector from '@/app/_components/Project/ListeKanbanSelector';
 import AffectedTasksKanban from '@/app/_components/Task/AffectedTasksKanban';
 import AffectedTasksList from '@/app/_components/Task/AffectedTasksList';
+import { getDashboardAssignedTasks } from '@/app/actions/projects';
 
 async function Dashboard() {
   //const session = await verifySession()
 
   // Fetch user-specific data from your database or data source
   //const user = await getUserData(session.userId)
+
+  const { tasksid } = await getDashboardAssignedTasks();
+
   return (
     <div className="flex flex-col gap-4 mt-4 pt-10 pr-30 pb-10 pl-30 bg-background">
       <div className="grid grid-cols-2 grid-rows-2">
@@ -22,8 +26,8 @@ async function Dashboard() {
         </div>
       </div>
       <ListeKanbanSelector />
-      <AffectedTasksList />
-      <AffectedTasksKanban />
+      <AffectedTasksList tasks={tasksid} />
+      <AffectedTasksKanban tasks={tasksid} />
     </div>
   );
 }
