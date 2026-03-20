@@ -1,6 +1,6 @@
 import { getSession } from '@/app/lib/session';
 
-export async function getDashboardAssignedTasks() {
+export async function getDashboardProjectsTasks() {
   const token = await getSession();
 
   if (!token) {
@@ -9,7 +9,7 @@ export async function getDashboardAssignedTasks() {
 
   try {
     const response = await fetch(
-      'http://localhost:8000/dashboard/assigned-tasks',
+      'http://localhost:8000/dashboard/projects-with-tasks',
       {
         method: 'GET',
         headers: {
@@ -24,7 +24,7 @@ export async function getDashboardAssignedTasks() {
     } else {
       const data = await response.json();
       return {
-        tasksid: data.data.tasks,
+        projects: data.data.projects,
       };
     }
   } catch (error) {

@@ -2,7 +2,7 @@
 import ListeKanbanSelector from '@/app/_components/Project/ListeKanbanSelector';
 import AffectedTasksKanban from '@/app/_components/Task/AffectedTasksKanban';
 import AffectedTasksList from '@/app/_components/Task/AffectedTasksList';
-import { getDashboardAssignedTasks } from '@/app/actions/dashboard';
+import { getDashboardProjectsTasks } from '@/app/actions/dashboard';
 
 async function Dashboard() {
   //const session = await verifySession()
@@ -10,7 +10,7 @@ async function Dashboard() {
   // Fetch user-specific data from your database or data source
   //const user = await getUserData(session.userId)
 
-  const { tasksid } = await getDashboardAssignedTasks();
+  const { projects } = await getDashboardProjectsTasks();
 
   return (
     <div className="flex flex-col gap-4 mt-4 pt-10 pr-30 pb-10 pl-30 bg-background">
@@ -26,8 +26,8 @@ async function Dashboard() {
         </div>
       </div>
       <ListeKanbanSelector />
-      <AffectedTasksList tasks={tasksid} />
-      <AffectedTasksKanban tasks={tasksid} />
+      <AffectedTasksList projects={projects} />
+      <AffectedTasksKanban tasks={projects} />
     </div>
   );
 }

@@ -1,6 +1,6 @@
 import Image from 'next/image';
 
-function TaskInfos({ className, task = [] }) {
+function TaskInfos({ className, task = [], projectName = '' }) {
   return (
     <div className={className}>
       <div className="flex flex-row gap-2">
@@ -12,7 +12,7 @@ function TaskInfos({ className, task = [] }) {
           className="self-start h-3.5 w-4.5"
         />
         <div className="font-inter font-normal text-xs text-grey-font">
-          {task?.project?.name}
+          {projectName}
         </div>
         <div className="font-inter font-normal text-xs text-grey-font"> | </div>
         <Image
