@@ -5,10 +5,10 @@ function AffectedTasksList({ tasks }) {
   return (
     <div className=" bg-white pt-10 pr-10 pb-10 pl-10 rounded-lg flex flex-col gap-4">
       <AffectedTasksListHeader />
+
       {tasks.map((task) => (
         <AffectedTask key={task.id} task={task} />
       ))}
-      <AffectedTask />
     </div>
   );
 }
