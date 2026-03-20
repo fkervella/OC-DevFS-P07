@@ -2,7 +2,7 @@
 import ListeKanbanSelector from '@/app/_components/Project/ListeKanbanSelector';
 import AffectedTasksKanban from '@/app/_components/Task/AffectedTasksKanban';
 import AffectedTasksList from '@/app/_components/Task/AffectedTasksList';
-import { getDashboardAssignedTasks } from '@/app/actions/projects';
+import { getDashboardAssignedTasks } from '@/app/actions/dashboard';
 
 async function Dashboard() {
   //const session = await verifySession()
