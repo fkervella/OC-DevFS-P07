@@ -11,7 +11,6 @@ function Date({ date }) {
         alt="calendrier"
         width={15}
         height={17}
-        className="w-[15px] h-[15px]"
       />
       <div className="text-black text-inter text-xs font-normal">
         {date} TODO

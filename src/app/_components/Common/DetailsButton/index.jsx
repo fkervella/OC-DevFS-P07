@@ -10,7 +10,7 @@ function DetailsButton({ page }) {
           alt="Bouton retour"
           width={16}
           height={8}
-          className=""
+          className="w-auto h-auto"
         />
       </div>
     </Link>

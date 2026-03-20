@@ -20,7 +20,6 @@ function TaskInfos({ className, task = [] }) {
           alt="Logo Abricot orange"
           width={16}
           height={18}
-          className="self-start h-4.5 w-4"
         />
         <div className="font-inter font-normal text-xs text-grey-font">
           {task.dueDate} TODO

@@ -1,4 +1,4 @@
-export default function BlackButton({ text, type, onClick = '' }) {
+export default function BlackButton({ text, type, onClick }) {
   return (
     <button
       type={type}

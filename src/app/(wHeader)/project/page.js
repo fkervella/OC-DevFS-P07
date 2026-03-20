@@ -23,7 +23,6 @@ function Project() {
       case 'Ajouter une tâche':
         setTasks([...tasks, formData]);
         break;
-      // Ajoute d'autres cas pour les projets et faits techniques
       default:
         break;
     }
@@ -62,27 +61,25 @@ function Project() {
             Tâches
           </div>
           <div className="text-base text-grey-font font-normal font-inter col-start-1 row-start-2">
-            Par ordre de priorité
+            Par ordre de priorité TODO
           </div>
           <div>
             <ul className="flex flex-row gap-4 pl-2">
-              <li className="flex flex-row gap-2 pt-3 pl-4 pb-3 pr-4 bg-light-orange rounded-lg h-fit w-fit">
+              <li className="flex flex-row gap-2 pt-3 pl-4 pb-3 pr-4 bg-light-orange rounded-lg">
                 <Image
                   src="/tasksOrangeIcon.png"
                   alt="image tâche"
                   width={16}
                   height={16}
-                  className="w-{16px] h-auto"
                 />
                 <div className="text-sm font-normal text-orange">Liste</div>
               </li>
-              <li className="flex flex-row gap-2 pt-3 pl-4 pb-3 pr-4 bg-white rounded-lg h-fit w-fit">
+              <li className="flex flex-row gap-2 pt-3 pl-4 pb-3 pr-4 bg-white rounded-lg">
                 <Image
                   src="/kanbanOrangeIcon.png"
                   alt="image kanban"
                   width={16}
                   height={16}
-                  className="w-{16px] h-auto"
                 />
                 <div className="text-sm font-normal text-orange">
                   Calendrier

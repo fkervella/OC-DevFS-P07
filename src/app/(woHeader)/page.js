@@ -58,6 +58,7 @@ function Login() {
           fill
           className="object-cover"
           priority
+          sizes="(max-width: 768px) 100vw, 60vw"
         />
       </div>
     </div>
