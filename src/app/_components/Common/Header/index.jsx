@@ -2,10 +2,15 @@ import Image from 'next/image';
 import Link from 'next/link';
 
 import UserAvatar from '@/app/_components/Common/UserAvatar';
+import { getSession } from '@/app/lib/session';
 
-function Header() {
+async function Header() {
+  const token = await getSession();
+
+  const userName = token ? token.user.name : '';
+
   return (
-    <div className="bg-white flex flex-col lg:flex-row lg:justify-between gap-2 pt-1 pr-30 pb-1 pl-30 items-center">
+    <div className="bg-white flex flex-col lg:flex-row lg:justify-between gap-2 pt-1 pr-30 pb-1 pl-30 items-center h-18">
       <div className="w-fit">
         <Image
           src="/logoAbricot.png"
@@ -41,9 +46,9 @@ function Header() {
           </div>
         </Link>
       </nav>
-      <div>
-        <Link href="/profile">
-          <UserAvatar name="TODO" />
+      <div className="h-full">
+        <Link href="/profile" className="h-full">
+          <UserAvatar name={userName} bgColor="bg-light-orange" />
         </Link>
       </div>
     </div>

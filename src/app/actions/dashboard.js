@@ -28,6 +28,6 @@ export async function getDashboardAssignedTasks() {
       };
     }
   } catch (error) {
-    console.error('Erreur lors de le tableau de bord : ', error.message);
+    console.error('Erreur lors dans le tableau de bord : ', error.message);
   }
 }

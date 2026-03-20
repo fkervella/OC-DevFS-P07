@@ -5,7 +5,7 @@ function AffectedTasksListHeader() {
         Mes tâches assignées
       </div>
       <div className="text-base text-grey-font font-normal font-inter col-start-1 row-start-2">
-        Par ordre de priorité
+        Par ordre de priorité TODO
       </div>
       <form className="col-start-2 row-start-1 row-end-3">
         <input placeholder="Rechercher une tâche TODO"></input>

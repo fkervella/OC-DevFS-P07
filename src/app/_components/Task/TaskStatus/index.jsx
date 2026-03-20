@@ -1,6 +1,6 @@
 function TaskStatus({ status }) {
   return (
-    <div className="col-start-2 row-start-1 pr-2 pl-2 bg-light-orange text-red-font rounded-lg h-fit w-fit text-sm font-normal">
+    <div className="flex pr-4 pl-4 bg-light-orange text-orange rounded-full h-full text-sm font-normal items-center">
       {status}
     </div>
   );
