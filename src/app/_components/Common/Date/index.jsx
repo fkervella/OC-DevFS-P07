@@ -1,5 +1,7 @@
 import Image from 'next/image';
 
+import { formatDateFR } from '@/app/lib/utils';
+
 function Date({ date }) {
   return (
     <div className="flex flex-row gap-2">
@@ -13,7 +15,7 @@ function Date({ date }) {
         height={17}
       />
       <div className="text-black text-inter text-xs font-normal">
-        {date} TODO
+        {formatDateFR(date)}
       </div>
     </div>
   );
