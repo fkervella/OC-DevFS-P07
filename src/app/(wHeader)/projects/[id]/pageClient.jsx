@@ -14,7 +14,7 @@ import CreateAskModalContent from '@/app/_components/Task/CreateTaskModalContent
 import Team from '@/app/_components/Team';
 import useModal from '@/hooks/useModal';
 
-function Project() {
+export function Project({ projectData, projectTasks, userName }) {
   const { modalState, openModal, closeModal } = useModal();
   const [tasks, setTasks] = useState([]);
 
@@ -29,13 +29,17 @@ function Project() {
     closeModal();
   };
 
+  if (!projectData) {
+    return <div>Chargement ...</div>;
+  }
+
   return (
     <div className="flex flex-col gap-4 mt-4 pt-10 pr-30 pb-10 pl-30 bg-background">
       <LeftArrowButton page="/projects" />
       <div className="grid grid-cols-2 grid-rows-2">
-        <PageTitle title="Nom du projet TODO" />
+        <PageTitle title={projectData.name} />
         <div>Modifier TODO</div>
-        <PageSubtitle subtitle="Développement de la nouvelle version de l'API REST avec authentification JWT TODO" />
+        <PageSubtitle subtitle={projectData.description} />
         <BlackButton
           text="Créer une tâche"
           onClick={() =>
@@ -54,7 +58,7 @@ function Project() {
           {modalState.content}
         </ModalLayout>
       </div>
-      <Team />
+      <Team members={projectData.members} owner={userName} /> {/*TODO*/}
       <div className="flex flex-col gap-4 bg-white pt-10 pr-10 pb-10 pl-10 border border-solid border-grey-background rounded-lg ">
         <div className="flex flex-row gap-2">
           <div className="text-lg text-black-font font-semibold font-manrope col-start-1 row-start-1">
@@ -90,8 +94,8 @@ function Project() {
           <div>Statut</div>
           <div>Rechercher une tâche</div>
         </div>
-        <ProjectTasksList />
-        <ProjectTasksKanban />
+        <ProjectTasksList tasks={projectTasks} /> {/*TODO*/}
+        <ProjectTasksKanban tasks={projectTasks} /> {/*TODO*/}
       </div>
     </div>
   );

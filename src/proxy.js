@@ -4,12 +4,14 @@ import { NextResponse } from 'next/server';
 import { decrypt } from '@/app/lib/crypto';
 
 const publicRoutes = ['/register', '/', '/login', 'forgotPassword', '/404'];
-const protectedRoutes = ['/dashboard', '/profile', '/projects', '/project'];
+const protectedRoutes = ['/dashboard', '/profile', '/projects/'];
 
 export default async function proxy(request) {
   const path = request.nextUrl.pathname;
-  const isProtectedRoute = protectedRoutes.includes(path);
-  const isPublicRoute = publicRoutes.includes(path);
+  const isProtectedRoute = protectedRoutes.some((route) =>
+    path.startsWith(route)
+  );
+  const isPublicRoute = publicRoutes.some((route) => path.startsWith(route));
 
   const cookie = (await cookies()).get('session')?.value;
   const session = cookie ? await decrypt(cookie) : null;
