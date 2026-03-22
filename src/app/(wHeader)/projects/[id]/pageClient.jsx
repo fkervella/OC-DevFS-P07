@@ -9,7 +9,7 @@ import PageSubtitle from '@/app/_components/Common/PageSubtitle';
 import PageTitle from '@/app/_components/Common/PageTitle';
 import Contributors from '@/app/_components/Contributors';
 import ModalLayout from '@/app/_components/Modal/ModalLayout';
-import ProjectTasksKanban from '@/app/_components/Project/ProjectTasksKanban';
+import ProjectTasksCalendar from '@/app/_components/Project/ProjectTasksCalendar';
 import ProjectTasksList from '@/app/_components/Project/ProjectTasksList';
 import CreateAskModalContent from '@/app/_components/Task/CreateTaskModalContent';
 import useModal from '@/hooks/useModal';
@@ -95,7 +95,7 @@ export function ProjectClient({ projectData, projectTasks, userName }) {
           <div>Rechercher une tâche</div>
         </div>
         <ProjectTasksList tasks={projectTasks} />
-        <ProjectTasksKanban tasks={projectTasks} />
+        <ProjectTasksCalendar tasks={projectTasks} />
       </div>
     </div>
   );
