@@ -1,16 +1,11 @@
 import ProjectTaskCard from '@/app/_components/Project/ProjectTaskCard';
 
-function ProjectTasksList() {
+function ProjectTasksList({ tasks }) {
   return (
     <div className="flex flex-col gap-4">
-      <ProjectTaskCard />
-      <ProjectTaskCard />
-      <ProjectTaskCard />
-      <ProjectTaskCard />
-      <ProjectTaskCard />
-      <ProjectTaskCard />
-      <ProjectTaskCard />
-      <ProjectTaskCard />
+      {tasks.map((task) => (
+        <ProjectTaskCard key={task.id} task={task} />
+      ))}
     </div>
   );
 }

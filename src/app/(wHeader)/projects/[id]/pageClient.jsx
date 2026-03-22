@@ -7,14 +7,14 @@ import BlackButton from '@/app/_components/Common/BlackButton';
 import LeftArrowButton from '@/app/_components/Common/LeftArrowButton';
 import PageSubtitle from '@/app/_components/Common/PageSubtitle';
 import PageTitle from '@/app/_components/Common/PageTitle';
+import Contributors from '@/app/_components/Contributors';
 import ModalLayout from '@/app/_components/Modal/ModalLayout';
 import ProjectTasksKanban from '@/app/_components/Project/ProjectTasksKanban';
 import ProjectTasksList from '@/app/_components/Project/ProjectTasksList';
 import CreateAskModalContent from '@/app/_components/Task/CreateTaskModalContent';
-import Team from '@/app/_components/Team';
 import useModal from '@/hooks/useModal';
 
-export function Project({ projectData, projectTasks, userName }) {
+export function ProjectClient({ projectData, projectTasks, userName }) {
   const { modalState, openModal, closeModal } = useModal();
   const [tasks, setTasks] = useState([]);
 
@@ -58,7 +58,7 @@ export function Project({ projectData, projectTasks, userName }) {
           {modalState.content}
         </ModalLayout>
       </div>
-      <Team members={projectData.members} owner={userName} /> {/*TODO*/}
+      <Contributors members={projectData.members} owner={userName} />
       <div className="flex flex-col gap-4 bg-white pt-10 pr-10 pb-10 pl-10 border border-solid border-grey-background rounded-lg ">
         <div className="flex flex-row gap-2">
           <div className="text-lg text-black-font font-semibold font-manrope col-start-1 row-start-1">
@@ -94,11 +94,11 @@ export function Project({ projectData, projectTasks, userName }) {
           <div>Statut</div>
           <div>Rechercher une tâche</div>
         </div>
-        <ProjectTasksList tasks={projectTasks} /> {/*TODO*/}
-        <ProjectTasksKanban tasks={projectTasks} /> {/*TODO*/}
+        <ProjectTasksList tasks={projectTasks} />
+        <ProjectTasksKanban tasks={projectTasks} />
       </div>
     </div>
   );
 }
 
-export default Project;
+export default ProjectClient;

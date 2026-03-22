@@ -7,17 +7,17 @@ import AssignedTo from '@/app/_components/Task/AssignedTo';
 import Comments from '@/app/_components/Task/Comments';
 import TaskStatus from '@/app/_components/Task/TaskStatus';
 
-function ProjectTaskCard() {
+function ProjectTaskCard({ task }) {
   return (
     <div className="bg-white border border-solid border-grey-background rounded-lg pt-8 pr-10 pb-8 pl-10">
-      <CardTitle title="Authentification JWT TODO" />
-      <TaskStatus status="A faire TODO" />
+      <CardTitle title={task.title} />
+      <TaskStatus status={task.status} />
       <DetailsButton page="/TODOprojects" />
-      <CardDescription description="Implémenter le système d'autentification avec tokens JWT TODO" />
-      <Date date="9 mars TODO" />
-      <AssignedTo />
+      <CardDescription description={task.description} />
+      <Date date={task.dueDate} />
+      <AssignedTo assignees={task.assignees} />
       <div className="w-full border-t border-grey-background my-8"></div>
-      <Comments number="1TODO" />
+      <Comments number={task.comments.length} />
       <ExpandButton page="/TODOprojects" />
     </div>
   );
