@@ -1,5 +1,4 @@
 import UserAvatar from '@/app/_components/Common/UserAvatar';
-import UserName from '@/app/_components/Common/UserName';
 import TaskStatus from '@/app/_components/Task/TaskStatus';
 
 function Contributors({ members, owner }) {
@@ -17,18 +16,12 @@ function Contributors({ members, owner }) {
         <UserAvatar name={owner} bgColor="bg-light-orange" />
         <TaskStatus status="Propriétaire" />
         {members.map((member) => (
-          <>
-            <UserAvatar
-              key={member.user.id}
-              name={member.user.name}
-              bgColor="bg-grey-background"
-            />
-            <UserName
-              key={member.user.id}
-              name={member.user.name}
-              bgColor="bg-grey-background"
-            />
-          </>
+          <UserAvatar
+            key={member.user.id}
+            name={member.user.name}
+            bgColor="bg-grey-background"
+            withUserName={true}
+          />
         ))}
       </div>
     </div>

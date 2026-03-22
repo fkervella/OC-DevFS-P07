@@ -1,15 +1,25 @@
 import { getInitials } from '@/app/lib/utils';
 
-function UserAvatar({ name, bgColor, left = 0, zIndex }) {
+function UserAvatar({ name, bgColor, left = 0, zIndex, withUserName = false }) {
   return (
-    <div
-      className={`${bgColor} rounded-full h-full aspect-square flex justify-center items-center relative border border-solid border-white`}
-      style={{ left: `-${left}px`, zIndex }}
-    >
-      <span className="text-sm font-normal text-black-font">
-        {getInitials(name)}
-      </span>
-    </div>
+    <>
+      <div
+        className={`${bgColor} rounded-full h-full aspect-square flex justify-center items-center relative border border-solid border-white`}
+        style={{ left: `-${left}px`, zIndex }}
+      >
+        <span className="text-sm font-normal text-black-font">
+          {getInitials(name)}
+        </span>
+      </div>
+      {withUserName && (
+        <div
+          className={`${bgColor} rounded-full h-full aspect-square flex justify-center items-center relative border border-solid border-white`}
+          style={{ left: `-${left}px`, zIndex }}
+        >
+          <span className="text-sm font-normal text-black-font">{name}</span>
+        </div>
+      )}
+    </>
   );
 }
 
