@@ -1,6 +1,6 @@
 import { calculateProgressPercentage, getActiveTasks } from '@/app/lib/utils';
 
-async function Progress({ tasks }) {
+function Progress({ tasks }) {
   if (!tasks) return null;
 
   const activeTasks = getActiveTasks(tasks);
