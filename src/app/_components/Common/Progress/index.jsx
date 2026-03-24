@@ -1,8 +1,7 @@
-import { getProjectTasks } from '@/app/actions/project';
 import { calculateProgressPercentage, getActiveTasks } from '@/app/lib/utils';
 
-async function Progress({ project }) {
-  const { tasks } = await getProjectTasks({ project });
+async function Progress({ tasks }) {
+  if (!tasks) return null;
 
   const activeTasks = getActiveTasks(tasks);
   const progress = calculateProgressPercentage(tasks);

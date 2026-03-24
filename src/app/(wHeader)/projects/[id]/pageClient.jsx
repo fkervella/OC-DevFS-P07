@@ -11,7 +11,7 @@ import Contributors from '@/app/_components/Contributors';
 import ModalLayout from '@/app/_components/Modal/ModalLayout';
 import ProjectTasksCalendar from '@/app/_components/Project/ProjectTasksCalendar';
 import ProjectTasksList from '@/app/_components/Project/ProjectTasksList';
-import CreateAskModalContent from '@/app/_components/Task/CreateTaskModalContent';
+import CreateTaskModalContent from '@/app/_components/Task/CreateTaskModalContent';
 import useModal from '@/hooks/useModal';
 
 export function ProjectClient({ projectData, projectTasks, userName }) {
@@ -19,13 +19,7 @@ export function ProjectClient({ projectData, projectTasks, userName }) {
   const [tasks, setTasks] = useState([]);
 
   const handleSubmit = (formData) => {
-    switch (modalState.title) {
-      case 'Ajouter une tâche':
-        setTasks([...tasks, formData]);
-        break;
-      default:
-        break;
-    }
+    setTasks([...tasks, formData]);
     closeModal();
   };
 
@@ -44,8 +38,8 @@ export function ProjectClient({ projectData, projectTasks, userName }) {
           text="Créer une tâche"
           onClick={() =>
             openModal(
-              'Ajouter une tâche',
-              <CreateAskModalContent onSubmit={handleSubmit} />
+              'Créer une tâche',
+              <CreateTaskModalContent onSubmit={handleSubmit} />
             )
           }
         />

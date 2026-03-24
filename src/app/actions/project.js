@@ -1,3 +1,5 @@
+import 'server-only';
+
 import { getSession } from '@/app/lib/session';
 
 export async function getMyProjects() {
@@ -67,19 +69,4 @@ export async function getProjectTasks({ project }) {
       error.message
     );
   }
-}
-
-export function getProjectById(jsonData, projectId) {
-  // Vérifie si la réponse est un succès et si les données existent
-  if (!jsonData.success || !jsonData.data || !jsonData.data.projects) {
-    return null;
-  }
-
-  // Recherche le projet avec l'ID correspondant
-  const project = jsonData.data.projects.find(
-    (project) => project.id === projectId
-  );
-
-  // Retourne le projet trouvé ou null si non trouvé
-  return project || null;
 }
