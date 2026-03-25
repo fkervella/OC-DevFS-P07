@@ -3,6 +3,13 @@ import Image from 'next/image';
 import UserAvatar from '@/app/_components/Common/UserAvatar';
 import TaskStatus from '@/app/_components/Task/TaskStatus';
 
+/**
+ * ProjectInfos Composant d'affichage des données d'un projet
+ *
+ * @param {project} project Données du projet
+ * @returns {string} Code HTML d'affichage des données d'un projet
+ */
+
 function ProjectInfos({ project }) {
   return (
     <div className="flex flex-col">

@@ -6,6 +6,11 @@ import { cache } from 'react';
 
 import { decrypt } from '@/app/lib/crypto';
 
+/**
+ * Description placeholder
+ *
+ * @type {*}
+ */
 export const verifySession = cache(async () => {
   const cookie = (await cookies()).get('session')?.value;
   const session = await decrypt(cookie);
@@ -17,6 +22,11 @@ export const verifySession = cache(async () => {
   return { isAuth: true, userId: session.userId };
 });
 
+/**
+ * Description placeholder
+ *
+ * @type {*}
+ */
 export const getUser = cache(async () => {
   const session = await verifySession();
   if (!session) return null;

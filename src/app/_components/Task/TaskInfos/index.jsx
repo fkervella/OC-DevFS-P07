@@ -2,6 +2,16 @@ import Image from 'next/image';
 
 import { formatDateFR } from '@/app/lib/utils';
 
+/**
+ * Composant d'affichage des informations d'une tâche
+ *
+ * @param {{ className: any; task?: {}; projectName?: string; }} param0
+ * @param {string} param0.className TailwindCSS d'affichage de ce composant
+ * @param {task} [param0.task=[]] Données de la tâche
+ * @param {string} [param0.projectName=''] Nom du projet
+ * @returns {string} Code HTML d'affichage des informations d'une tâche
+ */
+
 function TaskInfos({ className, task = [], projectName = '' }) {
   return (
     <div className={className}>

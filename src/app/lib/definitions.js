@@ -1,5 +1,10 @@
 import * as z from 'zod';
 
+/**
+ * RegisterFormSchema données de validation du formulaire d'enregistrement
+ *
+ * @type {*}
+ */
 export const RegisterFormSchema = z.object({
   email: z.email({ error: 'Entrez un email valide' }).trim(),
   password: z

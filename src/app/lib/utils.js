@@ -1,3 +1,11 @@
+/**
+ * getInitials focntion renvoyant les initiales de l'information passée en paramètre
+ *
+ * @export
+ * @param {string} fullName Nom complet de l'utilisateur
+ * @returns {string} les initiales du nom passé en paramètre
+ */
+
 export function getInitials(fullName) {
   return fullName
     .trim()
@@ -7,12 +15,28 @@ export function getInitials(fullName) {
     .join('');
 }
 
+/**
+ * getActiveTasks fonction de filtrage des tâches au status DONE
+ *
+ * @export
+ * @param {task[]} tasks Liste de tâches
+ * @returns {task[]} Liste des tâches filtrée
+ */
+
 export function getActiveTasks(tasks) {
   return tasks.filter((task) => task.status !== 'DONE');
 }
 
+/**
+ * calculateProgressPercentage fonction de calcul de la progression d'un projet à partir du statut de ses tâches
+ *
+ * @export
+ * @param {task[]} tasks Liste de tâches
+ * @returns {number} Pourcentage d'avancement des tâches
+ */
+
 export function calculateProgressPercentage(tasks) {
-  // Vérification de sécurité
+  // Vérification que les données d'entrée soient consistentes
   if (!Array.isArray(tasks) || tasks.length === 0) {
     return 0;
   }
@@ -36,6 +60,14 @@ export function calculateProgressPercentage(tasks) {
   return Math.round(averageProgress);
 }
 
+/**
+ * formatDateFR fonction de formatage de la date passée en paramètre, au format français
+ *
+ * @export
+ * @param {string} isoString date à formatter
+ * @returns {string} date formattée
+ */
+
 export function formatDateFR(isoString) {
   try {
     const date = new Date(isoString);
@@ -57,14 +89,23 @@ export function formatDateFR(isoString) {
   }
 }
 
-export function getProjectById(jsonData, projectId) {
+/**
+ * getProjectById fonction de renvoi d'un projet à partir de son identifiant
+ *
+ * @export
+ * @param {project[]} projects données des projets
+ * @param {string} projectId identifiant du projet
+ * @returns {project} en cas de réussite, données du projet
+ */
+
+export function getProjectById(projects, projectId) {
   // Vérifie si la réponse est un succès et si les données existent
-  if (!jsonData.success || !jsonData.data || !jsonData.data.projects) {
+  if (!projects.success || !projects.data || !projects.data.projects) {
     return null;
   }
 
   // Recherche le projet avec l'ID correspondant
-  const project = jsonData.data.projects.find(
+  const project = projects.data.projects.find(
     (project) => project.id === projectId
   );
 

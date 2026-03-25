@@ -10,6 +10,13 @@ import CreateProjectModalContent from '@/app/_components/Project/CreateProjectMo
 import ProjectCard from '@/app/_components/Project/ProjectCard';
 import useModal from '@/hooks/useModal';
 
+/**
+ * ProjectsClient partie client pour l'affichage des projets auxquels l'utilisateur participe
+ *
+ * @param {project[]} param0.projects Liste des projects auxquels l'utilisateur participe
+ * @returns {string} Code HTML pour l'affichage des projets auxquels l'utilisateur participe
+ */
+
 function ProjectsClient({ projects }) {
   const { modalState, openModal, closeModal } = useModal();
 

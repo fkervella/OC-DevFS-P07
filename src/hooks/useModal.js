@@ -1,5 +1,11 @@
 import { useState } from 'react';
 
+/**
+ * useModal hook de gestion de l'état d'une modale
+ *
+ * @returns {{ modalState: any; openModal: (title: any, content: any) => void; closeModal: () => void; }}
+ */
+
 function useModal() {
   const [modalState, setModalState] = useState({
     isOpen: false,

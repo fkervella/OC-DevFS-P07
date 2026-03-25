@@ -2,6 +2,17 @@ import 'server-only';
 
 import { getSession } from '@/app/lib/session';
 
+/**
+ * getMyProjects Fonction de récupération des données des projects auxquels l'utilisateur connecté participe
+ * Vérification si la session est active
+ * Interrogation du back-end
+ * Extraction des données à exploiter
+ *
+ * @export
+ * @async
+ * @returns {project[]} en cas de succès données des projects auxquels l'utilisateur connecté participe
+ */
+
 export async function getMyProjects() {
   const token = await getSession();
 
@@ -33,6 +44,18 @@ export async function getMyProjects() {
     );
   }
 }
+
+/**
+ * getProjectTasks Fonction de récupération des données des tâches d'un projet
+ * Vérification si la session est active
+ * Interrogation du back-end
+ * Extraction des données à exploiter
+ *
+ * @export
+ * @async
+ * @param {project} project informations du projet duquel récupérer les tâches
+ * @returns {task[]} En cas de réussite, tâches du projet passé en paramètre
+ */
 
 export async function getProjectTasks({ project }) {
   const token = await getSession();

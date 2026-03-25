@@ -1,5 +1,11 @@
 import Image from 'next/image';
 
+/**
+ * Footer affiche le footer sur les pages le nécessitant
+ *
+ * @returns {string} Code HTML du footer
+ */
+
 function Footer() {
   return (
     <div className="bg-white flex flex-col lg:flex-row lg:justify-between gap-2 items-center pt-5 pr-10 pb-5 pl-10">

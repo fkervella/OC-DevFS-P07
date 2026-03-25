@@ -2,6 +2,13 @@ import BlackButton from '@/app/_components/Common/BlackButton';
 import LabelInput from '@/app/_components/Common/LabelInput';
 import { getUserProfile } from '@/app/actions/profile';
 
+/**
+ * Profile Composant d'afficahge des informations de profil utilisateur
+ *
+ * @async
+ * @returns {string} Code HTML d'afficahge des informations de profil utilisateur
+ */
+
 async function Profile() {
   const { user } = await getUserProfile();
   const username = user.name.split(' ');

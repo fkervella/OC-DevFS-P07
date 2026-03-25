@@ -1,3 +1,10 @@
+/**
+ * Error renvoie le statut de l'erreur
+ *
+ * @param {string} statusCode code de statut de l'erreur
+ * @returns Informations complémentaires sur le statut de l'erreur
+ */
+
 function Error({ statusCode }) {
   return (
     <p>

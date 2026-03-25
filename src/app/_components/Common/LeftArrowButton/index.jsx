@@ -1,6 +1,13 @@
 import Image from 'next/image';
 import Link from 'next/link';
 
+/**
+ * LeftArrowButton bouton pour aller vers une autre page, affiché sous forme de flèche à gauche
+ *
+ * @param {string} page page vers laquelle rediriger lors de l'appui sur le bouton
+ * @returns {string} code HTML du bouton
+ */
+
 function LeftArrowButton({ page }) {
   return (
     <Link href={page}>

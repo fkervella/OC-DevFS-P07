@@ -14,6 +14,16 @@ import ProjectTasksList from '@/app/_components/Project/ProjectTasksList';
 import CreateTaskModalContent from '@/app/_components/Task/CreateTaskModalContent';
 import useModal from '@/hooks/useModal';
 
+/**
+ * ProjectClient Partie client pour l'affichage des données d'un projet
+ *
+ * @export
+ * @param {project} param0.projectData Données du projec
+ * @param {task[]} param0.projectTasks Liste des tâches du projet
+ * @param {string} param0.userName Nom de l'utilisateur connecté
+ * @returns {string} Code HTML d'affichage des données d'un projet
+ */
+
 export function ProjectClient({ projectData, projectTasks, userName }) {
   const { modalState, openModal, closeModal } = useModal();
   const [tasks, setTasks] = useState([]);

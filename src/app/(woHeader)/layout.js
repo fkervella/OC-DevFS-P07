@@ -2,8 +2,26 @@ import '@/app/globals.css';
 
 import { Inter, Manrope } from 'next/font/google';
 
+/**
+ * Description placeholder
+ *
+ * @type {*}
+ */
 const inter = Inter({ subsets: ['latin'] });
+/**
+ * Description placeholder
+ *
+ * @type {*}
+ */
 const manrope = Manrope({ subsets: ['latin'] });
+
+/**
+ * RootLayout Layout pour les pages sans header et footer
+ *
+ * @export
+ * @param {*} param0.children Contenu à afficher dans les pages sans header et footer
+ * @returns {string} Code HTML des pages sans header et footer
+ */
 
 export default function RootLayout({ children }) {
   return (

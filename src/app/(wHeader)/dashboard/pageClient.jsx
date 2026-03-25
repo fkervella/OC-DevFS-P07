@@ -10,6 +10,14 @@ import AffectedTasksKanban from '@/app/_components/Task/AffectedTasksKanban';
 import AffectedTasksList from '@/app/_components/Task/AffectedTasksList';
 import useModal from '@/hooks/useModal';
 
+/**
+ * DashboardClient partie client pour l'affichage du tableau de bord d'un utilisateur
+ *
+ * @param {project[]} projects Liste des projets de l'utilisateur
+ * @param {string} userName Nom de l'utilisateur
+ * @returns {string} Code HTML pour l'affichage du tableau de bord d'un utilisateur
+ */
+
 function DashboardClient({ projects, userName }) {
   const { modalState, openModal, closeModal } = useModal();
   const [updatedProjects, setUpdatedProjects] = useState([]);

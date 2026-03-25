@@ -5,6 +5,17 @@ import ModifyTaskModalContent from '@/app/_components/Task/ModifyTaskModalConten
 import TaskInfos from '@/app/_components/Task/TaskInfos';
 import TaskStatus from '@/app/_components/Task/TaskStatus';
 
+/**
+ * AffectedTask Composant d'affichage des données d'une tâche affectée à un utilisateur
+ *
+ * @param {{ task?: {}; projectName?: string; openModal: any; handleSubmit: any; }} param0
+ * @param {task} [param0.task=[]] Données de la tâche affectée à l'utilisateur
+ * @param {string} [param0.projectName=''] Nom du projet
+ * @param {Function} param0.openModal fonction d'afficahge de la fenêtre modale
+ * @param {Function} param0.handleSubmit fonction à exécuter lors de la validation de la fenêtre modale
+ * @returns {string} Code HTML d'affichage des données d'une tâche affectée à un utilisateur
+ */
+
 function AffectedTask({
   task = [],
   projectName = '',

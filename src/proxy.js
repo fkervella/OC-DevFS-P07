@@ -3,8 +3,27 @@ import { NextResponse } from 'next/server';
 
 import { decrypt } from '@/app/lib/crypto';
 
+/**
+ * publicRoutes liste des routes publiques
+ *
+ * @type {{}}
+ */
 const publicRoutes = ['/register', '/', '/login', 'forgotPassword', '/404'];
+/**
+ * protectedRoutes liste des routes privées/protégées
+ *
+ * @type {{}}
+ */
 const protectedRoutes = ['/dashboard', '/profile', '/projects/'];
+
+/**
+ * proxy routeur de l'application
+ *
+ * @export
+ * @async
+ * @param {string} request page demandée
+ * @returns {*} page à afficher
+ */
 
 export default async function proxy(request) {
   const path = request.nextUrl.pathname;
@@ -33,6 +52,11 @@ export default async function proxy(request) {
   }
 }
 
+/**
+ * Description placeholder
+ *
+ * @type {{ matcher: {}; }}
+ */
 export const config = {
   matcher: ['/((?!api|_next/static|_next/image|favicon.ico|.*\\.png$).*)'],
 };

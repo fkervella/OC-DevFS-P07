@@ -1,5 +1,12 @@
 import UserAvatar from '@/app/_components/Common/UserAvatar';
 
+/**
+ * AssignedTo Composant d'affichage du nom des utilisateurs à qui la tâche est affectée
+ *
+ * @param {assignee[]} param0.assignees Liste des utilisateurs assignés à la tâche
+ * @returns {string} Code HTML d'affichage du nom des utilisateurs à qui la tâche est affectée
+ */
+
 function AssignedTo({ assignees }) {
   return (
     <div className="flex flex-row gap-2">

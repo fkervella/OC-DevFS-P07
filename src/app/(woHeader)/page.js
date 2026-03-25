@@ -8,6 +8,12 @@ import BlackButton from '@/app/_components/Common/BlackButton';
 import LabelInput from '@/app/_components/Common/LabelInput';
 import { LoginAction } from '@/app/actions/auth.js';
 
+/**
+ * Register Page de connexion utilisateur
+ *
+ * @returns {string} Code HTML d'affichage de la page de connexion utilisateur
+ */
+
 function Login() {
   const [state, action, pending] = useActionState(LoginAction, undefined);
 

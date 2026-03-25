@@ -1,5 +1,15 @@
 import 'server-only';
 
+/**
+ * authenticate Fonction d'authentification de l'utilisateur au back-end
+ *
+ * @export
+ * @async
+ * @param {string} email email (identifiant) de l'utilisateur
+ * @param {string} password mot de passe de l'utilisateur
+ * @returns {{id, email, name, createdAt, token}} en cas de réussite, données de l'utilisateur
+ */
+
 export async function authenticate(email, password) {
   try {
     const response = await fetch('http://localhost:8000/auth/login', {

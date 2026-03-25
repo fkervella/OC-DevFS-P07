@@ -4,6 +4,13 @@ import { useState } from 'react';
 
 import LabelInput from '@/app/_components/Common/LabelInput';
 
+/**
+ * CreateTaskModalContent Composant d'affichage du formulaire de création d'une tâche dans une fenêtre modale
+ *
+ * @param {Function} param0.onSubmit fonction exécutée à la validation du formulaire
+ * @returns {string} Code HTML d'affichage du formulaire de création d'une tâche dans une fenêtre modale
+ */
+
 function CreateTaskModalContent({ onSubmit }) {
   const [formData, setFormData] = useState({
     title: '',

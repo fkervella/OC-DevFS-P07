@@ -5,8 +5,26 @@ import { Inter, Manrope } from 'next/font/google';
 import Footer from '../_components/Common/Footer';
 import Header from '../_components/Common/Header';
 
+/**
+ * Inter définition d'une font disponible
+ *
+ * @type {*}
+ */
 const inter = Inter({ subsets: ['latin'] });
+/**
+ * Manrope définition d'une font disponible
+ *
+ * @type {*}
+ */
 const manrope = Manrope({ subsets: ['latin'] });
+
+/**
+ * RootLayout Layout pour les pages avec header et footer
+ *
+ * @export
+ * @param {*} param0.children Contenu à afficher dans les pages avec header et footer
+ * @returns {string} Code HTML des pages avec header et footer
+ */
 
 export default function RootLayout({ children }) {
   return (

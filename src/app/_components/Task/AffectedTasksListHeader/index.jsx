@@ -1,3 +1,9 @@
+/**
+ * AffectedTasksListHeader Composant d'affichage du header des tâches affectées à un utilisateur affichées sous forme de liste
+ *
+ * @returns {string} Code HTML d'affichage du header des tâches affectées à un utilisateur affichées sous forme de liste
+ */
+
 function AffectedTasksListHeader() {
   return (
     <div className="grid grid-cols-2 grid-rows-3">

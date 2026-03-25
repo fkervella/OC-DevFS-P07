@@ -7,6 +7,13 @@ import AssignedTo from '@/app/_components/Task/AssignedTo';
 import Comments from '@/app/_components/Task/Comments';
 import TaskStatus from '@/app/_components/Task/TaskStatus';
 
+/**
+ * ProjectTaskCard Composant d'affichage des données d'une tâche d'un projet
+ *
+ * @param {task} task Données de la tâche d'un projet
+ * @returns {string} Code HTML d'afficahge des données d'une tâche
+ */
+
 function ProjectTaskCard({ task }) {
   return (
     <div className="bg-white border border-solid border-grey-background rounded-lg pt-8 pr-10 pb-8 pl-10">

@@ -1,5 +1,12 @@
 import { calculateProgressPercentage, getActiveTasks } from '@/app/lib/utils';
 
+/**
+ * Progress Composant d'afficahge de la progression des tâches d'un projet
+ *
+ * @param {task[]} tasks liste des tâches du projet
+ * @returns {string} Code HTML d'affichage de la progression des tâches d'un projet
+ */
+
 function Progress({ tasks }) {
   if (!tasks) return null;
 

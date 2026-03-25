@@ -6,6 +6,12 @@ import Link from 'next/link';
 import BlackButton from '@/app/_components/Common/BlackButton';
 import LabelInput from '@/app/_components/Common/LabelInput';
 
+/**
+ * Register Page d'enregistrement utilisateur
+ *
+ * @returns {string} Code HTML d'affichage de la page d'enregistrement utilisateur
+ */
+
 function Register() {
   return (
     <div className="flex flex-row h-screen w-full">

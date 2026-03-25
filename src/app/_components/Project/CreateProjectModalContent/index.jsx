@@ -4,6 +4,13 @@ import { useState } from 'react';
 
 import LabelInput from '@/app/_components/Common/LabelInput';
 
+/**
+ * CreateProjectModalContent Composant d'afficahge du contenu de la modale de création de projet
+ *
+ * @param {Function} onSubmit action à réaliser à la soumission du formulaire
+ * @returns {string} Code HTML du formulaire de création de projet
+ */
+
 function CreateProjectModalContent({ onSubmit }) {
   const [formData, setFormData] = useState({
     title: '',

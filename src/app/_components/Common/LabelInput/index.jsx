@@ -1,3 +1,14 @@
+/**
+ * LabelInput composant renvoyant un objet Label et l'input associé pour les formulaires
+ *
+ * @export
+ * @param {string} name - Nom de l'objet
+ * @param {string} text - Texte à afficher dans le label
+ * @param {string} type - Type de l'objet input
+ * @param {string} placeHolder Placeholder de l'objet input
+ * @returns {string} code HTML contenant le label et l'input concernés
+ */
+
 export default function LabelInput({ name, text, type, placeHolder }) {
   return (
     <>

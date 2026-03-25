@@ -1,5 +1,16 @@
 import { getSession } from '@/app/lib/session';
 
+/**
+ * getUserProfile Fonction de récupération des données du profil de l'utilisateur connecté
+ * Vérification si la session est active
+ * Interrogation du back-end
+ * Extraction des données à exploiter
+ *
+ * @export
+ * @async
+ * @returns {user} en cas de succès données de profil de l'utilisateur connecté
+ */
+
 export async function getUserProfile() {
   const token = await getSession();
 

@@ -7,6 +7,13 @@ import { usePathname } from 'next/navigation';
 import NavButton from '@/app/_components/Common/NavButton';
 import UserAvatar from '@/app/_components/Common/UserAvatar';
 
+/**
+ * Header partie client renvoie le header du site
+ *
+ * @param {string} userName - Le nom de l'utilisateur connencté
+ * @returns {string}  Code HTML du header
+ */
+
 function HeaderClient({ userName }) {
   const pathname = usePathname();
 

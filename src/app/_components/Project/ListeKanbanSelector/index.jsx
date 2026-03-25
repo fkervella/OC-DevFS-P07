@@ -1,5 +1,11 @@
 import Image from 'next/image';
 
+/**
+ * ListeKanbanSelector Composant d'affichage des boutons de filtrage de la vue
+ *
+ * @returns {string} Code HTML d'affichage des boutons de liste et kanban
+ */
+
 function ListeKanbanSelector() {
   return (
     <ul className="flex flex-row gap-4 pl-2">

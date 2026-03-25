@@ -1,5 +1,15 @@
 import { getSession } from '@/app/lib/session';
 
+/**
+ * getDashboardProjectsTasks Fonction de récupération des données projects et tâches à afficher dans le tableau de bord
+ * Vérification si la session est active
+ * Interrogation du back-end
+ * Extraction des données à exploiter
+ * @export
+ * @async
+ * @returns {project[]} données des projets en cas de succès
+ */
+
 export async function getDashboardProjectsTasks() {
   const token = await getSession();
 
