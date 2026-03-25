@@ -1,5 +1,5 @@
 import { getMyProjects, getProjectTasks } from '@/app/actions/project.js';
-import { getSession } from '@/app/lib/session';
+import { getUserData, verifySession } from '@/app/lib/dal';
 
 import ProjectsClient from './pageClient';
 
@@ -11,14 +11,13 @@ import ProjectsClient from './pageClient';
  */
 
 async function ProjectsServer() {
-  //const session = await verifySession()
-  //TODO
-  // Fetch user-specific data from your database or data source
-  //const user = await getUserData(session.userId)
+  // Vérification que la session active est valable
+  const session = await verifySession();
 
-  const token = await getSession();
-  const userName = token ? token.user.name : '';
+  // Récupération des données de l'utilisateur
+  const userData = await getUserData(session.userId);
 
+  // Récupération des données à afficher dans la page des projets de l'utilisateur
   const { projects } = await getMyProjects();
 
   const projectsWithTasks = await Promise.all(
@@ -28,7 +27,9 @@ async function ProjectsServer() {
     })
   );
 
-  return <ProjectsClient projects={projectsWithTasks} userName={userName} />;
+  return (
+    <ProjectsClient projects={projectsWithTasks} userName={userData.name} />
+  );
 }
 
 export default ProjectsServer;

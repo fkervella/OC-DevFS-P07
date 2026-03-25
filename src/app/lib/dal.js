@@ -5,6 +5,7 @@ import { NextResponse } from 'next/server';
 import { cache } from 'react';
 
 import { decrypt } from '@/app/lib/crypto';
+import { getSession } from '@/app/lib/session';
 
 /**
  * Description placeholder
@@ -15,7 +16,7 @@ export const verifySession = cache(async () => {
   const cookie = (await cookies()).get('session')?.value;
   const session = await decrypt(cookie);
 
-  if (!session.userId) {
+  if (!session.user.id) {
     return NextResponse.redirect(new URL('/login'));
   }
 
@@ -50,3 +51,17 @@ export const getUser = cache(async () => {
     return null
   }*/
 });
+
+/**
+ * getUserData récupération des données de l'utilsateur depuis  le cookie de session
+ *
+ * @export
+ * @returns {user} données de l'utilisateur
+ */
+
+export async function getUserData() {
+  const token = await getSession();
+  const userData = token ? token.user : null;
+
+  return userData;
+}

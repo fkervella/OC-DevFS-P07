@@ -1,5 +1,5 @@
 import { getDashboardProjectsTasks } from '@/app/actions/dashboard';
-import { getSession } from '@/app/lib/session';
+import { getUserData, verifySession } from '@/app/lib/dal';
 
 import DashboardClient from './pageClient';
 
@@ -11,18 +11,16 @@ import DashboardClient from './pageClient';
  */
 
 async function DashboardServer() {
-  //const session = await verifySession()
-  //TODO
-  // Fetch user-specific data from your database or data source
-  //const user = await getUserData(session.userId)
+  // Vérification que la session active est valable
+  const session = await verifySession();
 
+  // Récupération des données de l'utilisateur
+  const userData = await getUserData(session.userId);
+
+  // Récupération des données à afficher dans le tableau de cord de l'utilisateur
   const { projects } = await getDashboardProjectsTasks();
 
-  const token = await getSession();
-
-  const userName = token ? token.user.name : '';
-
-  return <DashboardClient projects={projects} userName={userName} />;
+  return <DashboardClient projects={projects} userName={userData.name} />;
 }
 
 export default DashboardServer;

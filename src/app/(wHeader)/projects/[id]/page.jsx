@@ -1,5 +1,5 @@
 import { getMyProjects, getProjectTasks } from '@/app/actions/project';
-import { getSession } from '@/app/lib/session';
+import { getUserData, verifySession } from '@/app/lib/dal';
 
 import { ProjectClient } from './pageClient';
 
@@ -12,10 +12,13 @@ import { ProjectClient } from './pageClient';
  */
 
 async function ProjectServer({ params }) {
-  const { id: projectId } = await params;
+  // Vérification que la session active est valable
+  const session = await verifySession();
 
-  const token = await getSession();
-  const userName = token?.user?.name || '';
+  // Récupération des données de l'utilisateur
+  const userData = await getUserData(session.userId);
+
+  const { id: projectId } = await params;
 
   const { projects: myProjects } = await getMyProjects();
 
@@ -27,7 +30,7 @@ async function ProjectServer({ params }) {
     <ProjectClient
       projectData={project}
       projectTasks={projectTasks}
-      userName={userName}
+      userName={userData.name}
     />
   );
 }
