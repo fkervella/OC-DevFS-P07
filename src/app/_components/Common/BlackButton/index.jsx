@@ -13,7 +13,7 @@ export default function BlackButton({ text = '', type = 'button', onClick }) {
       type={type}
       onClick={onClick}
       aria-label={text}
-      className="bg-black text-white rounded-lg mt-4 pt-2 pb-2 pr-15 pl-15 font-inter h-fit w-fit"
+      className="bg-black text-white rounded-lg pt-3 pb-3 pr-12 pl-12 font-inter h-fit w-fit"
     >
       {text}
     </button>
