@@ -21,6 +21,7 @@ import useModal from '@/hooks/useModal';
 function DashboardClient({ projects, userName }) {
   const { modalState, openModal, closeModal, renderContent } = useModal();
   const [updatedProjects, setUpdatedProjects] = useState([]);
+  const [activeTab, setActiveTab] = useState('list');
 
   const handleSubmit = (formData) => {
     setUpdatedProjects([...updatedProjects, formData]);
@@ -57,17 +58,21 @@ function DashboardClient({ projects, userName }) {
           {renderContent()}
         </ModalLayout>
       </div>
-      <ListeKanbanSelector />
-      <AffectedTasksList
-        projects={projects}
-        openModal={openModal}
-        handleSubmit={handleSubmit}
-      />
-      <AffectedTasksKanban
-        projects={projects}
-        openModal={openModal}
-        handleSubmit={handleSubmit}
-      />
+      <ListeKanbanSelector activeTab={activeTab} setActiveTab={setActiveTab} />
+      {activeTab === 'list' && (
+        <AffectedTasksList
+          projects={projects}
+          openModal={openModal}
+          handleSubmit={handleSubmit}
+        />
+      )}
+      {activeTab === 'kanban' && (
+        <AffectedTasksKanban
+          projects={projects}
+          openModal={openModal}
+          handleSubmit={handleSubmit}
+        />
+      )}
     </div>
   );
 }

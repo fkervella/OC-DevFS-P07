@@ -37,10 +37,10 @@ function ProjectsClient({ projects }) {
         <PageTitle title="Mes projets" />
         <PageSubtitle subtitle="Gérez vos projets" />
         <BlackButton
-          text="Créer un projet"
+          text="+ Créer un projet"
           onClick={() =>
             openModal(
-              '+Créer un projet',
+              'Créer un projet',
               <CreateProjectModalContent onSubmit={handleSubmit} />
             )
           }

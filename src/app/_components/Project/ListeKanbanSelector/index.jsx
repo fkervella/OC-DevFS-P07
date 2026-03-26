@@ -6,10 +6,26 @@ import Image from 'next/image';
  * @returns {string} Code HTML d'affichage des boutons de liste et kanban
  */
 
-function ListeKanbanSelector() {
+function ListeKanbanSelector({ activeTab, setActiveTab }) {
+  let listStyleBg = '';
+  let kanbanStyleBg = '';
+
+  if (activeTab === 'list') {
+    listStyleBg = 'bg-light-orange';
+    kanbanStyleBg = 'bg-white';
+  } else if (activeTab === 'kanban') {
+    listStyleBg = 'bg-white';
+    kanbanStyleBg = 'bg-light-orange';
+  } else {
+    listStyleBg = 'bg-light-orange';
+    kanbanStyleBg = 'bg-white';
+  }
   return (
     <ul className="flex flex-row gap-4 pl-2">
-      <li className="flex flex-row gap-2 pt-3 pl-4 pb-3 pr-4 bg-light-orange rounded-lg w-fit">
+      <li
+        className={`flex flex-row gap-2 pt-3 pl-4 pb-3 pr-4 ${listStyleBg} rounded-lg w-fit`}
+        onClick={() => setActiveTab('list')}
+      >
         <Image
           src="/tasksOrangeIcon.png"
           alt="image tâche"
@@ -19,7 +35,10 @@ function ListeKanbanSelector() {
         />
         <div className="text-sm font-normal text-orange">Liste</div>
       </li>
-      <li className="flex flex-row gap-2 pt-3 pl-4 pb-3 pr-4 bg-white rounded-lg w-fit">
+      <li
+        className={`flex flex-row gap-2 pt-3 pl-4 pb-3 pr-4 ${kanbanStyleBg} rounded-lg w-fit`}
+        onClick={() => setActiveTab('kanban')}
+      >
         <Image
           src="/kanbanOrangeIcon.png"
           alt="image kanban"
