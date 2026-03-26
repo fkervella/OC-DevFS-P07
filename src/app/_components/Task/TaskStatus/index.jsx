@@ -31,7 +31,7 @@ function TaskStatus({ status }) {
 
   return (
     <div
-      className={`flex pt-1 pr-4 pb-1 pl-4 ${statusStyle[status].bgColor} ${statusStyle[status].textColor} rounded-full h-full text-sm font-normal items-center w-fit`}
+      className={`flex pt-1 pr-4 pb-1 pl-4 ${statusStyle[status].bgColor} ${statusStyle[status].textColor} rounded-full text-sm font-normal items-center w-fit h-fit text-nowrap`}
     >
       {statusStyle[status].text}
     </div>
