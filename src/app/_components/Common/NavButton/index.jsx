@@ -14,7 +14,7 @@ import Link from 'next/link';
 
 function NavButton({ name, imagePath, imageAlt, isActive, page }) {
   const background = isActive ? 'bg-black rounded-lg' : 'bg-white';
-  const text = isActive ? 'bg-white' : 'text-orange';
+  const text = isActive ? 'text-white' : 'text-orange';
 
   return (
     <Link href={page}>
