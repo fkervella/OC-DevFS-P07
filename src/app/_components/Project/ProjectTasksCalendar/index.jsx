@@ -5,9 +5,7 @@
  */
 
 function ProjectTasksCalendar() {
-  /* TODO */
-
-  return <div>ProjectTasksCalendar</div>;
+  return <div>Affichage sous forme de calendrier</div>;
 }
 
 export default ProjectTasksCalendar;
