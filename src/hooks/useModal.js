@@ -21,7 +21,14 @@ function useModal() {
     setModalState({ isOpen: false, title: '', content: null });
   };
 
-  return { modalState, openModal, closeModal };
+  const renderContent = () => {
+    if (!modalState.content) return null;
+    return typeof modalState.content === 'function'
+      ? modalState.content()
+      : modalState.content;
+  };
+
+  return { modalState, openModal, closeModal, renderContent };
 }
 
 export default useModal;

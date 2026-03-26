@@ -35,10 +35,9 @@ function AffectedTask({
         <BlackButton
           text="Voir"
           onClick={() =>
-            openModal(
-              'Modifier une tâche',
-              <ModifyTaskModalContent onSubmit={handleSubmit} />
-            )
+            openModal('Modifier', () => (
+              <ModifyTaskModalContent task={task} onSubmit={handleSubmit} />
+            ))
           }
         />
       </div>

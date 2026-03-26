@@ -19,7 +19,7 @@ import useModal from '@/hooks/useModal';
  */
 
 function DashboardClient({ projects, userName }) {
-  const { modalState, openModal, closeModal } = useModal();
+  const { modalState, openModal, closeModal, renderContent } = useModal();
   const [updatedProjects, setUpdatedProjects] = useState([]);
 
   const handleSubmit = (formData) => {
@@ -43,10 +43,9 @@ function DashboardClient({ projects, userName }) {
         <BlackButton
           text="+ Créer un projet"
           onClick={() =>
-            openModal(
-              'Créer un projet',
+            openModal('Créer un projet', () => (
               <CreateProjectModalContent onSubmit={handleSubmit} />
-            )
+            ))
           }
         />
         {/* Modale générique */}
@@ -55,7 +54,7 @@ function DashboardClient({ projects, userName }) {
           onClose={closeModal}
           title={modalState.title}
         >
-          {modalState.content}
+          {renderContent()}
         </ModalLayout>
       </div>
       <ListeKanbanSelector />
