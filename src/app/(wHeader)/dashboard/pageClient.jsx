@@ -64,7 +64,11 @@ function DashboardClient({ projects, userName }) {
         openModal={openModal}
         handleSubmit={handleSubmit}
       />
-      <AffectedTasksKanban tasks={projects} />
+      <AffectedTasksKanban
+        projects={projects}
+        openModal={openModal}
+        handleSubmit={handleSubmit}
+      />
     </div>
   );
 }

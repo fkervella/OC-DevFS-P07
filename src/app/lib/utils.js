@@ -28,6 +28,43 @@ export function getActiveTasks(tasks) {
 }
 
 /**
+ * getTasksByStatus fonction de filtrage des tâches des projets suivant le statut indiqué
+ *
+ * @export
+ * @param {project[]} projects Liste de projets
+ * @param {string} status statut recherché
+ * @returns {tasks[]} Liste de tâches filtrée
+ */
+
+export function getTasksByStatus(projects, status) {
+  const tasks = [];
+
+  projects.forEach((project) => {
+    project.tasks.forEach((task) => {
+      if (task.status === status) {
+        tasks.push({
+          projectName: project.name,
+          id: task.id,
+          title: task.title,
+          description: task.description,
+          status: task.status,
+          priority: task.priority,
+          dueDate: task.dueDate,
+          createdAt: task.createdAt,
+          updatedAt: task.updatedAt,
+          projectId: task.projectId,
+          creatorId: task.creatorId,
+          assignees: task.assignees,
+          comments: task.comments,
+        });
+      }
+    });
+  });
+
+  return tasks;
+}
+
+/**
  * calculateProgressPercentage fonction de calcul de la progression d'un projet à partir du statut de ses tâches
  *
  * @export
@@ -111,4 +148,40 @@ export function getProjectById(projects, projectId) {
 
   // Retourne le projet trouvé ou null si non trouvé
   return project || null;
+}
+
+export function organizeTasksByPriority(tasks) {
+  const priorityOrder = { HIGH: 1, MEDIUM: 2, LOW: 3 };
+  const tasksByPriority = { HIGH: [], MEDIUM: [], LOW: [] };
+
+  tasks.projects.forEach((project) => {
+    project.tasks.forEach((task) => {
+      const priority = task.priority;
+      tasksByPriority[priority].push({
+        projectName: project.name,
+        id: task.id,
+        title: task.title,
+        description: task.description,
+        status: task.status,
+        priority: task.priority,
+        dueDate: task.dueDate,
+        createdAt: task.createdAt,
+        updatedAt: task.updatedAt,
+        projectId: task.projectId,
+        creatorId: task.creatorId,
+        assignees: task.assignees,
+        comments: task.comments,
+      });
+    });
+  });
+
+  // Trier les tâches par priorité
+  const sortedTasks = [];
+  Object.keys(tasksByPriority)
+    .sort((a, b) => priorityOrder[a] - priorityOrder[b])
+    .forEach((priority) => {
+      sortedTasks.push(...tasksByPriority[priority]);
+    });
+
+  return sortedTasks;
 }
