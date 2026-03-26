@@ -150,7 +150,7 @@ export function getProjectById(projects, projectId) {
   return project || null;
 }
 
-export function organizeTasksByPriority(tasks) {
+export function organizeProjectsTasksByPriority(tasks) {
   const priorityOrder = { HIGH: 1, MEDIUM: 2, LOW: 3 };
   const tasksByPriority = { HIGH: [], MEDIUM: [], LOW: [] };
 
@@ -182,6 +182,16 @@ export function organizeTasksByPriority(tasks) {
     .forEach((priority) => {
       sortedTasks.push(...tasksByPriority[priority]);
     });
+
+  return sortedTasks;
+}
+
+export function organizeTasksByPriority(tasks) {
+  const priorityOrder = { HIGH: 1, MEDIUM: 2, LOW: 3 };
+
+  const sortedTasks = tasks.tasks.sort(
+    (a, b) => priorityOrder[a.priority] - priorityOrder[b.priority]
+  );
 
   return sortedTasks;
 }

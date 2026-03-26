@@ -24,7 +24,7 @@ function UserAvatar({
   return (
     <>
       <div
-        className={`${bgColor} rounded-full h-full aspect-square flex justify-center items-center relative border border-solid border-white`}
+        className={`${bgColor} rounded-full h-full pt-1 pr-1 pb-1 pl-1 aspect-square flex justify-center items-center relative border border-solid border-white`}
         style={{ left: `-${left}px`, zIndex }}
       >
         <span className={`text-sm font-normal ${textColor}`}>
@@ -33,7 +33,7 @@ function UserAvatar({
       </div>
       {withUserName && (
         <div
-          className={`${bgColor} rounded-full h-full aspect-square flex justify-center items-center relative border border-solid border-white`}
+          className={`${bgColor} rounded-full h-full pt-1 pr-4 pb-1 pl-4 flex justify-center items-center relative border border-solid border-white`}
           style={{ left: `-${left}px`, zIndex }}
         >
           <span className={`text-sm font-normal ${textColor}`}>{name}</span>

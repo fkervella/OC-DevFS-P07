@@ -1,6 +1,5 @@
 'use client';
 
-import Image from 'next/image';
 import { useState } from 'react';
 
 import BlackButton from '@/app/_components/Common/BlackButton';
@@ -9,6 +8,8 @@ import PageSubtitle from '@/app/_components/Common/PageSubtitle';
 import PageTitle from '@/app/_components/Common/PageTitle';
 import Contributors from '@/app/_components/Contributors';
 import ModalLayout from '@/app/_components/Modal/ModalLayout';
+import ListeCalendarSelector from '@/app/_components/Project/ListeCalendarSelector';
+import ModifyProjectModalContent from '@/app/_components/Project/ModifyProjectModalContent';
 import ProjectTasksCalendar from '@/app/_components/Project/ProjectTasksCalendar';
 import ProjectTasksList from '@/app/_components/Project/ProjectTasksList';
 import CreateTaskModalContent from '@/app/_components/Task/CreateTaskModalContent';
@@ -27,6 +28,7 @@ import useModal from '@/hooks/useModal';
 export function ProjectClient({ projectData, projectTasks, userName }) {
   const { modalState, openModal, closeModal } = useModal();
   const [tasks, setTasks] = useState([]);
+  const [activeTab, setActiveTab] = useState('list');
 
   const handleSubmit = (formData) => {
     setTasks([...tasks, formData]);
@@ -39,11 +41,26 @@ export function ProjectClient({ projectData, projectTasks, userName }) {
 
   return (
     <div className="flex flex-col gap-4 mt-4 pt-10 pr-30 pb-10 pl-30 bg-background">
-      <LeftArrowButton page="/projects" />
-      <div className="grid grid-cols-2 grid-rows-2">
-        <PageTitle title={projectData.name} />
-        <div>Modifier TODO</div>
-        <PageSubtitle subtitle={projectData.description} />
+      <div className="flex flex-row gap-2 justify-between">
+        <LeftArrowButton page="/projects" />
+        <div className="flex flex-col gap-2">
+          <div className="flex flex-row gap-2 items-center">
+            <PageTitle title={projectData.name} />
+            <a
+              href="#"
+              onClick={() =>
+                openModal(
+                  'Modifier un projet',
+                  <ModifyProjectModalContent onSubmit={handleSubmit} />
+                )
+              }
+              className="underline text-orange font-inter"
+            >
+              Modifier
+            </a>
+          </div>
+          <PageSubtitle subtitle={projectData.description} />
+        </div>
         <BlackButton
           text="Créer une tâche"
           onClick={() =>
@@ -64,42 +81,30 @@ export function ProjectClient({ projectData, projectTasks, userName }) {
       </div>
       <Contributors members={projectData.members} owner={userName} />
       <div className="flex flex-col gap-4 bg-white pt-10 pr-10 pb-10 pl-10 border border-solid border-grey-background rounded-lg ">
-        <div className="flex flex-row gap-2">
-          <div className="text-lg text-black-font font-semibold font-manrope col-start-1 row-start-1">
-            Tâches
+        <div className="flex flex-row gap-2 justify-between">
+          <div className="flex flex-col">
+            <div className="text-lg text-black-font font-semibold font-manrope col-start-1 row-start-1">
+              Tâches
+            </div>
+            <div className="text-base text-grey-font font-normal font-inter col-start-1 row-start-2">
+              Par ordre de priorité
+            </div>
           </div>
-          <div className="text-base text-grey-font font-normal font-inter col-start-1 row-start-2">
-            Par ordre de priorité TODO
+          <div className="flex flex-row gap-2">
+            <div className="flex flex-row">
+              <ListeCalendarSelector
+                activeTab={activeTab}
+                setActiveTab={setActiveTab}
+              />
+            </div>
+            <div>Statut</div>
+            <div>Rechercher une tâche</div>
           </div>
-          <div>
-            <ul className="flex flex-row gap-4 pl-2">
-              <li className="flex flex-row gap-2 pt-3 pl-4 pb-3 pr-4 bg-light-orange rounded-lg">
-                <Image
-                  src="/tasksOrangeIcon.png"
-                  alt="image tâche"
-                  width={16}
-                  height={16}
-                />
-                <div className="text-sm font-normal text-orange">Liste</div>
-              </li>
-              <li className="flex flex-row gap-2 pt-3 pl-4 pb-3 pr-4 bg-white rounded-lg">
-                <Image
-                  src="/kanbanOrangeIcon.png"
-                  alt="image kanban"
-                  width={16}
-                  height={16}
-                />
-                <div className="text-sm font-normal text-orange">
-                  Calendrier
-                </div>
-              </li>
-            </ul>
-          </div>
-          <div>Statut</div>
-          <div>Rechercher une tâche</div>
         </div>
-        <ProjectTasksList tasks={projectTasks} />
-        <ProjectTasksCalendar tasks={projectTasks} />
+        {activeTab === 'list' && <ProjectTasksList tasks={projectTasks} />}
+        {activeTab === 'calendar' && (
+          <ProjectTasksCalendar tasks={projectTasks} />
+        )}
       </div>
     </div>
   );

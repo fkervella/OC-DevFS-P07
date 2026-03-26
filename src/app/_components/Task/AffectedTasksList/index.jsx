@@ -1,6 +1,6 @@
 import AffectedTask from '@/app/_components/Task/AffectedTask';
 import AffectedTasksListHeader from '@/app/_components/Task/AffectedTasksListHeader';
-import { organizeTasksByPriority } from '@/app/lib/utils';
+import { organizeProjectsTasksByPriority } from '@/app/lib/utils';
 
 /**
  * AffectedTaskList Composant d'affichage sous forme de liste des tâches affectées à un utilisateur
@@ -12,7 +12,7 @@ import { organizeTasksByPriority } from '@/app/lib/utils';
  */
 
 function AffectedTasksList({ projects, openModal, handleSubmit }) {
-  const prioritizedTasks = organizeTasksByPriority({ projects });
+  const prioritizedTasks = organizeProjectsTasksByPriority({ projects });
 
   return (
     <div className=" bg-white pt-10 pr-10 pb-10 pl-10 rounded-lg flex flex-col gap-4">

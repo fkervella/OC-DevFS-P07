@@ -3,7 +3,7 @@ import CardTitle from '@/app/_components/Common/CardTitle';
 import Date from '@/app/_components/Common/Date';
 import DetailsButton from '@/app/_components/Common/DetailsButton';
 import ExpandButton from '@/app/_components/Common/ExpandButton';
-import AssignedTo from '@/app/_components/Task/AssignedTo';
+import UserAvatar from '@/app/_components/Common/UserAvatar';
 import Comments from '@/app/_components/Task/Comments';
 import TaskStatus from '@/app/_components/Task/TaskStatus';
 
@@ -16,16 +16,42 @@ import TaskStatus from '@/app/_components/Task/TaskStatus';
 
 function ProjectTaskCard({ task }) {
   return (
-    <div className="bg-white border border-solid border-grey-background rounded-lg pt-8 pr-10 pb-8 pl-10">
-      <CardTitle title={task.title} />
-      <TaskStatus status={task.status} />
-      <DetailsButton page="/TODOprojects" />
-      <CardDescription description={task.description} />
-      <Date date={task.dueDate} />
-      <AssignedTo assignees={task.assignees} />
-      <div className="w-full border-t border-grey-background my-8"></div>
-      <Comments number={task.comments.length} />
-      <ExpandButton page="/TODOprojects" />
+    <div className="flex flex-col gap-2">
+      <div className="flex flex-col bg-white border border-solid border-grey-background rounded-lg pt-8 pr-10 pb-8 pl-10 justify-between">
+        <div className="flex flex-row gap-2 justify-between">
+          <div className="flex flex-col gap-2">
+            <div className="flex flex-row gap-2">
+              <CardTitle title={task.title} />
+              <TaskStatus status={task.status} />
+            </div>
+            <div className="mt-6 mb-2">
+              <CardDescription description={task.description} />
+            </div>
+            <div className="mt-2 mb-2">
+              <Date date={task.dueDate} />
+            </div>
+            <div className="flex flex-row gap-2 h-fit">
+              <div className="text-grey-font text-inter text-xs font-normal">
+                Assigné à :{' '}
+              </div>
+              {task.assignees.map((member) => (
+                <UserAvatar
+                  key={member.user.id}
+                  name={member.user.name}
+                  bgColor="bg-grey-background"
+                  withUserName={true}
+                />
+              ))}
+            </div>
+          </div>
+          <DetailsButton page="/TODOprojects" />
+        </div>
+        <div className="w-full border-t border-grey-background my-8"></div>
+        <div className="flex flex-row gap-2 justify-between">
+          <Comments number={task.comments.length} />
+          <ExpandButton page="/TODOprojects" />
+        </div>
+      </div>
     </div>
   );
 }

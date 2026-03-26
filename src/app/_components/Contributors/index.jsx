@@ -20,7 +20,7 @@ function Contributors({ members, owner }) {
           {members.length + 1} personnes
         </div>
       </div>
-      <div className="flex flex-row gap-2">
+      <div className="flex flex-row gap-2 h-fit">
         <UserAvatar name={owner} bgColor="bg-light-orange" />
         <TaskStatus status="PROPRIETAIRE" />
         {members.map((member) => (

@@ -10,16 +10,13 @@ import Link from 'next/link';
 
 function ExpandButton({ page }) {
   return (
-    <Link
-      href={page}
-      className="border border-solid border-grey-background bg-white rounded-lg w-14.25 h-14.25 flex justify-center items-center"
-    >
+    <Link href={page} className="bg-white">
       <Image
         src="/tickBlackIcon.png"
         alt="Bouton retour"
-        width={16}
-        height={16}
-        style={{ width: '100%', height: 'auto' }}
+        width={20}
+        height={9}
+        className="rotate-180"
       />
     </Link>
   );

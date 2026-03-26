@@ -1,4 +1,5 @@
 import ProjectTaskCard from '@/app/_components/Project/ProjectTaskCard';
+import { organizeTasksByPriority } from '@/app/lib/utils';
 
 /**
  * ProjectTaskList Composant d'affichage sous forme de liste des tâches d'un projet
@@ -8,9 +9,11 @@ import ProjectTaskCard from '@/app/_components/Project/ProjectTaskCard';
  */
 
 function ProjectTasksList({ tasks }) {
+  const prioritizedTasks = organizeTasksByPriority({ tasks });
+
   return (
     <div className="flex flex-col gap-4">
-      {tasks.map((task) => (
+      {prioritizedTasks.map((task) => (
         <ProjectTaskCard key={task.id} task={task} />
       ))}
     </div>
