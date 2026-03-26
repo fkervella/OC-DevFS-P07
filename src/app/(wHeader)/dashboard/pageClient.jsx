@@ -41,7 +41,7 @@ function DashboardClient({ projects, userName }) {
           Bonjour {userName}, voici un aperçu de vos projets et tâches
         </p>
         <BlackButton
-          text="Créer un projet"
+          text="+ Créer un projet"
           onClick={() =>
             openModal(
               'Créer un projet',
