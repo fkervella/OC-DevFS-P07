@@ -23,13 +23,14 @@ function AffectedTask({
   handleSubmit,
 }) {
   return (
-    <div className="border border-solid border-grey-background flex flex-col rounded-lg pt-8 pr-10 pb-8 pl-10">
-      <div className="grid grid-cols-2 grid-rows-2">
+    <div className="border border-solid border-grey-background flex flex-col rounded-lg pt-8 pr-10 pb-6 pl-10">
+      <div className="flex flex-col gap-4 justify-between lg:flex-row">
         <CardTitle title={task.title} />
         <TaskStatus status={task.status} />
-        <CardDescription description={task.description} />
       </div>
-      <div className="flex flex-row lg:flex-col justify-start lg:justify-between content-normal">
+      <CardDescription description={task.description} />
+
+      <div className="flex flex-col gap-4 lg:flex-row justify-start lg:justify-between items-center content-normal">
         <TaskInfos task={task} projectName={projectName} />
         <BlackButton
           text="Voir"
