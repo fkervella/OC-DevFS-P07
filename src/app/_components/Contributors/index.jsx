@@ -22,7 +22,7 @@ function Contributors({ members, owner }) {
       </div>
       <div className="flex flex-row gap-2">
         <UserAvatar name={owner} bgColor="bg-light-orange" />
-        <TaskStatus status="Propriétaire" />
+        <TaskStatus status="PROPRIETAIRE" />
         {members.map((member) => (
           <UserAvatar
             key={member.user.id}
