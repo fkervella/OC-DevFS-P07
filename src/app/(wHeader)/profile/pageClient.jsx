@@ -23,6 +23,7 @@ function ProfileClient({ user }) {
     newPassword: '',
   });
 
+  const [error, setError] = useState(null);
   const [isPending, startTransition] = useTransition();
   const router = useRouter();
 
@@ -39,11 +40,14 @@ function ProfileClient({ user }) {
     startTransition(async () => {
       try {
         const form = new FormData(e.currentTarget);
-        await updateProfile(form);
+        const updateStatus = await updateProfile(form);
+
+        if (!updateStatus.success) setError(updateStatus.error);
+        else setError(null);
 
         router.refresh();
       } catch (error) {
-        console.error('Erreur lors de la soumission : ', error);
+        setError('Erreur lors de la soumission : ', error);
       }
     });
   };
@@ -100,6 +104,11 @@ function ProfileClient({ user }) {
             type="submit"
             disabled="isPending"
           />
+          {error && (
+            <div className="p-4 mb-4 text-red-font bg-light-orange rounded-lg">
+              {error}
+            </div>
+          )}
         </form>
       </div>
     </div>

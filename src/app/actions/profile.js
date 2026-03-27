@@ -63,7 +63,7 @@ export async function updateProfile(formData) {
   const name = `${firstname} ${lastname}`;
 
   if (!token) {
-    throw new Error('Session non trouvée : cookie non trouvé');
+    return { success: false, error: 'Session non trouvée : cookie non trouvé' };
   }
 
   try {
@@ -79,7 +79,10 @@ export async function updateProfile(formData) {
     const updatedUser = await response.json();
 
     if (!response.ok) {
-      throw new Error('Echec de la mise à jour du profil utilisateur');
+      return {
+        success: false,
+        error: 'Echec de la mise à jour du profil utilisateur',
+      };
     }
 
     await createSession({
@@ -88,14 +91,22 @@ export async function updateProfile(formData) {
       email: updatedUser.data.user.email,
     });
 
-    if (newPassword) await updateProfilePassword(currentPassword, newPassword);
+    if (newPassword) {
+      const passwordUpdate = await updateProfilePassword(
+        currentPassword,
+        newPassword
+      );
+
+      if (!passwordUpdate.success) return passwordUpdate;
+    }
 
     revalidatePath('/profile');
+    return { success: true, user: updatedUser };
   } catch (error) {
-    console.error(
-      'Erreur lors de la mise à jour du profil utilisateur : ',
-      error.message
-    );
+    return {
+      success: false,
+      error: `Erreur lors de la mise à jour du profil utilisateur : ${error.message}`,
+    };
   }
 }
 
@@ -112,7 +123,7 @@ export async function updateProfilePassword(currentPassword, newPassword) {
   const token = await getSession();
 
   if (!token) {
-    throw new Error('Session non trouvée : cookie non trouvé');
+    return { success: false, error: 'Session non trouvée : cookie non trouvé' };
   }
 
   try {
@@ -128,12 +139,17 @@ export async function updateProfilePassword(currentPassword, newPassword) {
     const updatedUser = await response.json();
 
     if (!response.ok) {
-      throw new Error(`${updatedUser.error} ${updatedUser.message}`);
+      return {
+        success: false,
+        error: `${updatedUser.error} ${updatedUser.message}`,
+      };
     }
+
+    return { success: true, user: updatedUser };
   } catch (error) {
-    console.error(
-      'Erreur lors de la mise à jour du mot de passe utilisateur : ',
-      error.message
-    );
+    return {
+      success: false,
+      error: `Erreur lors de la mise à jour du mot de passe utilisateur : ${error.message}`,
+    };
   }
 }
