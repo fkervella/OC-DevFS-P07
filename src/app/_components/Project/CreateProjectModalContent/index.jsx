@@ -1,8 +1,9 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useTransition } from 'react';
 
 import LabelInput from '@/app/_components/Common/LabelInput';
+import { createProject } from '@/app/actions/project';
 
 /**
  * CreateProjectModalContent Composant d'afficahge du contenu de la modale de création de projet
@@ -11,23 +12,39 @@ import LabelInput from '@/app/_components/Common/LabelInput';
  * @returns {string} Code HTML du formulaire de création de projet
  */
 
-function CreateProjectModalContent({ onSubmit }) {
+function CreateProjectModalContent({ onSubmitSuccess }) {
   const [formData, setFormData] = useState({
     title: '',
     description: '',
-    dueDate: '',
-    assignedTo: '',
-    state: '',
+    contributors: '',
   });
+
+  const [error, setError] = useState(null);
+  const [isPending, startTransition] = useTransition();
 
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    onSubmit(formData);
+    startTransition(async () => {
+      try {
+        const form = new FormData(e.currentTarget);
+        const createProjectStatus = await createProject(form);
+
+        if (!createProjectStatus.success) setError(createProjectStatus.error);
+        else {
+          onSubmitSuccess();
+        }
+      } catch (error) {
+        setError(
+          error.message ||
+            'Erreur inconnue survenue lors de la création du projet'
+        );
+      }
+    });
   };
 
   return (
@@ -57,20 +74,26 @@ function CreateProjectModalContent({ onSubmit }) {
       <div className="mb-4">
         <LabelInput
           text="Contributeurs :"
-          name="assignedTo"
+          name="contributors"
           type="text"
           placeholder=""
-          value={formData.assignedTo}
+          value={formData.contributors}
           onChange={handleChange}
           required
         />
       </div>
+      {error && (
+        <div className="p-4 mb-4 text-red-font bg-light-orange rounded-lg">
+          {error}
+        </div>
+      )}
       <div className="flex justify-end">
         <button
           type="submit"
           className="px-4 py-2 bg-black text-white rounded hover:bg-gray-800 transition-colors"
+          disabled={isPending}
         >
-          + Ajouter un projet
+          {isPending ? 'Enregistrement ...' : '+ Ajouter un projet'}
         </button>
       </div>
     </form>

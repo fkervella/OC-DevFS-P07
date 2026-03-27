@@ -1,4 +1,4 @@
-import 'server-only';
+'use server';
 
 import { getSession } from '@/app/lib/session';
 
@@ -91,5 +91,51 @@ export async function getProjectTasks({ project }) {
       'Erreur lors de la récupération des tâches du projet : ',
       error.message
     );
+  }
+}
+
+export async function createProject(formData) {
+  const token = await getSession();
+  const name = formData.get('title');
+  const description = formData.get('description');
+  const contributors = formData.get('contributors');
+
+  try {
+    const myProjects = await getMyProjects();
+    const existingProject = myProjects.projects.find(
+      (project) => project.name === name && project.description === description
+    );
+
+    if (existingProject) {
+      return {
+        success: false,
+        error: 'Un projet avec le même nom et la même description existe déjà',
+      };
+    }
+
+    const response = await fetch('http://localhost:8000/projects', {
+      method: 'POST',
+      headers: {
+        Authorization: `Bearer ${token.user.token}`,
+        'content-type': 'application/json',
+      },
+      body: JSON.stringify({ name, description, contributors }),
+    });
+
+    const createdProject = await response.json();
+
+    if (!response.ok) {
+      return {
+        success: false,
+        error: `${createdProject.error} ${createdProject.message}`,
+      };
+    }
+
+    return { success: true, project: createdProject };
+  } catch (error) {
+    return {
+      success: false,
+      error: `Erreur lors de la création du projet : ${error.message}`,
+    };
   }
 }

@@ -20,11 +20,9 @@ import useModal from '@/hooks/useModal';
 
 function DashboardClient({ projects, userName }) {
   const { modalState, openModal, closeModal, renderContent } = useModal();
-  const [updatedProjects, setUpdatedProjects] = useState([]);
   const [activeTab, setActiveTab] = useState('list');
 
-  const handleSubmit = (formData) => {
-    setUpdatedProjects([...updatedProjects, formData]);
+  const handleSubmit = () => {
     closeModal();
   };
 
@@ -45,7 +43,7 @@ function DashboardClient({ projects, userName }) {
           text="+ Créer un projet"
           onClick={() =>
             openModal('Créer un projet', () => (
-              <CreateProjectModalContent onSubmit={handleSubmit} />
+              <CreateProjectModalContent onSubmitSuccess={handleSubmit} />
             ))
           }
         />
