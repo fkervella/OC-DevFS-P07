@@ -97,6 +97,7 @@ function ProfileClient({ user }) {
             value={formData.newPassword}
             onChange={handleChange}
           />
+          <div className="pt-3 pb-3"></div>
           <BlackButton
             text={
               isPending ? 'Enregistrement ...' : 'Modifier les informations'
