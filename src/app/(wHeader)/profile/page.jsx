@@ -1,4 +1,4 @@
-import { getUserProfile } from '@/app/actions/profile';
+import { getUserData, verifySession } from '@/app/lib/dal';
 
 import ProfileClient from './pageClient.jsx';
 
@@ -10,9 +10,13 @@ import ProfileClient from './pageClient.jsx';
  */
 
 async function ProfileServer() {
-  const { user } = await getUserProfile();
+  // Vérification que la session active est valable
+  const session = await verifySession();
 
-  return <ProfileClient user={user} />;
+  // Récupération des données de l'utilisateur
+  const userData = await getUserData(session.userId);
+
+  return <ProfileClient user={userData} />;
 }
 
 export default ProfileServer;

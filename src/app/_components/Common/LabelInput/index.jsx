@@ -15,6 +15,7 @@ export default function LabelInput({
   type,
   placeHolder,
   value,
+  defaultValue,
   onChange,
 }) {
   return (
@@ -31,6 +32,7 @@ export default function LabelInput({
         type={type}
         placeholder={placeHolder}
         value={value}
+        defaultValue={defaultValue}
         onChange={onChange}
         className="rounded-lg pt-2 pr-2 pb-2 pl-2 border border-gray-200 bg-white font-inter font-normal text-grey-font"
       ></input>

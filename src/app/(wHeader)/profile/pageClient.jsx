@@ -1,8 +1,11 @@
 'use client';
 
+import { useRouter } from 'next/navigation';
+import { useState, useTransition } from 'react';
+
 import BlackButton from '@/app/_components/Common/BlackButton';
 import LabelInput from '@/app/_components/Common/LabelInput';
-
+import { updateProfile } from '@/app/actions/profile.js';
 /**
  * Profile Composant d'afficahge des informations de profil utilisateur
  *
@@ -11,9 +14,38 @@ import LabelInput from '@/app/_components/Common/LabelInput';
  */
 
 function ProfileClient({ user }) {
-  const username = user.name.split(' ');
-  const firstname = username[0];
-  const lastname = username[1];
+  const [firstname, lastname] = user.name.split(' ');
+  const [formData, setFormData] = useState({
+    firstname,
+    lastname,
+    email: user.email,
+    password: '',
+  });
+
+  const [isPending, startTransition] = useTransition();
+  const router = useRouter();
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    startTransition(async () => {
+      try {
+        const form = new FormData(e.currentTarget);
+        await updateProfile(form);
+
+        router.refresh();
+      } catch (error) {
+        console.error('Erreur lors de la soumission : ', error);
+      }
+    });
+  };
 
   return (
     <div className="flex flex-col gap-4 mt-4 pt-10 pr-30 pb-10 pl-30 bg-background">
@@ -24,32 +56,42 @@ function ProfileClient({ user }) {
         <div className="text-inter font-normal text-base text-grey-font">
           {user.name}
         </div>
-        <form className="flex flex-col gap-2 w-full">
+        <form onSubmit={handleSubmit} className="flex flex-col gap-2 w-full">
           <LabelInput
-            name="nom"
+            name="lastname"
             text="Nom"
             type="text"
-            placeHolder={firstname}
+            value={formData.lastname}
+            onChange={handleChange}
           />
           <LabelInput
-            name="prenom"
+            name="firstname"
             text="Prénom"
             type="text"
-            placeHolder={lastname}
+            value={formData.firstname}
+            onChange={handleChange}
           />
           <LabelInput
             name="email"
             text="Email"
             type="email"
-            placeHolder={user.email}
+            value={formData.email}
+            onChange={handleChange}
           />
           <LabelInput
             name="password"
             text="Mot de passe"
             type="password"
-            placeHolder="***"
+            value={formData.password}
+            onChange={handleChange}
           />
-          <BlackButton text="Modifier les informations" />
+          <BlackButton
+            text={
+              isPending ? 'Enregistrement ...' : 'Modifier les informations'
+            }
+            type="submit"
+            disabled="isPending"
+          />
         </form>
       </div>
     </div>
