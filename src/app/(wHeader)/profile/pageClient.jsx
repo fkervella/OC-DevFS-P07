@@ -47,7 +47,7 @@ function ProfileClient({ user }) {
 
         router.refresh();
       } catch (error) {
-        setError('Erreur lors de la soumission : ', error);
+        setError('Erreur lors de la modification : ', error.message);
       }
     });
   };
@@ -103,7 +103,7 @@ function ProfileClient({ user }) {
               isPending ? 'Enregistrement ...' : 'Modifier les informations'
             }
             type="submit"
-            disabled="isPending"
+            disabled={isPending}
           />
           {error && (
             <div className="p-4 mb-4 text-red-font bg-light-orange rounded-lg">
