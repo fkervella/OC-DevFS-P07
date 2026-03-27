@@ -18,12 +18,19 @@ async function ProjectsServer() {
   const userData = await getUserData(session.userId);
 
   // Récupération des données à afficher dans la page des projets de l'utilisateur
-  const { projects } = await getMyProjects();
+  const projectsResponse = await getMyProjects();
+
+  // TODO gestion du pas success de la réponse
+  const { projects } = projectsResponse;
 
   const projectsWithTasks = await Promise.all(
     projects.map(async (project) => {
-      const { tasks } = await getProjectTasks({ project });
-      return { ...project, tasks };
+      const projectTasksResponse = await getProjectTasks({ project });
+
+      if (projectTasksResponse.success) {
+        const { tasks: tasks } = projectTasksResponse;
+        return { ...project, tasks };
+      }
     })
   );
 

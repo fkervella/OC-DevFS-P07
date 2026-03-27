@@ -37,7 +37,6 @@ function Login() {
     e.preventDefault();
     startTransition(async () => {
       try {
-        console.log('passage par là');
         const form = new FormData(e.currentTarget);
         const loginStatus = await LoginAction(form);
 

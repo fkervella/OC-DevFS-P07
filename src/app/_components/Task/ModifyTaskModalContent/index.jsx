@@ -14,8 +14,6 @@ import TaskStatus from '@/app/_components/Task/TaskStatus';
  */
 
 function ModifyTaskModalContent({ onSubmit, task }) {
-  console.log('task: ', task);
-
   const [formData, setFormData] = useState({
     title: task?.title || '',
     description: task?.description || '',

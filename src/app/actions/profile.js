@@ -19,7 +19,10 @@ export async function getUserProfile() {
   const token = await getSession();
 
   if (!token) {
-    throw new Error('cookie non trouvé');
+    return {
+      success: false,
+      error: 'Erreur lors de la récupération du cookie',
+    };
   }
 
   try {
@@ -31,16 +34,23 @@ export async function getUserProfile() {
       },
     });
 
+    const data = await response.json();
+
     if (!response.ok) {
-      throw new Error('Echec de la récupération des tâches assignées');
+      return {
+        success: false,
+        error: `${data.error} ${data.message}`,
+      };
     } else {
-      const data = await response.json();
       return {
         user: data.data.user,
       };
     }
   } catch (error) {
-    console.error('Erreur lors dans le tableau de bord : ', error.message);
+    return {
+      success: false,
+      error: `Erreur lors de la récupération des données de l'utilisateur : ${error.message}`,
+    };
   }
 }
 

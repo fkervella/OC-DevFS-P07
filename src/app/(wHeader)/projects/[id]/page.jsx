@@ -20,11 +20,18 @@ async function ProjectServer({ params }) {
 
   const { id: projectId } = await params;
 
-  const { projects: myProjects } = await getMyProjects();
+  const projectsResponse = await getMyProjects();
 
+  if (!projectsResponse.success) return projectsResponse;
+
+  const { projects: myProjects } = projectsResponse;
   const project = myProjects.find((p) => p.id === projectId);
 
-  const { tasks: projectTasks } = await getProjectTasks({ project });
+  const tasksResponse = await getProjectTasks({ project });
+
+  if (!tasksResponse.success) return tasksResponse;
+
+  const projectTasks = tasksResponse.tasks;
 
   return (
     <ProjectClient

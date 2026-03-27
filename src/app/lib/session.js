@@ -75,7 +75,7 @@ export async function deleteSession() {
 export async function refreshSession() {
   const session = await getSession();
 
-  if (!session) return null;
+  if (!session || !session.success) return null;
 
   await createSession(session.userId);
 

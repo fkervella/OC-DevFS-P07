@@ -18,7 +18,10 @@ async function DashboardServer() {
   const userData = await getUserData(session.userId);
 
   // Récupération des données à afficher dans le tableau de cord de l'utilisateur
-  const { projects } = await getDashboardProjectsTasks();
+  const projectsResponse = await getDashboardProjectsTasks();
+
+  // TODO gestion d'une valeur renoyée incorrecte
+  const { projects } = projectsResponse;
 
   return <DashboardClient projects={projects} userName={userData.name} />;
 }

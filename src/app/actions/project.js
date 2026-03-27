@@ -17,7 +17,10 @@ export async function getMyProjects() {
   const token = await getSession();
 
   if (!token) {
-    throw new Error('cookie non trouvé');
+    return {
+      success: false,
+      error: 'Erreur lors de la récupération du cookie',
+    };
   }
 
   try {
@@ -29,19 +32,24 @@ export async function getMyProjects() {
       },
     });
 
-    if (!response.ok) {
-      throw new Error("Echec de la récupération des projets de l'utilisateur");
-    } else {
-      const data = await response.json();
+    const data = await response.json();
+
+    if (!data.success) {
       return {
+        success: false,
+        error: `${data.error} ${data.message}`,
+      };
+    } else {
+      return {
+        success: true,
         projects: data.data.projects,
       };
     }
   } catch (error) {
-    console.error(
-      'Erreur lors de la récupération des projets : ',
-      error.message
-    );
+    return {
+      success: false,
+      error: `Erreur lors de la récupération des projets : ${error.message}`,
+    };
   }
 }
 
@@ -61,7 +69,10 @@ export async function getProjectTasks({ project }) {
   const token = await getSession();
 
   if (!token) {
-    throw new Error('cookie non trouvé');
+    return {
+      success: false,
+      error: 'Erreur lors de la récupération du cookie',
+    };
   }
 
   try {
@@ -76,21 +87,24 @@ export async function getProjectTasks({ project }) {
       }
     );
 
+    const data = await response.json();
+
     if (!response.ok) {
-      throw new Error(
-        `Echec de la récupération des tâches du projet ${project.title}`
-      );
-    } else {
-      const data = await response.json();
       return {
+        success: false,
+        error: `${data.error} ${data.message}`,
+      };
+    } else {
+      return {
+        success: true,
         tasks: data.data.tasks,
       };
     }
   } catch (error) {
-    console.error(
-      'Erreur lors de la récupération des tâches du projet : ',
-      error.message
-    );
+    return {
+      success: false,
+      error: `Erreur lors de la récupération des tâches du projet : ${error.message}`,
+    };
   }
 }
 
@@ -100,8 +114,19 @@ export async function createProject(formData) {
   const description = formData.get('description');
   const contributors = formData.get('contributors');
 
+  if (!token) {
+    return {
+      success: false,
+      error: 'Erreur lors de la récupération du cookie',
+    };
+  }
+
   try {
-    const myProjects = await getMyProjects();
+    const projectsResponse = getMyProjects();
+    if (!projectsResponse.success) return projectsResponse;
+
+    const { projects: myProjects } = projectsResponse;
+
     const existingProject = myProjects.projects.find(
       (project) => project.name === name && project.description === description
     );
