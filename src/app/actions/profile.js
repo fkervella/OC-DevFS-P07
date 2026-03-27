@@ -49,8 +49,7 @@ export async function getUserProfile() {
  *
  * @export
  * @async
- * @param {string} username Nom de l'utilisateur
- * @param {string} email Email de l'utilisateur
+ * @param {formData} formData Données issues du formulaire de mise à jour du profil (nom, prénom, email, mot de passe)
  * @returns {*}
  */
 
@@ -59,6 +58,8 @@ export async function updateProfile(formData) {
   const firstname = formData.get('firstname');
   const lastname = formData.get('lastname');
   const email = formData.get('email');
+  const currentPassword = formData.get('currentPassword');
+  const newPassword = formData.get('newPassword');
   const name = `${firstname} ${lastname}`;
 
   if (!token) {
@@ -87,10 +88,51 @@ export async function updateProfile(formData) {
       email: updatedUser.data.user.email,
     });
 
+    if (newPassword) await updateProfilePassword(currentPassword, newPassword);
+
     revalidatePath('/profile');
   } catch (error) {
     console.error(
       'Erreur lors de la mise à jour du profil utilisateur : ',
+      error.message
+    );
+  }
+}
+
+/**
+ * updateProfilePassword fonction de mise à jour du mot de passe de l'utilisateur
+ *
+ * @export
+ * @async
+ * @param {string} password Mot de passe de l'utilisateur
+ * @returns {*}
+ */
+
+export async function updateProfilePassword(currentPassword, newPassword) {
+  const token = await getSession();
+
+  if (!token) {
+    throw new Error('Session non trouvée : cookie non trouvé');
+  }
+
+  try {
+    const response = await fetch('http://localhost:8000/auth/password', {
+      method: 'PUT',
+      headers: {
+        Authorization: `Bearer ${token.user.token}`,
+        'content-type': 'application/json',
+      },
+      body: JSON.stringify({ currentPassword, newPassword }),
+    });
+
+    const updatedUser = await response.json();
+
+    if (!response.ok) {
+      throw new Error(`${updatedUser.error} ${updatedUser.message}`);
+    }
+  } catch (error) {
+    console.error(
+      'Erreur lors de la mise à jour du mot de passe utilisateur : ',
       error.message
     );
   }

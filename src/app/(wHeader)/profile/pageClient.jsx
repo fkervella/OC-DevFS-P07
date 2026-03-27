@@ -19,7 +19,8 @@ function ProfileClient({ user }) {
     firstname,
     lastname,
     email: user.email,
-    password: '',
+    currentPassword: '',
+    newPassword: '',
   });
 
   const [isPending, startTransition] = useTransition();
@@ -79,10 +80,17 @@ function ProfileClient({ user }) {
             onChange={handleChange}
           />
           <LabelInput
-            name="password"
-            text="Mot de passe"
+            name="currentPassword"
+            text="Mot de passe actuel"
             type="password"
-            value={formData.password}
+            value={formData.currentPassword}
+            onChange={handleChange}
+          />
+          <LabelInput
+            name="newPassword"
+            text="Nouveau mot de passe"
+            type="password"
+            value={formData.newPassword}
             onChange={handleChange}
           />
           <BlackButton
