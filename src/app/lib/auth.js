@@ -18,19 +18,29 @@ export async function authenticate(email, password) {
       body: JSON.stringify({ email, password }),
     });
 
+    const loginReturn = await response.json();
+
     if (!response.ok) {
-      throw new Error('Login failed');
-    } else {
-      const data = await response.json();
       return {
-        id: data.data.user.id,
-        email: data.data.user.email,
-        name: data.data.user.name,
-        createdAt: data.data.user.createdAt,
-        token: data.data.token,
+        success: false,
+        error: `${loginReturn.error} ${loginReturn.message}`,
+      };
+    } else {
+      return {
+        success: true,
+        user: {
+          id: loginReturn.data.user.id,
+          email: loginReturn.data.user.email,
+          name: loginReturn.data.user.name,
+          createdAt: loginReturn.data.user.createdAt,
+          token: loginReturn.data.token,
+        },
       };
     }
   } catch (error) {
-    console.error('Erreur lors de la connexion : ', error.message);
+    return {
+      success: false,
+      error: error.message || 'Erreur inconnue survenue à la connexion',
+    };
   }
 }

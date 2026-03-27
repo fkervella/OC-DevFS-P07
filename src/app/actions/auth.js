@@ -17,18 +17,22 @@ import { createSession, deleteSession } from '@/app/lib/session';
  */
 
 export async function LoginAction(formData) {
-  const user = await authenticate(
+  const data = await authenticate(
     formData.get('email'),
     formData.get('password')
   );
 
-  if (!user) {
-    throw new Error('Invalid credentials');
+  if (!data.success) {
+    return {
+      success: false,
+      error: data.error,
+    };
   }
+  await createSession(data.user);
 
-  await createSession(user);
-
-  redirect('/dashboard');
+  return {
+    success: true,
+  };
 }
 
 /**
