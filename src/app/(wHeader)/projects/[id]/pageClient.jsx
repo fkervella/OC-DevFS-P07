@@ -13,6 +13,7 @@ import ModifyProjectModalContent from '@/app/_components/Project/ModifyProjectMo
 import ProjectTasksCalendar from '@/app/_components/Project/ProjectTasksCalendar';
 import ProjectTasksList from '@/app/_components/Project/ProjectTasksList';
 import CreateTaskModalContent from '@/app/_components/Task/CreateTaskModalContent';
+import { getProjectData, synchronizeMembers } from '@/app/actions/project';
 import useModal from '@/hooks/useModal';
 
 /**
@@ -25,13 +26,22 @@ import useModal from '@/hooks/useModal';
  * @returns {string} Code HTML d'affichage des données d'un projet
  */
 
-export function ProjectClient({ projectData, projectTasks, userName }) {
+export function ProjectClient({ projectDataProp, projectTasks, userName }) {
   const { modalState, openModal, closeModal } = useModal();
-  const [tasks, setTasks] = useState([]);
+  const [projectData, setProjectData] = useState(projectDataProp);
   const [activeTab, setActiveTab] = useState('list');
 
-  const handleSubmit = (formData) => {
-    setTasks([...tasks, formData]);
+  const handleSubmit = async (formData) => {
+    await synchronizeMembers(
+      projectData.id,
+      projectData.members,
+      formData.members
+    );
+
+    const newProjectData = await getProjectData(projectData.id);
+
+    setProjectData(newProjectData);
+
     closeModal();
   };
 
@@ -51,7 +61,10 @@ export function ProjectClient({ projectData, projectTasks, userName }) {
               onClick={() =>
                 openModal(
                   'Modifier un projet',
-                  <ModifyProjectModalContent onSubmit={handleSubmit} />
+                  <ModifyProjectModalContent
+                    onSubmit={handleSubmit}
+                    project={projectData}
+                  />
                 )
               }
               className="underline text-orange font-inter"

@@ -163,3 +163,42 @@ export async function updateProfilePassword(currentPassword, newPassword) {
     };
   }
 }
+
+export async function getUserByName(inputValue) {
+  const token = await getSession();
+
+  if (!token) {
+    return { success: false, error: 'Session non trouvée : cookie non trouvé' };
+  }
+
+  try {
+    const params = new URLSearchParams({ query: inputValue });
+
+    const response = await fetch(
+      `http://localhost:8000/users/search?${params}`,
+      {
+        method: 'GET',
+        headers: {
+          Authorization: `Bearer ${token.user.token}`,
+          'content-type': 'application/json',
+        },
+      }
+    );
+
+    const foundUser = await response.json();
+
+    if (!foundUser.success) {
+      return {
+        success: false,
+        error: `${foundUser.error} ${foundUser.message}`,
+      };
+    }
+
+    return { success: true, users: foundUser.data.users };
+  } catch (error) {
+    return {
+      success: false,
+      error: `Erreur lors de la mise à jour du mot de passe utilisateur : ${error.message}`,
+    };
+  }
+}

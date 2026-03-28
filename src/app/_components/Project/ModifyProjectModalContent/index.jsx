@@ -1,8 +1,10 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useTransition } from 'react';
 
 import LabelInput from '@/app/_components/Common/LabelInput';
+import LabelSelect from '@/app/_components/Common/LabelSelect';
+import { updateProject } from '@/app/actions/project';
 
 /**
  * CreateProjectModalContent Composant d'afficahge du contenu de la modale de création de projet
@@ -11,13 +13,20 @@ import LabelInput from '@/app/_components/Common/LabelInput';
  * @returns {string} Code HTML du formulaire de création de projet
  */
 
-function ModifyProjectModalContent({ onSubmit }) {
+function ModifyProjectModalContent({ onSubmit, project }) {
+  const [error, setError] = useState(null);
+  const [isPending, startTransition] = useTransition();
+
+  const initialMembers = (project?.members || []).map((m) => ({
+    value: m.user.id,
+    label: m.user.name,
+  }));
+
   const [formData, setFormData] = useState({
-    title: '',
-    description: '',
-    dueDate: '',
-    assignedTo: '',
-    state: '',
+    id: project?.id || '',
+    title: project?.name || '',
+    description: project?.description || '',
+    members: initialMembers,
   });
 
   const handleChange = (e) => {
@@ -27,11 +36,28 @@ function ModifyProjectModalContent({ onSubmit }) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    startTransition(async () => {
+      try {
+        const form = new FormData(e.currentTarget);
+        const updateStatus = await updateProject(form);
+
+        if (!updateStatus.success) setError(updateStatus.error);
+        else setError(null);
+      } catch (error) {
+        setError('Erreur lors de la modification : ', error.message);
+      }
+    });
     onSubmit(formData);
   };
 
   return (
     <form onSubmit={handleSubmit}>
+      <input
+        name="projectId"
+        id="projectId"
+        type="hidden"
+        value={formData.id}
+      ></input>
       <div className="mb-4">
         <LabelInput
           text="Titre"
@@ -51,27 +77,37 @@ function ModifyProjectModalContent({ onSubmit }) {
           placeholder=""
           value={formData.description}
           onChange={handleChange}
+          className="text-wrap h-fit"
           required
         />
       </div>
       <div className="mb-4">
-        <LabelInput
+        <LabelSelect
           text="Contributeurs :"
-          name="assignedTo"
+          name="members"
           type="text"
-          placeholder=""
-          value={formData.assignedTo}
+          placeholder={`${formData.members.length} contributeurs`}
+          value={formData.members.length}
           onChange={handleChange}
           required
+          defaultValue={formData.members}
+          options={formData.members}
         />
       </div>
       <div className="flex justify-end">
         <button
+          text={isPending ? 'Enregistrement ...' : 'Modifier'}
           type="submit"
-          className="px-4 py-2 bg-black text-white rounded hover:bg-gray-800 transition-colors"
+          disabled={isPending}
+          className="px-4 py-2 bg-black text-white rounded-lg hover:bg-gray-800 transition-colors"
         >
           Modifier
         </button>
+        {error && (
+          <div className="p-4 mb-4 text-red-font bg-light-orange rounded-lg">
+            {error}
+          </div>
+        )}
       </div>
     </form>
   );
