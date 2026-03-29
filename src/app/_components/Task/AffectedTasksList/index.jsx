@@ -17,26 +17,19 @@ function AffectedTasksList({
   openModal,
   handleSubmitSeeAssignedTask,
 }) {
-  console.log('projects', projects);
   const [searchText, setSearchText] = useState(null);
-  console.log('searchText', searchText);
   const [prioritizedTasks, setPrioritizedTasks] = useState(
     organizeProjectsTasksByPriority({ projects, searchText })
   );
-  console.log('prioritizedTasks', prioritizedTasks);
 
   const handleChangeSearchTask = (e) => {
     e.preventDefault();
     const formData = new FormData(e.currentTarget);
     //filtrage des projets par titre et par description
-    console.log('formData : ', formData);
     setSearchText(formData.get('searchText'));
-    console.log('searchText', searchText);
-    console.log('projects', projects);
     setPrioritizedTasks(
       organizeProjectsTasksByPriority({ projects, searchText })
     );
-    console.log('prioritizedTasks', prioritizedTasks);
   };
 
   return (
