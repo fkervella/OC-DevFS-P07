@@ -75,3 +75,66 @@ export async function createTask(formData) {
     };
   }
 }
+
+export async function updateTask(formData) {
+  const token = await getSession();
+  const title = formData.get('title');
+  const description = formData.get('description');
+  const priority = formData.get('priority');
+  const dueDate = formData.get('dueDate');
+  const projectId = formData.get('projectId');
+  const taskId = formData.get('taskId');
+  const state = formData.get('state');
+  const assigneesIdsRaw = formData.get('contributors');
+  const contributors = assigneesIdsRaw ? JSON.parse(assigneesIdsRaw) : [];
+
+  if (!token) {
+    return {
+      success: false,
+      error: 'Erreur lors de la récupération du cookie',
+    };
+  }
+
+  try {
+    const tasksResponse = await getProjectTasks(projectId);
+    if (!tasksResponse.success) return tasksResponse;
+
+    const assigneeIds = contributors.map((assigneeId) => assigneeId.value);
+    const formatedDueDate = new Date(dueDate).toISOString();
+
+    const response = await fetch(
+      `http://localhost:8000/projects/${projectId}/tasks/${taskId}`,
+      {
+        method: 'PUT',
+        headers: {
+          Authorization: `Bearer ${token.user.token}`,
+          'content-type': 'application/json',
+        },
+        body: JSON.stringify({
+          title,
+          description,
+          priority,
+          dueDate: formatedDueDate,
+          assigneeIds,
+          status: state,
+        }),
+      }
+    );
+
+    const createdTask = await response.json();
+
+    if (!response.ok) {
+      return {
+        success: false,
+        error: `${createdTask.error} ${createdTask.message}`,
+      };
+    }
+
+    return { success: true, task: createdTask };
+  } catch (error) {
+    return {
+      success: false,
+      error: `Erreur lors de la mise à jour de la tâche : ${error.message}`,
+    };
+  }
+}

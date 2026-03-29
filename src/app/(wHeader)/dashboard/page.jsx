@@ -23,7 +23,7 @@ async function DashboardServer() {
   // TODO gestion d'une valeur renoyée incorrecte
   const { projects } = projectsResponse;
 
-  return <DashboardClient projects={projects} userName={userData.name} />;
+  return <DashboardClient projectsProp={projects} userName={userData.name} />;
 }
 
 export default DashboardServer;

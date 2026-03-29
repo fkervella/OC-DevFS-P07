@@ -8,8 +8,8 @@ import CreateProjectModalContent from '@/app/_components/Project/CreateProjectMo
 import ListeKanbanSelector from '@/app/_components/Project/ListeKanbanSelector';
 import AffectedTasksKanban from '@/app/_components/Task/AffectedTasksKanban';
 import AffectedTasksList from '@/app/_components/Task/AffectedTasksList';
+import { getDashboardProjectsTasks } from '@/app/actions/dashboard';
 import useModal from '@/hooks/useModal';
-
 /**
  * DashboardClient partie client pour l'affichage du tableau de bord d'un utilisateur
  *
@@ -18,15 +18,18 @@ import useModal from '@/hooks/useModal';
  * @returns {string} Code HTML pour l'affichage du tableau de bord d'un utilisateur
  */
 
-function DashboardClient({ projects, userName }) {
+function DashboardClient({ projectsProp, userName }) {
   const { modalState, openModal, closeModal, renderContent } = useModal();
   const [activeTab, setActiveTab] = useState('list');
+  const [projects, setProjects] = useState(projectsProp);
 
   const handleSubmitCreateProject = () => {
     closeModal();
   };
 
-  const handleSubmitSeeAssignedTask = () => {
+  const handleSubmitSeeAssignedTask = async () => {
+    const projectsResponse = await getDashboardProjectsTasks();
+    setProjects(projectsResponse.projects);
     closeModal();
   };
 

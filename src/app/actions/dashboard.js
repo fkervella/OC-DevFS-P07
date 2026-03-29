@@ -1,3 +1,5 @@
+'use server';
+
 import { getSession } from '@/app/lib/session';
 
 /**
