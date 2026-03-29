@@ -35,7 +35,6 @@ export function ProjectClient({ projectDataProp, projectTasksProp, userName }) {
   const [projectData, setProjectData] = useState(projectDataProp);
   const [projectTasks, setProjectTasks] = useState(projectTasksProp);
   const [activeTab, setActiveTab] = useState('list');
-  const [, setSearchText] = useState(null);
 
   const handleSubmit = async (formData) => {
     await synchronizeMembers(
@@ -65,18 +64,32 @@ export function ProjectClient({ projectDataProp, projectTasksProp, userName }) {
     const formData = new FormData(e.currentTarget);
     //filtrage des projets par titre et par description
     const text = formData.get('searchText');
-    setSearchText(text);
+    const taskStatus = formData.get('taskStatus');
 
-    if (!text) {
+    if (!text && !taskStatus) {
       setProjectTasks(projectTasksProp);
     } else {
-      const filteredTasks = projectTasksProp.filter(
-        (task) =>
-          task.title.toLowerCase().includes(text.toLowerCase()) ||
-          task.description.toLowerCase().includes(text.toLowerCase())
-      );
+      let textFilteredTasks;
 
-      setProjectTasks(filteredTasks);
+      if (text) {
+        textFilteredTasks = projectTasksProp.filter(
+          (task) =>
+            task.title.toLowerCase().includes(text.toLowerCase()) ||
+            task.description.toLowerCase().includes(text.toLowerCase())
+        );
+
+        setProjectTasks(textFilteredTasks);
+      }
+
+      if (taskStatus) {
+        const inputTasks = text ? textFilteredTasks : projectTasksProp;
+
+        const statusFilteredTasks = inputTasks.filter((task) =>
+          task.status.toLowerCase().includes(taskStatus.toLowerCase())
+        );
+
+        setProjectTasks(statusFilteredTasks);
+      }
     }
   };
 
@@ -152,7 +165,11 @@ export function ProjectClient({ projectDataProp, projectTasksProp, userName }) {
               onChange={handleChangeFilter}
               className="col-start-2 row-start-1 row-end-3"
             >
-              <div>Statut</div>
+              <select type="select" name="taskStatus">
+                <option value="TODO">A faire</option>
+                <option value="IN_PROGRESS">En cours</option>
+                <option value="DONE">Terminé</option>
+              </select>
               <input
                 name="searchText"
                 placeholder="Rechercher une tâche"
