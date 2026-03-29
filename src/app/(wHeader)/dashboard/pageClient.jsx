@@ -22,7 +22,11 @@ function DashboardClient({ projects, userName }) {
   const { modalState, openModal, closeModal, renderContent } = useModal();
   const [activeTab, setActiveTab] = useState('list');
 
-  const handleSubmit = () => {
+  const handleSubmitCreateProject = () => {
+    closeModal();
+  };
+
+  const handleSubmitSeeAssignedTask = () => {
     closeModal();
   };
 
@@ -44,7 +48,9 @@ function DashboardClient({ projects, userName }) {
           onClick={() =>
             openModal(
               'Créer un projet',
-              <CreateProjectModalContent onSubmitSuccess={handleSubmit} />
+              <CreateProjectModalContent
+                onSubmitSuccess={handleSubmitCreateProject}
+              />
             )
           }
         />
@@ -62,14 +68,14 @@ function DashboardClient({ projects, userName }) {
         <AffectedTasksList
           projects={projects}
           openModal={openModal}
-          handleSubmit={handleSubmit}
+          handleSubmitSeeAssignedTask={handleSubmitSeeAssignedTask}
         />
       )}
       {activeTab === 'kanban' && (
         <AffectedTasksKanban
           projects={projects}
           openModal={openModal}
-          handleSubmit={handleSubmit}
+          handleSubmitSeeAssignedTask={handleSubmitSeeAssignedTask}
         />
       )}
     </div>

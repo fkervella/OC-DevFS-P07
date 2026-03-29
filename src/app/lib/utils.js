@@ -152,11 +152,11 @@ export function getProjectById(projects, projectId) {
   return project || null;
 }
 
-export function organizeProjectsTasksByPriority(tasks) {
+export function organizeProjectsTasksByPriority({ projects, searchText }) {
   const priorityOrder = { HIGH: 1, MEDIUM: 2, LOW: 3 };
   const tasksByPriority = { HIGH: [], MEDIUM: [], LOW: [] };
 
-  tasks.projects.forEach((project) => {
+  projects.forEach((project) => {
     project.tasks.forEach((task) => {
       const priority = task.priority;
       tasksByPriority[priority].push({
@@ -185,7 +185,17 @@ export function organizeProjectsTasksByPriority(tasks) {
       sortedTasks.push(...tasksByPriority[priority]);
     });
 
-  return sortedTasks;
+  if (!searchText) {
+    return sortedTasks;
+  } else {
+    const filteredTasks = sortedTasks.filter(
+      (task) =>
+        task.title.toLowerCase().includes(searchText.toLowerCase()) ||
+        task.description.toLowerCase().includes(searchText.toLowerCase())
+    );
+
+    return filteredTasks;
+  }
 }
 
 export function organizeTasksByPriority(tasks) {
