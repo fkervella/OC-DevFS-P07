@@ -25,11 +25,10 @@ function AffectedTasksList({
   const handleChangeSearchTask = (e) => {
     e.preventDefault();
     const formData = new FormData(e.currentTarget);
+    const text = formData.get('searchText');
     //filtrage des projets par titre et par description
-    setSearchText(formData.get('searchText'));
-    setPrioritizedTasks(
-      organizeProjectsTasksByPriority({ projects, searchText })
-    );
+    setSearchText(text);
+    setPrioritizedTasks(organizeProjectsTasksByPriority({ projects, text }));
   };
 
   return (

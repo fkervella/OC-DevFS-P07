@@ -35,6 +35,7 @@ export function ProjectClient({ projectDataProp, projectTasksProp, userName }) {
   const [projectData, setProjectData] = useState(projectDataProp);
   const [projectTasks, setProjectTasks] = useState(projectTasksProp);
   const [activeTab, setActiveTab] = useState('list');
+  const [, setSearchText] = useState(null);
 
   const handleSubmit = async (formData) => {
     await synchronizeMembers(
@@ -57,6 +58,26 @@ export function ProjectClient({ projectDataProp, projectTasksProp, userName }) {
 
     setProjectTasks(tasksResponse.tasks);
     closeModal();
+  };
+
+  const handleChangeFilter = (e) => {
+    e.preventDefault();
+    const formData = new FormData(e.currentTarget);
+    //filtrage des projets par titre et par description
+    const text = formData.get('searchText');
+    setSearchText(text);
+
+    if (!text) {
+      setProjectTasks(projectTasksProp);
+    } else {
+      const filteredTasks = projectTasksProp.filter(
+        (task) =>
+          task.title.toLowerCase().includes(text.toLowerCase()) ||
+          task.description.toLowerCase().includes(text.toLowerCase())
+      );
+
+      setProjectTasks(filteredTasks);
+    }
   };
 
   if (!projectData) {
@@ -127,8 +148,16 @@ export function ProjectClient({ projectDataProp, projectTasksProp, userName }) {
                 setActiveTab={setActiveTab}
               />
             </div>
-            <div>Statut</div>
-            <div>Rechercher une tâche</div>
+            <form
+              onChange={handleChangeFilter}
+              className="col-start-2 row-start-1 row-end-3"
+            >
+              <div>Statut</div>
+              <input
+                name="searchText"
+                placeholder="Rechercher une tâche"
+              ></input>
+            </form>
           </div>
         </div>
         {activeTab === 'list' && <ProjectTasksList tasks={projectTasks} />}
