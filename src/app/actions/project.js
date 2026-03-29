@@ -65,7 +65,7 @@ export async function getMyProjects() {
  * @returns {task[]} En cas de réussite, tâches du projet passé en paramètre
  */
 
-export async function getProjectTasks({ project }) {
+export async function getProjectTasks(projectId) {
   const token = await getSession();
 
   if (!token) {
@@ -77,7 +77,7 @@ export async function getProjectTasks({ project }) {
 
   try {
     const response = await fetch(
-      `http://localhost:8000/projects/${project.id}/tasks`,
+      `http://localhost:8000/projects/${projectId}/tasks`,
       {
         method: 'GET',
         headers: {

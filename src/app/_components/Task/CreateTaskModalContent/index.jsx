@@ -1,8 +1,10 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useTransition } from 'react';
 
 import LabelInput from '@/app/_components/Common/LabelInput';
+import LabelSelect from '@/app/_components/Common/LabelSelect';
+import { createTask } from '@/app/actions/task';
 
 /**
  * CreateTaskModalContent Composant d'affichage du formulaire de création d'une tâche dans une fenêtre modale
@@ -11,13 +13,17 @@ import LabelInput from '@/app/_components/Common/LabelInput';
  * @returns {string} Code HTML d'affichage du formulaire de création d'une tâche dans une fenêtre modale
  */
 
-function CreateTaskModalContent({ onSubmit }) {
+function CreateTaskModalContent({ onSubmit, projectId }) {
+  const [error, setError] = useState(null);
+  const [isPending, startTransition] = useTransition();
   const [formData, setFormData] = useState({
     title: '',
     description: '',
     dueDate: '',
-    assignedTo: '',
+    members: [],
     state: '',
+    contributors: '',
+    priority: 'LOW',
   });
 
   const handleChange = (e) => {
@@ -25,13 +31,36 @@ function CreateTaskModalContent({ onSubmit }) {
     setFormData({ ...formData, [name]: value });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    onSubmit(formData);
+    startTransition(async () => {
+      try {
+        const form = new FormData(e.currentTarget);
+        form.append('contributors', JSON.stringify(formData.members));
+
+        const createTaskStatus = await createTask(form);
+        if (!createTaskStatus.success) setError(createTaskStatus.error);
+        else {
+          onSubmit(formData);
+        }
+      } catch (error) {
+        setError(
+          error.message ||
+            'Erreur inconnue survenue lors de la création de la tâche'
+        );
+      }
+    });
   };
 
   return (
     <form onSubmit={handleSubmit}>
+      <input name="projectId" type="hidden" value={projectId} />
+      <input
+        name="priority"
+        type="hidden"
+        value={formData.priority}
+        onChange={handleChange}
+      />
       <div className="mb-4">
         <LabelInput
           text="Titre*"
@@ -58,7 +87,7 @@ function CreateTaskModalContent({ onSubmit }) {
         <LabelInput
           text="Echéance*"
           name="dueDate"
-          type="text"
+          type="date"
           placeholder=""
           value={formData.dueDate}
           onChange={handleChange}
@@ -66,25 +95,33 @@ function CreateTaskModalContent({ onSubmit }) {
         />
       </div>
       <div className="mb-4">
-        <LabelInput
+        <LabelSelect
           text="Assigné à :"
-          name="assignedTo"
+          name="members"
           type="text"
-          placeholder=""
-          value={formData.assignedTo}
+          placeholder={`${formData.members.length} contributeurs`}
+          value={formData.members.length}
           onChange={handleChange}
           required
+          defaultValue={formData.members}
+          options={formData.members}
         />
       </div>
       <div className="mb-4">
         <div>Statut</div>
       </div>
+      {error && (
+        <div className="p-4 mb-4 text-red-font bg-light-orange rounded-lg">
+          {error}
+        </div>
+      )}
       <div className="flex justify-end">
         <button
           type="submit"
           className="px-4 py-2 bg-black text-white rounded hover:bg-gray-800 transition-colors"
+          disabled={isPending}
         >
-          + Ajouter une tâche
+          {isPending ? 'Enregistrement ...' : '+ Ajouter une tâche'}
         </button>
       </div>
     </form>

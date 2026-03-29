@@ -27,7 +27,7 @@ async function ProjectServer({ params }) {
   const { projects: myProjects } = projectsResponse;
   const project = myProjects.find((p) => p.id === projectId);
 
-  const tasksResponse = await getProjectTasks({ project });
+  const tasksResponse = await getProjectTasks(project.id);
 
   if (!tasksResponse.success) return tasksResponse;
 
@@ -36,7 +36,7 @@ async function ProjectServer({ params }) {
   return (
     <ProjectClient
       projectDataProp={project}
-      projectTasks={projectTasks}
+      projectTasksProp={projectTasks}
       userName={userData.name}
     />
   );

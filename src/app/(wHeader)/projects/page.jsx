@@ -20,18 +20,21 @@ async function ProjectsServer() {
   // Récupération des données à afficher dans la page des projets de l'utilisateur
   const projectsResponse = await getMyProjects();
 
-  // TODO gestion du pas success de la réponse
+  if (!projectsResponse.success) return projectsResponse;
+
   const { projects } = projectsResponse;
 
   const projectsWithTasks = await Promise.all(
-    projects.map(async (project) => {
-      const projectTasksResponse = await getProjectTasks({ project });
+    projects
+      .filter((project) => project && project.id)
+      .map(async (project) => {
+        const projectTasksResponse = await getProjectTasks(project.id);
 
-      if (projectTasksResponse.success) {
+        if (!projectTasksResponse.success) return projectTasksResponse;
+
         const { tasks: tasks } = projectTasksResponse;
         return { ...project, tasks };
-      }
-    })
+      })
   );
 
   return (
