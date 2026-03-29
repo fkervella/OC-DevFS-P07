@@ -8,6 +8,7 @@ import PageTitle from '@/app/_components/Common/PageTitle';
 import ModalLayout from '@/app/_components/Modal/ModalLayout';
 import CreateProjectModalContent from '@/app/_components/Project/CreateProjectModalContent';
 import ProjectCard from '@/app/_components/Project/ProjectCard';
+import { getMyProjects } from '@/app/actions/project';
 import useModal from '@/hooks/useModal';
 
 /**
@@ -17,13 +18,15 @@ import useModal from '@/hooks/useModal';
  * @returns {string} Code HTML pour l'affichage des projets auxquels l'utilisateur participe
  */
 
-function ProjectsClient({ projects }) {
+function ProjectsClient({ projectsProp }) {
   const { modalState, openModal, closeModal } = useModal();
 
-  const [updatedProjects, setUpdatedProjects] = useState([]);
+  const [projects, setProjects] = useState(projectsProp);
 
-  const handleSubmit = (formData) => {
-    setUpdatedProjects([...updatedProjects, formData]);
+  const handleSubmit = async () => {
+    const newProjects = await getMyProjects();
+
+    if (newProjects.success) setProjects(newProjects.projects);
     closeModal();
   };
 

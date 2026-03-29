@@ -150,7 +150,7 @@ export async function createProject(formData) {
     );
 
     const contributors = [];
-    for (const [memberData] of membersMap) {
+    for (const [, memberData] of membersMap) {
       contributors.push(memberData.email);
     }
 

@@ -35,7 +35,7 @@ async function ProjectsServer() {
   );
 
   return (
-    <ProjectsClient projects={projectsWithTasks} userName={userData.name} />
+    <ProjectsClient projectsProp={projectsWithTasks} userName={userData.name} />
   );
 }
 
