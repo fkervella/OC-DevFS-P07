@@ -42,9 +42,10 @@ function DashboardClient({ projects, userName }) {
         <BlackButton
           text="+ Créer un projet"
           onClick={() =>
-            openModal('Créer un projet', () => (
+            openModal(
+              'Créer un projet',
               <CreateProjectModalContent onSubmitSuccess={handleSubmit} />
-            ))
+            )
           }
         />
         {/* Modale générique */}

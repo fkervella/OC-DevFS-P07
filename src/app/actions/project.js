@@ -112,7 +112,8 @@ export async function createProject(formData) {
   const token = await getSession();
   const name = formData.get('title');
   const description = formData.get('description');
-  const contributors = formData.get('contributors');
+  const membersRaw = formData.get('contributors');
+  const members = membersRaw ? JSON.parse(membersRaw) : [];
 
   if (!token) {
     return {
@@ -122,12 +123,12 @@ export async function createProject(formData) {
   }
 
   try {
-    const projectsResponse = getMyProjects();
+    const projectsResponse = await getMyProjects();
     if (!projectsResponse.success) return projectsResponse;
 
     const { projects: myProjects } = projectsResponse;
 
-    const existingProject = myProjects.projects.find(
+    const existingProject = myProjects.find(
       (project) => project.name === name && project.description === description
     );
 
@@ -136,6 +137,21 @@ export async function createProject(formData) {
         success: false,
         error: 'Un projet avec le même nom et la même description existe déjà',
       };
+    }
+
+    const normalizedMembers = Array.isArray(members)
+      ? members
+      : members
+        ? [members]
+        : [];
+
+    const membersMap = new Map(
+      normalizedMembers.map((member) => [String(member.value), member])
+    );
+
+    const contributors = [];
+    for (const [memberData] of membersMap) {
+      contributors.push(memberData.email);
     }
 
     const response = await fetch('http://localhost:8000/projects', {

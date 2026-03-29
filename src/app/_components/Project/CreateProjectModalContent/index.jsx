@@ -3,6 +3,7 @@
 import { useState, useTransition } from 'react';
 
 import LabelInput from '@/app/_components/Common/LabelInput';
+import LabelSelect from '@/app/_components/Common/LabelSelect';
 import { createProject } from '@/app/actions/project';
 
 /**
@@ -16,7 +17,7 @@ function CreateProjectModalContent({ onSubmitSuccess }) {
   const [formData, setFormData] = useState({
     title: '',
     description: '',
-    contributors: '',
+    members: [],
   });
 
   const [error, setError] = useState(null);
@@ -32,6 +33,7 @@ function CreateProjectModalContent({ onSubmitSuccess }) {
     startTransition(async () => {
       try {
         const form = new FormData(e.currentTarget);
+        form.append('contributors', JSON.stringify(formData.members));
         const createProjectStatus = await createProject(form);
 
         if (!createProjectStatus.success) setError(createProjectStatus.error);
@@ -72,14 +74,16 @@ function CreateProjectModalContent({ onSubmitSuccess }) {
         />
       </div>
       <div className="mb-4">
-        <LabelInput
+        <LabelSelect
           text="Contributeurs :"
-          name="contributors"
+          name="members"
           type="text"
-          placeholder=""
-          value={formData.contributors}
+          placeholder={`${formData.members.length} contributeurs`}
+          value={formData.members.length}
           onChange={handleChange}
           required
+          defaultValue={formData.members}
+          options={formData.members}
         />
       </div>
       {error && (

@@ -20,6 +20,7 @@ function ModifyProjectModalContent({ onSubmit, project }) {
   const initialMembers = (project?.members || []).map((m) => ({
     value: m.user.id,
     label: m.user.name,
+    email: m.user.email,
   }));
 
   const [formData, setFormData] = useState({

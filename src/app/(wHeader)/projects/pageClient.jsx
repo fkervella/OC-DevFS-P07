@@ -41,7 +41,7 @@ function ProjectsClient({ projects }) {
           onClick={() =>
             openModal(
               'Créer un projet',
-              <CreateProjectModalContent onSubmit={handleSubmit} />
+              <CreateProjectModalContent onSubmitSuccess={handleSubmit} />
             )
           }
         />
