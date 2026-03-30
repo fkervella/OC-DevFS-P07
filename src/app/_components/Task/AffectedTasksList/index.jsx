@@ -18,9 +18,10 @@ function AffectedTasksList({
   handleSubmitSeeAssignedTask,
 }) {
   const [searchText, setSearchText] = useState(null);
-  const [prioritizedTasks, setPrioritizedTasks] = useState(
-    organizeProjectsTasksByPriority({ projects, searchText })
-  );
+  const prioritizedTasks = organizeProjectsTasksByPriority({
+    projects,
+    searchText,
+  });
 
   const handleChangeSearchTask = (e) => {
     e.preventDefault();
@@ -28,7 +29,6 @@ function AffectedTasksList({
     const text = formData.get('searchText');
     //filtrage des projets par titre et par description
     setSearchText(text);
-    setPrioritizedTasks(organizeProjectsTasksByPriority({ projects, text }));
   };
 
   return (
