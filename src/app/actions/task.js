@@ -9,6 +9,7 @@ export async function createTask(formData) {
   const description = formData.get('description');
   const priority = formData.get('priority');
   const dueDate = formData.get('dueDate');
+  const state = formData.get('state');
   const projectId = formData.get('projectId');
   const assigneesIdsRaw = formData.get('contributors');
   const contributors = assigneesIdsRaw ? JSON.parse(assigneesIdsRaw) : [];
@@ -52,6 +53,7 @@ export async function createTask(formData) {
           title,
           description,
           priority,
+          status: state,
           dueDate: formatedDueDate,
           assigneeIds,
         }),

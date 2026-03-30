@@ -4,6 +4,7 @@ import { useState, useTransition } from 'react';
 
 import LabelInput from '@/app/_components/Common/LabelInput';
 import LabelSelect from '@/app/_components/Common/LabelSelect';
+import TaskStatus from '@/app/_components/Task/TaskStatus';
 import { createTask } from '@/app/actions/task';
 
 /**
@@ -25,6 +26,9 @@ function CreateTaskModalContent({ onSubmit, projectId }) {
     contributors: '',
     priority: 'LOW',
   });
+
+  const [selectedStatus, setSelectedStatus] = useState('TODO');
+  const statusOptions = ['TODO', 'IN_PROGRESS', 'DONE'];
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -52,15 +56,19 @@ function CreateTaskModalContent({ onSubmit, projectId }) {
     });
   };
 
+  const handleStatusChange = (status) => {
+    setFormData((prev) => ({
+      ...prev,
+      state: status,
+    }));
+    setSelectedStatus(status);
+  };
+
   return (
     <form onSubmit={handleSubmit}>
       <input name="projectId" type="hidden" value={projectId} />
-      <input
-        name="priority"
-        type="hidden"
-        value={formData.priority}
-        onChange={handleChange}
-      />
+      <input name="priority" type="hidden" value="LOW" />
+      <input name="state" type="hidden" value={formData.state} />
       <div className="mb-4">
         <LabelInput
           text="Titre*"
@@ -108,7 +116,21 @@ function CreateTaskModalContent({ onSubmit, projectId }) {
         />
       </div>
       <div className="mb-4">
-        <div>Statut</div>
+        <div>Statut :</div>
+        <div className="flex flex-row gap-2">
+          {statusOptions.map((status) => (
+            <button
+              key={status}
+              type="button"
+              onClick={() => handleStatusChange(status)}
+            >
+              <TaskStatus
+                status={status}
+                selected={selectedStatus === status ? true : false}
+              />
+            </button>
+          ))}
+        </div>
       </div>
       {error && (
         <div className="p-4 mb-4 text-red-font bg-light-orange rounded-lg">
