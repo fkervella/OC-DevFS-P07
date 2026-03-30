@@ -1,10 +1,12 @@
+import Image from 'next/image';
+
 import CardDescription from '@/app/_components/Common/CardDescription';
 import CardTitle from '@/app/_components/Common/CardTitle';
 import Date from '@/app/_components/Common/Date';
-import DetailsButton from '@/app/_components/Common/DetailsButton';
 import ExpandButton from '@/app/_components/Common/ExpandButton';
 import UserAvatar from '@/app/_components/Common/UserAvatar';
 import Comments from '@/app/_components/Task/Comments';
+import ModifyTaskModalContent from '@/app/_components/Task/ModifyTaskModalContent';
 import TaskStatus from '@/app/_components/Task/TaskStatus';
 
 /**
@@ -14,7 +16,7 @@ import TaskStatus from '@/app/_components/Task/TaskStatus';
  * @returns {string} Code HTML d'afficahge des données d'une tâche
  */
 
-function ProjectTaskCard({ task }) {
+function ProjectTaskCard({ task, openModal, handleSubmitModifyTask }) {
   return (
     <div className="flex flex-col gap-2">
       <div className="flex flex-col bg-white border border-solid border-grey-background rounded-lg pt-8 pr-10 pb-8 pl-10 justify-between">
@@ -44,7 +46,28 @@ function ProjectTaskCard({ task }) {
               ))}
             </div>
           </div>
-          <DetailsButton page="/TODOprojects" />
+          <button
+            href="#"
+            onClick={() =>
+              openModal(
+                'Modifier',
+                <ModifyTaskModalContent
+                  task={task}
+                  onSubmit={handleSubmitModifyTask}
+                />
+              )
+            }
+          >
+            <div className="border border-solid border-grey-background bg-white rounded-lg w-14.25 h-14.25 flex justify-center items-center">
+              <Image
+                src="/3DotsGreyIcon.png"
+                alt="Bouton retour"
+                width={16}
+                height={8}
+                className="w-auto h-auto"
+              />
+            </div>
+          </button>
         </div>
         <div className="w-full border-t border-grey-background my-8"></div>
         <div className="flex flex-row gap-2 justify-between">

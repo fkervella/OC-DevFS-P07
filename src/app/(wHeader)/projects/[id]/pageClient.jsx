@@ -33,8 +33,48 @@ import useModal from '@/hooks/useModal';
 export function ProjectClient({ projectDataProp, projectTasksProp, userName }) {
   const { modalState, openModal, closeModal } = useModal();
   const [projectData, setProjectData] = useState(projectDataProp);
-  const [projectTasks, setProjectTasks] = useState(projectTasksProp);
   const [activeTab, setActiveTab] = useState('list');
+
+  const [allTasks, setAllTasks] = useState(projectTasksProp);
+  const [filters, setFilters] = useState({
+    text: '',
+    status: '',
+  });
+
+  const filterTasks = (tasks, { text, status }) => {
+    let filtered = tasks;
+
+    if (text) {
+      filtered = filtered.filter(
+        (task) =>
+          task.title.toLowerCase().includes(text.toLowerCase()) ||
+          task.description.toLowerCase().includes(text.toLowerCase())
+      );
+    }
+
+    if (status) {
+      filtered = filtered.filter((task) =>
+        task.status.toLowerCase().includes(status.toLowerCase())
+      );
+    }
+
+    return filtered;
+  };
+
+  const projectTasks = filterTasks(allTasks, filters);
+
+  const refreshProject = async () => {
+    const [project, tasksResponse] = await Promise.all([
+      getProjectData(projectData.id),
+      getProjectTasks(projectData.id),
+    ]);
+
+    setProjectData(project);
+
+    if (tasksResponse.success) {
+      setAllTasks(tasksResponse.tasks); // ⚡ filtre conservé automatiquement
+    }
+  };
 
   const handleSubmit = async (formData) => {
     await synchronizeMembers(
@@ -50,47 +90,24 @@ export function ProjectClient({ projectDataProp, projectTasksProp, userName }) {
     closeModal();
   };
 
+  const handleSubmitModifyTask = async () => {
+    await refreshProject();
+    closeModal();
+  };
+
   const handleSubmitNewTask = async () => {
-    const tasksResponse = await getProjectTasks(projectData.id);
-
-    if (!tasksResponse.success) return tasksResponse;
-
-    setProjectTasks(tasksResponse.tasks);
+    await refreshProject();
     closeModal();
   };
 
   const handleChangeFilter = (e) => {
     e.preventDefault();
     const formData = new FormData(e.currentTarget);
-    //filtrage des projets par titre et par description
-    const text = formData.get('searchText');
-    const taskStatus = formData.get('taskStatus');
 
-    if (!text && !taskStatus) {
-      setProjectTasks(projectTasksProp);
-    } else {
-      let textFilteredTasks;
-
-      if (text) {
-        textFilteredTasks = projectTasksProp.filter(
-          (task) =>
-            task.title.toLowerCase().includes(text.toLowerCase()) ||
-            task.description.toLowerCase().includes(text.toLowerCase())
-        );
-
-        setProjectTasks(textFilteredTasks);
-      }
-
-      if (taskStatus) {
-        const inputTasks = text ? textFilteredTasks : projectTasksProp;
-
-        const statusFilteredTasks = inputTasks.filter((task) =>
-          task.status.toLowerCase().includes(taskStatus.toLowerCase())
-        );
-
-        setProjectTasks(statusFilteredTasks);
-      }
-    }
+    setFilters({
+      text: formData.get('searchText') || '',
+      status: formData.get('taskStatus') || '',
+    });
   };
 
   if (!projectData) {
@@ -177,7 +194,13 @@ export function ProjectClient({ projectDataProp, projectTasksProp, userName }) {
             </form>
           </div>
         </div>
-        {activeTab === 'list' && <ProjectTasksList tasks={projectTasks} />}
+        {activeTab === 'list' && (
+          <ProjectTasksList
+            tasks={projectTasks}
+            openModal={openModal}
+            handleSubmitModifyTask={handleSubmitModifyTask}
+          />
+        )}
         {activeTab === 'calendar' && (
           <ProjectTasksCalendar tasks={projectTasks} />
         )}
