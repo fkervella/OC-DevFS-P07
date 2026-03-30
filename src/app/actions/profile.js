@@ -202,3 +202,35 @@ export async function getUserByName(inputValue) {
     };
   }
 }
+
+export async function registerUser(formData) {
+  const name = formData.get('username');
+  const email = formData.get('email');
+  const password = formData.get('password');
+
+  try {
+    const response = await fetch('http://localhost:8000/auth/register', {
+      method: 'POST',
+      headers: {
+        'content-type': 'application/json',
+      },
+      body: JSON.stringify({ name, email, password }),
+    });
+
+    const registeredUser = await response.json();
+
+    if (!response.ok) {
+      return {
+        success: false,
+        error: `${registeredUser.error} ${registeredUser.message}`,
+      };
+    }
+
+    return { success: true };
+  } catch (error) {
+    return {
+      success: false,
+      error: `Erreur lors de la mise à jour du profil utilisateur : ${error.message}`,
+    };
+  }
+}
