@@ -1,4 +1,5 @@
 import Image from 'next/image';
+import { useState } from 'react';
 
 import CardDescription from '@/app/_components/Common/CardDescription';
 import CardTitle from '@/app/_components/Common/CardTitle';
@@ -17,6 +18,14 @@ import TaskStatus from '@/app/_components/Task/TaskStatus';
  */
 
 function ProjectTaskCard({ task, openModal, handleSubmitModifyTask }) {
+  const [isVisibleComment, setIsVisibleComment] = useState(false);
+  const [buttonRotation, setButtonRotation] = useState(false);
+
+  const handleSubmitCommentsVisibility = () => {
+    setIsVisibleComment(!isVisibleComment);
+    setButtonRotation(!buttonRotation);
+  };
+
   return (
     <div className="flex flex-col gap-2">
       <div className="flex flex-col bg-white border border-solid border-grey-background rounded-lg pt-8 pr-10 pb-8 pl-10 justify-between">
@@ -32,7 +41,7 @@ function ProjectTaskCard({ task, openModal, handleSubmitModifyTask }) {
             <div className="mt-2 mb-2">
               <Date date={task.dueDate} />
             </div>
-            <div className="flex flex-row gap-2 h-fit">
+            <div className="flex flex-row gap-2 h-fit items-center">
               <div className="text-grey-font text-inter text-xs font-normal">
                 Assigné à :{' '}
               </div>
@@ -46,33 +55,43 @@ function ProjectTaskCard({ task, openModal, handleSubmitModifyTask }) {
               ))}
             </div>
           </div>
-          <button
-            href="#"
-            onClick={() =>
-              openModal(
-                'Modifier',
-                <ModifyTaskModalContent
-                  task={task}
-                  onSubmit={handleSubmitModifyTask}
+          <div className="items-start">
+            <button
+              href="#"
+              onClick={() =>
+                openModal(
+                  'Modifier',
+                  <ModifyTaskModalContent
+                    task={task}
+                    onSubmit={handleSubmitModifyTask}
+                  />
+                )
+              }
+            >
+              <div className="border border-solid border-grey-background bg-white rounded-lg w-14.25 h-14.25 flex justify-center items-center">
+                <Image
+                  src="/3DotsGreyIcon.png"
+                  alt="Bouton retour"
+                  width={16}
+                  height={8}
+                  className="w-auto h-auto"
                 />
-              )
-            }
-          >
-            <div className="border border-solid border-grey-background bg-white rounded-lg w-14.25 h-14.25 flex justify-center items-center">
-              <Image
-                src="/3DotsGreyIcon.png"
-                alt="Bouton retour"
-                width={16}
-                height={8}
-                className="w-auto h-auto"
-              />
-            </div>
-          </button>
+              </div>
+            </button>
+          </div>
         </div>
         <div className="w-full border-t border-grey-background my-8"></div>
         <div className="flex flex-row gap-2 justify-between">
-          <Comments number={task.comments.length} />
-          <ExpandButton page="/TODOprojects" />
+          <Comments
+            comments={task.comments}
+            isVisibleComment={isVisibleComment}
+          />
+          <div className="items-start">
+            <ExpandButton
+              handleSubmit={handleSubmitCommentsVisibility}
+              rotation={buttonRotation}
+            />
+          </div>
         </div>
       </div>
     </div>

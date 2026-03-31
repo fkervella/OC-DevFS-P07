@@ -1,5 +1,4 @@
 import Image from 'next/image';
-import Link from 'next/link';
 
 /**
  * ExpandButton affiche le bouton d'expansion d'informations
@@ -8,9 +7,14 @@ import Link from 'next/link';
  * @returns {string} Code HTML du boutn à afficher
  */
 
-function ExpandButton({ page }) {
+function ExpandButton({ handleSubmit, rotation }) {
+  const rotate = rotation ? 'rotate-0' : 'rotate-180';
+
   return (
-    <Link href={page} className="bg-white">
+    <button
+      className={`bg-white w-14.25 justify-center flex ${rotate}`}
+      onClick={handleSubmit}
+    >
       <Image
         src="/tickBlackIcon.png"
         alt="Bouton retour"
@@ -18,7 +22,7 @@ function ExpandButton({ page }) {
         height={9}
         className="rotate-180"
       />
-    </Link>
+    </button>
   );
 }
 
