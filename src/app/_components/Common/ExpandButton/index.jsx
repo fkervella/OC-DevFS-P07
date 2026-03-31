@@ -18,9 +18,9 @@ function ExpandButton({ handleSubmit, rotation }) {
       <Image
         src="/tickBlackIcon.png"
         alt="Bouton retour"
-        width={20}
-        height={9}
-        className="rotate-180"
+        width={17}
+        height={10}
+        className="self-start h-3 w-auto"
       />
     </button>
   );

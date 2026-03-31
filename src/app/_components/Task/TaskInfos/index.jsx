@@ -15,13 +15,12 @@ import { formatDateFR } from '@/app/lib/utils';
 function TaskInfos({ className, task = [], projectName = '' }) {
   return (
     <div className={className}>
-      <div className="flex flex-row gap-2">
+      <div className="flex flex-row gap-2 items-center">
         <Image
           src="/projectsGreyIcon.png"
           alt="Logo Abricot orange"
           width={18}
           height={14}
-          className="self-start h-3.5 w-4.5"
         />
         <div className="font-inter font-normal text-xs text-grey-font">
           {projectName}
@@ -30,8 +29,8 @@ function TaskInfos({ className, task = [], projectName = '' }) {
         <Image
           src="/kanbanGreyIcon.png"
           alt="Logo Abricot orange"
-          width={16}
-          height={18}
+          width={18}
+          height={15}
         />
         <div className="font-inter font-normal text-xs text-grey-font">
           {formatDateFR(task.dueDate)}
@@ -42,7 +41,6 @@ function TaskInfos({ className, task = [], projectName = '' }) {
           alt="Logo Abricot orange"
           width={15}
           height={15}
-          className="self-start h-3.75 w-3.75"
         />
         <div className="font-inter font-normal text-xs text-grey-font">
           {task?.comments?.length}

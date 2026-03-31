@@ -31,8 +31,9 @@ function ListeCalendarSelector({ activeTab, setActiveTab }) {
         <Image
           src="/tasksOrangeIcon.png"
           alt="image tâche"
-          width={16}
-          height={16}
+          width={17}
+          height={15}
+          className="self-start h-5 w-auto"
         />
         <div className="text-sm font-normal text-orange">Liste</div>
       </li>
@@ -43,8 +44,9 @@ function ListeCalendarSelector({ activeTab, setActiveTab }) {
         <Image
           src="/kanbanOrangeIcon.png"
           alt="image kanban"
-          width={16}
-          height={16}
+          width={17}
+          height={15}
+          className="self-start h-5 w-auto"
         />
         <div className="text-sm font-normal text-orange">Calendrier</div>
       </li>
