@@ -1,6 +1,8 @@
 'use client';
 
+import Image from 'next/image';
 import { useState } from 'react';
+import Select from 'react-select';
 
 import BlackButton from '@/app/_components/Common/BlackButton';
 import LeftArrowButton from '@/app/_components/Common/LeftArrowButton';
@@ -30,7 +32,12 @@ import useModal from '@/hooks/useModal';
  * @returns {string} Code HTML d'affichage des données d'un projet
  */
 
-export function ProjectClient({ projectDataProp, projectTasksProp, userName }) {
+export function ProjectClient({
+  projectDataProp,
+  projectTasksProp,
+  userName,
+  isProjectAdministrator,
+}) {
   const { modalState, openModal, closeModal } = useModal();
   const [projectData, setProjectData] = useState(projectDataProp);
   const [activeTab, setActiveTab] = useState('list');
@@ -40,6 +47,13 @@ export function ProjectClient({ projectDataProp, projectTasksProp, userName }) {
     text: '',
     status: '',
   });
+
+  const selectOptions = [
+    { value: 'NONE', label: 'Tous' },
+    { value: 'TODO', label: 'A faire' },
+    { value: 'IN_PROGRESS', label: 'En cours' },
+    { value: 'DONE', label: 'Terminé' },
+  ];
 
   const filterTasks = (tasks, { text, status }) => {
     let filtered = tasks;
@@ -52,7 +66,7 @@ export function ProjectClient({ projectDataProp, projectTasksProp, userName }) {
       );
     }
 
-    if (status) {
+    if (status && status !== 'NONE') {
       filtered = filtered.filter((task) =>
         task.status.toLowerCase().includes(status.toLowerCase())
       );
@@ -100,14 +114,21 @@ export function ProjectClient({ projectDataProp, projectTasksProp, userName }) {
     closeModal();
   };
 
+  const handleStatusChange = (selectedOption) => {
+    setFilters((prev) => ({
+      ...prev,
+      status: selectedOption ? selectedOption.value : '',
+    }));
+  };
+
   const handleChangeFilter = (e) => {
     e.preventDefault();
     const formData = new FormData(e.currentTarget);
 
-    setFilters({
+    setFilters((prev) => ({
+      ...prev,
       text: formData.get('searchText') || '',
-      status: formData.get('taskStatus') || '',
-    });
+    }));
   };
 
   if (!projectData) {
@@ -121,21 +142,23 @@ export function ProjectClient({ projectDataProp, projectTasksProp, userName }) {
         <div className="flex flex-col gap-2">
           <div className="flex flex-row gap-2 items-center">
             <PageTitle title={projectData.name} />
-            <a
-              href="#"
-              onClick={() =>
-                openModal(
-                  'Modifier un projet',
-                  <ModifyProjectModalContent
-                    onSubmit={handleSubmit}
-                    project={projectData}
-                  />
-                )
-              }
-              className="underline text-orange font-inter"
-            >
-              Modifier
-            </a>
+            {isProjectAdministrator && (
+              <a
+                href="#"
+                onClick={() =>
+                  openModal(
+                    'Modifier un projet',
+                    <ModifyProjectModalContent
+                      onSubmit={handleSubmit}
+                      project={projectData}
+                    />
+                  )
+                }
+                className="underline text-orange font-inter"
+              >
+                Modifier
+              </a>
+            )}
           </div>
           <PageSubtitle subtitle={projectData.description} />
         </div>
@@ -161,8 +184,8 @@ export function ProjectClient({ projectDataProp, projectTasksProp, userName }) {
         </ModalLayout>
       </div>
       <Contributors members={projectData.members} owner={userName} />
-      <div className="flex flex-col gap-4 bg-white pt-10 pr-10 pb-10 pl-10 border border-solid border-grey-background rounded-lg ">
-        <div className="flex flex-row gap-2 justify-between">
+      <div className="flex flex-col gap-4 bg-white pt-10 pr-10 pb-10 pl-10 border border-solid border-grey-background rounded-lg content-center">
+        <div className="flex flex-row gap-2 justify-between items-center">
           <div className="flex flex-col">
             <div className="text-lg text-black-font font-semibold font-manrope col-start-1 row-start-1">
               Tâches
@@ -171,7 +194,7 @@ export function ProjectClient({ projectDataProp, projectTasksProp, userName }) {
               Par ordre de priorité
             </div>
           </div>
-          <div className="flex flex-row gap-2">
+          <div className="flex flex-row gap-4">
             <div className="flex flex-row">
               <ListeCalendarSelector
                 activeTab={activeTab}
@@ -180,17 +203,44 @@ export function ProjectClient({ projectDataProp, projectTasksProp, userName }) {
             </div>
             <form
               onChange={handleChangeFilter}
-              className="col-start-2 row-start-1 row-end-3"
+              className="col-start-2 row-start-1 row-end-3 flex flex-row gap-4"
             >
-              <select type="select" name="taskStatus">
-                <option value="TODO">A faire</option>
-                <option value="IN_PROGRESS">En cours</option>
-                <option value="DONE">Terminé</option>
-              </select>
-              <input
-                name="searchText"
-                placeholder="Rechercher une tâche"
-              ></input>
+              <Select
+                options={selectOptions}
+                placeholder="Statut"
+                value={
+                  selectOptions.find((opt) => opt.value === filters.status) ||
+                  null
+                }
+                onChange={handleStatusChange}
+                styles={{
+                  control: (base) => ({
+                    ...base,
+                    borderColor: '#E5E7EB',
+                    borderWidth: '1px',
+                    borderRadius: '0.5rem',
+                    padding: '0',
+                    paddingTop: '3px',
+                    paddingRight: '10px',
+                    paddingBottom: '3px',
+                    paddingLeft: '10px',
+                    indicatorSeparator: 'none',
+                  }),
+                }}
+              />
+              <div className="pt-2 pr-10 pb-2 pl-10 border-2 border-grey-background rounded-lg items-center flex flex-row gap-2">
+                <input
+                  name="searchText"
+                  placeholder="Rechercher une tâche"
+                  className="font-inter"
+                />
+                <Image
+                  src="/search.png"
+                  alt="Icône recherche"
+                  width={14}
+                  height={14}
+                />
+              </div>
             </form>
           </div>
         </div>
