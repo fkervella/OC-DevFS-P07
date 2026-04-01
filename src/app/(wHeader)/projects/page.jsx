@@ -1,3 +1,5 @@
+import { redirect } from 'next/navigation';
+
 import { getMyProjects, getProjectTasks } from '@/app/actions/project.js';
 import { getUserData, verifySession } from '@/app/lib/dal';
 
@@ -13,6 +15,8 @@ import ProjectsClient from './pageClient';
 async function ProjectsServer() {
   // Vérification que la session active est valable
   const session = await verifySession();
+
+  if (!session) redirect('/login');
 
   // Récupération des données de l'utilisateur
   const userData = await getUserData(session.userId);

@@ -1,3 +1,5 @@
+import { redirect } from 'next/navigation';
+
 import { getMyProjects, getProjectTasks } from '@/app/actions/project';
 import { getUserData, verifySession } from '@/app/lib/dal';
 
@@ -15,6 +17,8 @@ async function ProjectServer({ params }) {
   // Vérification que la session active est valable
   const session = await verifySession();
 
+  if (!session) redirect('/login');
+
   // Récupération des données de l'utilisateur
   const userData = await getUserData(session.userId);
 
@@ -26,6 +30,11 @@ async function ProjectServer({ params }) {
 
   const { projects: myProjects } = projectsResponse;
   const project = myProjects.find((p) => p.id === projectId);
+  const isProjectAdministrator = project.userRole === 'ADMIN' ? true : false;
+
+  //TODO rediriger vers une page d'erreur
+  if (!project)
+    return "L'utilisateur ne fait pas partie des contributeurs du projet.";
 
   const tasksResponse = await getProjectTasks(project.id);
 
@@ -38,6 +47,7 @@ async function ProjectServer({ params }) {
       projectDataProp={project}
       projectTasksProp={projectTasks}
       userName={userData.name}
+      isProjectAdministrator={isProjectAdministrator}
     />
   );
 }

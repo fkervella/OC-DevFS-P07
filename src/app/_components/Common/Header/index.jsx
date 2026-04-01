@@ -1,3 +1,5 @@
+import { redirect } from 'next/navigation';
+
 import { getSession } from '@/app/lib/session';
 
 import HeaderClient from './HeaderClient';
@@ -11,6 +13,8 @@ import HeaderClient from './HeaderClient';
 
 async function HeaderServer() {
   const token = await getSession();
+
+  if (!token) redirect('/login');
 
   const userName = token ? token.user.name : '';
 
