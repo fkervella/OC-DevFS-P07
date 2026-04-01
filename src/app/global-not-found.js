@@ -2,6 +2,7 @@
 //import './globals.css'
 
 import { Inter } from 'next/font/google';
+import Link from 'next/link';
 
 /**
  * Description placeholder
@@ -28,12 +29,12 @@ export const metadata = {
  */
 
 export default function GlobalNotFound() {
-  //TODO
+  //TODO mise en forme
   return (
     <html lang="fr" className={inter.className}>
       <body>
-        <h1>404 - page not found</h1>
-        <p>This page does not exist.</p>
+        <h1>Erreur 404 : la page demandée n est pas trouvée</h1>
+        <Link href="/dashboard">Vous pouvez aller à votre tableau de bord</Link>
       </body>
     </html>
   );
