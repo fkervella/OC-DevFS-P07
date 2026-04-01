@@ -18,8 +18,8 @@ function Date({ date }) {
       <Image
         src="/kanbanGreyIcon.png"
         alt="calendrier"
-        width={15}
-        height={17}
+        width={18}
+        height={15}
       />
       <div className="text-black text-inter text-xs font-normal">
         {formatDateFR(date)}
