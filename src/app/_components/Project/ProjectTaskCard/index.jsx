@@ -17,7 +17,13 @@ import TaskStatus from '@/app/_components/Task/TaskStatus';
  * @returns {string} Code HTML d'afficahge des données d'une tâche
  */
 
-function ProjectTaskCard({ task, openModal, handleSubmitModifyTask }) {
+function ProjectTaskCard({
+  task,
+  openModal,
+  handleSubmitModifyTask,
+  username,
+  projectId,
+}) {
   const [isVisibleComment, setIsVisibleComment] = useState(false);
   const [buttonRotation, setButtonRotation] = useState(false);
 
@@ -85,6 +91,10 @@ function ProjectTaskCard({ task, openModal, handleSubmitModifyTask }) {
           <Comments
             comments={task.comments}
             isVisibleComment={isVisibleComment}
+            username={username}
+            projectId={projectId}
+            taskId={task.id}
+            refreshData={handleSubmitModifyTask}
           />
           <div className="items-start">
             <ExpandButton

@@ -137,10 +137,10 @@ export function ProjectClient({
 
   return (
     <div className="flex flex-col gap-4 mt-4 pt-10 pr-30 pb-10 pl-30 bg-background">
-      <div className="flex flex-row gap-2 justify-between">
+      <div className="flex flex-col lg:flex-row gap-2 justify-between">
         <LeftArrowButton page="/projects" />
         <div className="flex flex-col gap-2">
-          <div className="flex flex-row gap-2 items-center">
+          <div className="flex flex-col lg:flex-row gap-2 items-start lg:items-center">
             <PageTitle title={projectData.name} />
             {isProjectAdministrator && (
               <a
@@ -185,16 +185,16 @@ export function ProjectClient({
       </div>
       <Contributors members={projectData.members} owner={userName} />
       <div className="flex flex-col gap-4 bg-white pt-10 pr-10 pb-10 pl-10 border border-solid border-grey-background rounded-lg content-center">
-        <div className="flex flex-row gap-2 justify-between items-center">
+        <div className="flex flex-col lg:flex-row gap-2 justify-between items-start lg:items-center">
           <div className="flex flex-col">
-            <div className="text-lg text-black-font font-semibold font-manrope col-start-1 row-start-1">
+            <div className="text-lg text-black-font font-semibold font-manrope ">
               Tâches
             </div>
-            <div className="text-base text-grey-font font-normal font-inter col-start-1 row-start-2">
+            <div className="text-base text-grey-font font-normal font-inter ">
               Par ordre de priorité
             </div>
           </div>
-          <div className="flex flex-row gap-4">
+          <div className="flex flex-col lg:flex-row gap-4">
             <div className="flex flex-row">
               <ListeCalendarSelector
                 activeTab={activeTab}
@@ -203,7 +203,7 @@ export function ProjectClient({
             </div>
             <form
               onChange={handleChangeFilter}
-              className="col-start-2 row-start-1 row-end-3 flex flex-row gap-4"
+              className="flex flex-col lg:flex-row gap-4"
             >
               <Select
                 options={selectOptions}
@@ -249,6 +249,8 @@ export function ProjectClient({
             tasks={projectTasks}
             openModal={openModal}
             handleSubmitModifyTask={handleSubmitModifyTask}
+            username={userName}
+            projectId={projectData.id}
           />
         )}
         {activeTab === 'calendar' && (

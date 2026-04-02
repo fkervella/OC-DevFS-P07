@@ -8,7 +8,13 @@ import { organizeTasksByPriority } from '@/app/lib/utils';
  * @returns {string} Code HTML d'affichage sous forme de liste des tâches d'un projet
  */
 
-function ProjectTasksList({ tasks, openModal, handleSubmitModifyTask }) {
+function ProjectTasksList({
+  tasks,
+  openModal,
+  handleSubmitModifyTask,
+  username,
+  projectId,
+}) {
   const prioritizedTasks = organizeTasksByPriority({ tasks });
 
   return (
@@ -19,6 +25,8 @@ function ProjectTasksList({ tasks, openModal, handleSubmitModifyTask }) {
           task={task}
           openModal={openModal}
           handleSubmitModifyTask={handleSubmitModifyTask}
+          username={username}
+          projectId={projectId}
         />
       ))}
     </div>
