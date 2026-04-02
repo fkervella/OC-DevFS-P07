@@ -20,6 +20,7 @@ async function ProjectsServer() {
 
   // Récupération des données de l'utilisateur
   const userData = await getUserData(session.userId);
+  if (!userData) return 'Echec de la récupération des informations utilisateur';
 
   // Récupération des données à afficher dans la page des projets de l'utilisateur
   const projectsResponse = await getMyProjects();

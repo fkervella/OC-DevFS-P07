@@ -16,6 +16,9 @@ async function ProfileServer() {
   // Récupération des données de l'utilisateur
   const userData = await getUserData(session.userId);
 
+  if (!userData.success)
+    return "Echec de la récupération des données de l'utilisateur";
+
   return <ProfileClient user={userData} />;
 }
 

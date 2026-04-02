@@ -17,10 +17,13 @@ async function DashboardServer() {
   // Récupération des données de l'utilisateur
   const userData = await getUserData(session.userId);
 
+  if (!userData) return 'Echec de la récupération des données utilisateur';
+
   // Récupération des données à afficher dans le tableau de cord de l'utilisateur
   const projectsResponse = await getDashboardProjectsTasks();
 
-  // TODO gestion d'une valeur renoyée incorrecte
+  if (!projectsResponse.success) return projectsResponse.error;
+
   const { projects } = projectsResponse;
 
   return <DashboardClient projectsProp={projects} userName={userData.name} />;
