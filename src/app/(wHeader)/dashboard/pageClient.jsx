@@ -39,13 +39,15 @@ function DashboardClient({ projectsProp, userName }) {
 
   return (
     <div className="flex flex-col gap-4 mt-4 pt-10 pr-30 pb-10 pl-30 bg-background">
-      <div className="grid grid-cols-2 grid-rows-2">
-        <h1 className="col-start-1 row-start-1 text-black-font text-2xl font-semibold font-manrope">
-          Tableau de bord
-        </h1>
-        <p className="col-start-1, row-start-2 text-black-font text-lg font-normal font-inter">
-          Bonjour {userName}, voici un aperçu de vos projets et tâches
-        </p>
+      <div className="flex flex-col lg:flex-row gap-2 justify-between">
+        <div className="flex flex-col gap-2">
+          <h1 className="text-black-font text-2xl font-semibold font-manrope">
+            Tableau de bord
+          </h1>
+          <p className="text-black-font text-lg font-normal font-inter">
+            Bonjour {userName}, voici un aperçu de vos projets et tâches
+          </p>
+        </div>
         <BlackButton
           text="+ Créer un projet"
           onClick={() =>

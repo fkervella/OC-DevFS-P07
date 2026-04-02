@@ -36,9 +36,11 @@ function ProjectsClient({ projectsProp }) {
 
   return (
     <div className="flex flex-col gap-4 mt-4 pt-10 pr-30 pb-10 pl-30 bg-background">
-      <div className="grid grid-cols-2 grid-rows-2">
-        <PageTitle title="Mes projets" />
-        <PageSubtitle subtitle="Gérez vos projets" />
+      <div className="flex flex-col lg:flex-row gap-2 justify-between">
+        <div className="flex flex-col gap-2">
+          <PageTitle title="Mes projets" />
+          <PageSubtitle subtitle="Gérez vos projets" />
+        </div>
         <BlackButton
           text="+ Créer un projet"
           onClick={() =>

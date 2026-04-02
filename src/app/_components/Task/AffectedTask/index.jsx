@@ -30,7 +30,7 @@ function AffectedTask({
       </div>
       <CardDescription description={task.description} />
 
-      <div className="flex flex-col gap-4 lg:flex-row justify-start lg:justify-between items-center content-normal flex-wrap">
+      <div className="flex flex-col gap-4 lg:flex-row content-start justify-start lg:justify-between items-center lg:content-normal flex-wrap">
         <TaskInfos task={task} projectName={projectName} />
         <BlackButton
           text="Voir"

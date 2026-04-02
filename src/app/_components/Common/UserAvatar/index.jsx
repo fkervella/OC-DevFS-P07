@@ -22,9 +22,9 @@ function UserAvatar({
   withUserName = false,
 }) {
   return (
-    <>
+    <div className="flex flex-rox gap-2">
       <div
-        className={`${bgColor} rounded-full h-full pt-1 pr-1 pb-1 pl-1 aspect-square flex justify-center items-center relative border border-solid border-white`}
+        className={`${bgColor} rounded-full h-fit w-fit pt-1 pr-1 pb-1 pl-1 aspect-square flex justify-center items-center relative border border-solid border-white max-h-8`}
         style={{ left: `-${left}px`, zIndex }}
       >
         <span className={`text-sm font-normal ${textColor}`}>
@@ -39,7 +39,7 @@ function UserAvatar({
           <span className={`text-sm font-normal ${textColor}`}>{name}</span>
         </div>
       )}
-    </>
+    </div>
   );
 }
 

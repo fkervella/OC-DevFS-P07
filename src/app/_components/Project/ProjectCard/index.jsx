@@ -13,7 +13,7 @@ import ProjectInfos from '@/app/_components/Project/ProjectInfos';
 
 function ProjectCard({ project, tasks }) {
   return (
-    <div className="bg-white border border-solid border-grey-background rounded-lg pt-8 pr-10 pb-8 pl-10 w-3/10 justify-between">
+    <div className="bg-white border border-solid border-grey-background rounded-lg pt-8 pr-10 pb-8 pl-10 w-3/10 min-w-sm justify-between">
       <a href={`/projects/${project.id}/`}>
         <CardTitle title={project.name} />
         <CardDescription description={project.description} />

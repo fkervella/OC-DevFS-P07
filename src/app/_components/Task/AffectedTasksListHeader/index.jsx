@@ -8,7 +8,7 @@ import Image from 'next/image';
 
 function AffectedTasksListHeader({ handleChange }) {
   return (
-    <div className="flex flex-row gap-2 justify-between">
+    <div className="flex flex-col lg:flex-row gap-2 justify-between">
       <div className="flex flex-col gap-2">
         <div className="text-lg text-black-font font-semibold font-manrope">
           Mes tâches assignées
@@ -24,7 +24,7 @@ function AffectedTasksListHeader({ handleChange }) {
         <input
           name="searchText"
           placeholder="Rechercher une tâche"
-          className="font-inter"
+          className="font-inter w-full"
         ></input>
         <Image src="/search.png" alt="Icône recherche" width={14} height={14} />
       </form>
