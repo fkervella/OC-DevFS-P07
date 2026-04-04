@@ -16,10 +16,7 @@ export async function getDashboardProjectsTasks() {
   const token = await getSession();
 
   if (!token) {
-    return {
-      success: false,
-      error: 'Erreur lors de la récupération du cookie',
-    };
+    throw new Error('Erreur lors de la récupération du cookie');
   }
 
   try {
@@ -37,20 +34,13 @@ export async function getDashboardProjectsTasks() {
     const data = await response.json();
 
     if (!response.ok) {
-      return {
-        success: false,
-        error: `${data.error} ${data.message}`,
-      };
+      throw new Error(`${data.error} ${data.message}`);
     } else {
-      return {
-        success: true,
-        projects: data.data.projects,
-      };
+      return { projects: data.data.projects };
     }
   } catch (error) {
-    return {
-      success: false,
-      error: `Erreur lors de la récupération des projets avec leurs tâches : ${error.message}`,
-    };
+    throw new Error(
+      `Erreur lors de la récupération des projets avec leurs tâches : ${error.message}`
+    );
   }
 }

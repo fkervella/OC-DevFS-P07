@@ -33,7 +33,7 @@ function ModifyTaskModalContent({ onSubmit, task }) {
       : '',
     members: initialAssignees,
     state: task?.status || 'TODO',
-    priority: task?.priority || '',
+    priority: task?.priority || 'LOW',
   });
 
   const [selectedStatus, setSelectedStatus] = useState(task?.status || 'TODO');
@@ -48,12 +48,20 @@ function ModifyTaskModalContent({ onSubmit, task }) {
     e.preventDefault();
     startTransition(async () => {
       try {
-        const form = new FormData(e.currentTarget);
+        const form = new FormData();
+        form.append('projectId', task.projectId);
+        form.append('taskId', task.id);
+        form.append('title', formData.title);
+        form.append('description', formData.description);
+        form.append('dueDate', formData.dueDate);
+        form.append('priority', formData.priority);
+        form.append('state', formData.state);
         form.append('contributors', JSON.stringify(formData.members));
 
         const updatedTaskStatus = await updateTask(form);
         if (!updatedTaskStatus.success) setError(updatedTaskStatus.error);
         else {
+          console.log('formData', formData);
           onSubmit(formData);
         }
       } catch (error) {
@@ -75,9 +83,7 @@ function ModifyTaskModalContent({ onSubmit, task }) {
 
   return (
     <form onSubmit={handleSubmit}>
-      <input name="projectId" type="hidden" value={task.projectId} />
-      <input name="taskId" type="hidden" value={task.id} />
-      <input name="priority" type="hidden" value={task.priority} />
+      <input name="priority" type="hidden" value={formData.priority} />
       <input name="state" type="hidden" value={formData.state} />
       <div className="mb-4">
         <LabelInput

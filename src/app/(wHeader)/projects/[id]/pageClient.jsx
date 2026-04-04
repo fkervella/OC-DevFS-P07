@@ -85,9 +85,7 @@ export function ProjectClient({
 
     setProjectData(project);
 
-    if (tasksResponse.success) {
-      setAllTasks(tasksResponse.tasks); // ⚡ filtre conservé automatiquement
-    }
+    setAllTasks([...tasksResponse.tasks]); // ⚡ filtre conservé automatiquement
   };
 
   const handleSubmit = async (formData) => {
@@ -206,6 +204,8 @@ export function ProjectClient({
               className="flex flex-col lg:flex-row gap-4"
             >
               <Select
+                key="status-filter"
+                instanceId="status-filter"
                 options={selectOptions}
                 placeholder="Statut"
                 value={

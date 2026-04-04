@@ -121,10 +121,7 @@ export function formatDateFR(isoString) {
 
     return new Intl.DateTimeFormat('fr-FR', options).format(date);
   } catch (error) {
-    return {
-      success: false,
-      error: `Erreur de formatage de l'heure : ${error.message}`,
-    };
+    throw new Error(`Erreur de formatage de l'heure : ${error.message}`);
   }
 }
 

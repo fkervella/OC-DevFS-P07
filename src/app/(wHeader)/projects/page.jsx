@@ -1,3 +1,5 @@
+'use server';
+
 import { redirect } from 'next/navigation';
 
 import { getMyProjects, getProjectTasks } from '@/app/actions/project.js';
@@ -15,18 +17,15 @@ import ProjectsClient from './pageClient';
 async function ProjectsServer() {
   // Vérification que la session active est valable
   const session = await verifySession();
-
   if (!session) redirect('/login');
 
   // Récupération des données de l'utilisateur
   const userData = await getUserData(session.userId);
-  if (!userData) return 'Echec de la récupération des informations utilisateur';
+  if (!userData)
+    throw new Error('Echec de la récupération des informations utilisateur');
 
   // Récupération des données à afficher dans la page des projets de l'utilisateur
   const projectsResponse = await getMyProjects();
-
-  if (!projectsResponse.success) return projectsResponse;
-
   const { projects } = projectsResponse;
 
   const projectsWithTasks = await Promise.all(
@@ -34,9 +33,6 @@ async function ProjectsServer() {
       .filter((project) => project && project.id)
       .map(async (project) => {
         const projectTasksResponse = await getProjectTasks(project.id);
-
-        if (!projectTasksResponse.success) return projectTasksResponse;
-
         const { tasks: tasks } = projectTasksResponse;
         return { ...project, tasks };
       })

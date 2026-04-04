@@ -8,7 +8,7 @@ import PageTitle from '@/app/_components/Common/PageTitle';
 import ModalLayout from '@/app/_components/Modal/ModalLayout';
 import CreateProjectModalContent from '@/app/_components/Project/CreateProjectModalContent';
 import ProjectCard from '@/app/_components/Project/ProjectCard';
-import { getMyProjects } from '@/app/actions/project';
+import { getMyProjects, getProjectTasks } from '@/app/actions/project';
 import useModal from '@/hooks/useModal';
 
 /**
@@ -25,8 +25,19 @@ function ProjectsClient({ projectsProp }) {
 
   const handleSubmit = async () => {
     const newProjects = await getMyProjects();
+    if (newProjects) {
+      const projectsWithTasks = await Promise.all(
+        newProjects.projects
+          .filter((project) => project && project.id)
+          .map(async (project) => {
+            const projectTasksResponse = await getProjectTasks(project.id);
+            const { tasks: tasks } = projectTasksResponse;
+            return { ...project, tasks };
+          })
+      );
+      setProjects(projectsWithTasks);
+    }
 
-    if (newProjects.success) setProjects(newProjects.projects);
     closeModal();
   };
 

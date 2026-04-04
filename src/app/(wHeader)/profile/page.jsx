@@ -1,3 +1,7 @@
+'use server';
+
+import { redirect } from 'next/navigation';
+
 import { getUserData, verifySession } from '@/app/lib/dal';
 
 import ProfileClient from './pageClient.jsx';
@@ -12,12 +16,12 @@ import ProfileClient from './pageClient.jsx';
 async function ProfileServer() {
   // Vérification que la session active est valable
   const session = await verifySession();
+  if (!session) redirect('/login');
 
   // Récupération des données de l'utilisateur
   const userData = await getUserData(session.userId);
-
-  if (!userData.success)
-    return "Echec de la récupération des données de l'utilisateur";
+  if (!userData)
+    throw new Error("Echec de la récupération des données de l'utilisateur");
 
   return <ProfileClient user={userData} />;
 }

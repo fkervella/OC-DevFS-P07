@@ -21,13 +21,9 @@ export async function authenticate(email, password) {
     const loginReturn = await response.json();
 
     if (!response.ok) {
-      return {
-        success: false,
-        error: `${loginReturn.error} ${loginReturn.message}`,
-      };
+      throw new Error(`${loginReturn.error} ${loginReturn.message}`);
     } else {
       return {
-        success: true,
         user: {
           id: loginReturn.data.user.id,
           email: loginReturn.data.user.email,
@@ -38,9 +34,6 @@ export async function authenticate(email, password) {
       };
     }
   } catch (error) {
-    return {
-      success: false,
-      error: error.message || 'Erreur inconnue survenue à la connexion',
-    };
+    throw new Error(error.message || 'Erreur inconnue survenue à la connexion');
   }
 }

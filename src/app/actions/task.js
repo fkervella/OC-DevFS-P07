@@ -23,7 +23,6 @@ export async function createTask(formData) {
 
   try {
     const tasksResponse = await getProjectTasks(projectId);
-    if (!tasksResponse.success) return tasksResponse;
 
     const { tasks } = tasksResponse;
 
@@ -98,8 +97,7 @@ export async function updateTask(formData) {
   }
 
   try {
-    const tasksResponse = await getProjectTasks(projectId);
-    if (!tasksResponse.success) return tasksResponse;
+    await getProjectTasks(projectId);
 
     const assigneeIds = contributors.map((assigneeId) => assigneeId.value);
     const formatedDueDate = new Date(dueDate).toISOString();

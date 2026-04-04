@@ -1,3 +1,5 @@
+'use server';
+
 import { redirect } from 'next/navigation';
 
 import { getMyProjects, getProjectTasks } from '@/app/actions/project';
@@ -16,28 +18,27 @@ import { ProjectClient } from './pageClient';
 async function ProjectServer({ params }) {
   // Vérification que la session active est valable
   const session = await verifySession();
-
   if (!session) redirect('/login');
 
   // Récupération des données de l'utilisateur
   const userData = await getUserData(session.userId);
-  if (!userData) return 'Echec de la récupération des informations utilisateur';
+  if (!userData)
+    throw new Error('Echec de la récupération des informations utilisateur');
 
   const { id: projectId } = await params;
 
   const projectsResponse = await getMyProjects();
-  if (!projectsResponse.success) return projectsResponse;
 
   const { projects: myProjects } = projectsResponse;
   const project = myProjects.find((p) => p.id === projectId);
   const isProjectAdministrator = project.userRole === 'ADMIN' ? true : false;
 
-  //TODO rediriger vers une page d'erreur
   if (!project)
-    return "L'utilisateur ne fait pas partie des contributeurs du projet.";
+    throw new Error(
+      "L'utilisateur ne fait pas partie des contributeurs du projet."
+    );
 
   const tasksResponse = await getProjectTasks(project.id);
-  if (!tasksResponse.success) return tasksResponse;
 
   const projectTasks = tasksResponse.tasks;
 

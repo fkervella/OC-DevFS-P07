@@ -18,6 +18,7 @@ function CreateTaskModalContent({ onSubmit, projectId }) {
   const [error, setError] = useState(null);
   const [isPending, startTransition] = useTransition();
   const [formData, setFormData] = useState({
+    projectId: projectId,
     title: '',
     description: '',
     dueDate: '',
@@ -39,13 +40,19 @@ function CreateTaskModalContent({ onSubmit, projectId }) {
     e.preventDefault();
     startTransition(async () => {
       try {
-        const form = new FormData(e.currentTarget);
+        const form = new FormData();
+        form.append('projectId', projectId);
+        form.append('title', formData.title);
+        form.append('description', formData.description);
+        form.append('dueDate', formData.dueDate);
+        form.append('priority', formData.priority);
+        form.append('state', formData.state);
         form.append('contributors', JSON.stringify(formData.members));
 
         const createTaskStatus = await createTask(form);
         if (!createTaskStatus.success) setError(createTaskStatus.error);
         else {
-          onSubmit(formData);
+          await onSubmit(formData);
         }
       } catch (error) {
         setError(
@@ -66,9 +73,6 @@ function CreateTaskModalContent({ onSubmit, projectId }) {
 
   return (
     <form onSubmit={handleSubmit}>
-      <input name="projectId" type="hidden" value={projectId} />
-      <input name="priority" type="hidden" value="LOW" />
-      <input name="state" type="hidden" value={formData.state} />
       <div className="mb-4">
         <LabelInput
           text="Titre*"

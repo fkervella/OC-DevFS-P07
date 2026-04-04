@@ -21,6 +21,9 @@ function AffectedTasksListHeader({ handleChange }) {
         onChange={handleChange}
         className="pt-2 pr-10 pb-2 pl-10 border-2 border-grey-background rounded-lg flex flex-row gap-2 items-center"
       >
+        <label htmlFor="searcText" className="hidden">
+          Recherche de tâche
+        </label>
         <input
           name="searchText"
           placeholder="Rechercher une tâche"

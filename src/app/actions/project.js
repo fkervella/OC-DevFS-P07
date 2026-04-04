@@ -15,13 +15,7 @@ import { getSession } from '@/app/lib/session';
 
 export async function getMyProjects() {
   const token = await getSession();
-
-  if (!token) {
-    return {
-      success: false,
-      error: 'Erreur lors de la récupération du cookie',
-    };
-  }
+  if (!token) throw new Error('Erreur lors de la récupération du cookie');
 
   try {
     const response = await fetch('http://localhost:8000/projects', {
@@ -34,22 +28,13 @@ export async function getMyProjects() {
 
     const data = await response.json();
 
-    if (!data.success) {
-      return {
-        success: false,
-        error: `${data.error} ${data.message}`,
-      };
-    } else {
-      return {
-        success: true,
-        projects: data.data.projects,
-      };
-    }
+    if (!data.success) throw new Error(`${data.error} ${data.message}`);
+
+    return { projects: data.data.projects };
   } catch (error) {
-    return {
-      success: false,
-      error: `Erreur lors de la récupération des projets : ${error.message}`,
-    };
+    throw new Error(
+      `Erreur lors de la récupération des projets : ${error.message}`
+    );
   }
 }
 
@@ -69,10 +54,7 @@ export async function getProjectTasks(projectId) {
   const token = await getSession();
 
   if (!token) {
-    return {
-      success: false,
-      error: 'Erreur lors de la récupération du cookie',
-    };
+    throw new Error('Erreur lors de la récupération du cookie');
   }
 
   try {
@@ -89,22 +71,13 @@ export async function getProjectTasks(projectId) {
 
     const data = await response.json();
 
-    if (!response.ok) {
-      return {
-        success: false,
-        error: `${data.error} ${data.message}`,
-      };
-    } else {
-      return {
-        success: true,
-        tasks: data.data.tasks,
-      };
-    }
+    if (!response.ok) throw new Error(`${data.error} ${data.message}`);
+
+    return { tasks: data.data.tasks };
   } catch (error) {
-    return {
-      success: false,
-      error: `Erreur lors de la récupération des tâches du projet : ${error.message}`,
-    };
+    throw new Error(
+      `Erreur lors de la récupération des tâches du projet : ${error.message}`
+    );
   }
 }
 
@@ -124,7 +97,6 @@ export async function createProject(formData) {
 
   try {
     const projectsResponse = await getMyProjects();
-    if (!projectsResponse.success) return projectsResponse;
 
     const { projects: myProjects } = projectsResponse;
 
@@ -224,8 +196,6 @@ export async function updateProject(formData) {
 export async function getProjectData(projectId) {
   const projectsResponse = await getMyProjects();
 
-  if (!projectsResponse.success) return projectsResponse;
-
   const { projects: myProjects } = projectsResponse;
   const project = myProjects.find((p) => p.id === projectId);
 
@@ -292,13 +262,7 @@ export async function synchronizeMembers(
 
 export async function addMember(projectId, userId, userEmail) {
   const token = await getSession();
-
-  if (!token) {
-    return {
-      success: false,
-      error: 'Erreur lors de la récupération du cookie',
-    };
-  }
+  if (!token) throw new Error('Erreur lors de la récupération du cookie');
 
   try {
     const response = await fetch(
@@ -315,31 +279,20 @@ export async function addMember(projectId, userId, userEmail) {
 
     const addedContributor = await response.json();
 
-    if (!response.ok) {
-      return {
-        success: false,
-        error: `${addedContributor.error} ${addedContributor.message}`,
-      };
-    }
+    if (!response.ok)
+      throw new Error(`${addedContributor.error} ${addedContributor.message}`);
 
-    return { success: true, contributor: addedContributor };
+    return { contributor: addedContributor };
   } catch (error) {
-    return {
-      success: false,
-      error: `Erreur lors de l'ajout du contributeur ${userEmail} : ${error.message}`,
-    };
+    throw new Error(
+      `Erreur lors de l'ajout du contributeur ${userEmail} : ${error.message}`
+    );
   }
 }
 
 export async function deleteMember(projectId, userId) {
   const token = await getSession();
-
-  if (!token) {
-    return {
-      success: false,
-      error: 'Erreur lors de la récupération du cookie',
-    };
-  }
+  if (!token) throw new Error('Erreur lors de la récupération du cookie');
 
   try {
     const response = await fetch(
@@ -355,18 +308,15 @@ export async function deleteMember(projectId, userId) {
 
     const deletedContributor = await response.json();
 
-    if (!response.ok) {
-      return {
-        success: false,
-        error: `${deletedContributor.error} ${deletedContributor.message}`,
-      };
-    }
+    if (!response.ok)
+      throw new Error(
+        `${deletedContributor.error} ${deletedContributor.message}`
+      );
 
-    return { success: true, contributor: deletedContributor };
+    return { contributor: deletedContributor };
   } catch (error) {
-    return {
-      success: false,
-      error: `Erreur lors de la suppression du contributeur ${userId} : ${error.message}`,
-    };
+    throw new Error(
+      `Erreur lors de la suppression du contributeur ${userId} : ${error.message}`
+    );
   }
 }

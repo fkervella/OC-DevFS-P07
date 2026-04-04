@@ -18,12 +18,7 @@ import { createSession, getSession } from '@/app/lib/session';
 export async function getUserProfile() {
   const token = await getSession();
 
-  if (!token) {
-    return {
-      success: false,
-      error: 'Erreur lors de la récupération du cookie',
-    };
-  }
+  if (!token) throw new Error('Erreur lors de la récupération du cookie');
 
   try {
     const response = await fetch('http://localhost:8000/auth/profile', {
@@ -36,21 +31,13 @@ export async function getUserProfile() {
 
     const data = await response.json();
 
-    if (!response.ok) {
-      return {
-        success: false,
-        error: `${data.error} ${data.message}`,
-      };
-    } else {
-      return {
-        user: data.data.user,
-      };
-    }
+    if (!response.ok) throw new Error(`${data.error} ${data.message}`);
+
+    return { user: data.data.user };
   } catch (error) {
-    return {
-      success: false,
-      error: `Erreur lors de la récupération des données de l'utilisateur : ${error.message}`,
-    };
+    throw new Error(
+      `Erreur lors de la récupération des données de l'utilisateur : ${error.message}`
+    );
   }
 }
 
@@ -107,11 +94,11 @@ export async function updateProfile(formData) {
         newPassword
       );
 
-      if (!passwordUpdate.success) return passwordUpdate;
+      if (!passwordUpdate.success) return passwordUpdate; // TODO bizarre
     }
 
     revalidatePath('/profile');
-    return { success: true, user: updatedUser };
+    return { user: updatedUser };
   } catch (error) {
     return {
       success: false,
@@ -131,7 +118,6 @@ export async function updateProfile(formData) {
 
 export async function updateProfilePassword(currentPassword, newPassword) {
   const token = await getSession();
-
   if (!token) {
     return { success: false, error: 'Session non trouvée : cookie non trouvé' };
   }
@@ -148,14 +134,15 @@ export async function updateProfilePassword(currentPassword, newPassword) {
 
     const updatedUser = await response.json();
 
-    if (!response.ok) {
-      return {
-        success: false,
-        error: `${updatedUser.error} ${updatedUser.message}`,
-      };
-    }
+    if (!response.ok)
+      if (!response.ok) {
+        return {
+          success: false,
+          error: `${updatedUser.error} ${updatedUser.message}`,
+        };
+      }
 
-    return { success: true, user: updatedUser };
+    return { user: updatedUser };
   } catch (error) {
     return {
       success: false,
@@ -166,7 +153,6 @@ export async function updateProfilePassword(currentPassword, newPassword) {
 
 export async function getUserByName(inputValue) {
   const token = await getSession();
-
   if (!token) {
     return { success: false, error: 'Session non trouvée : cookie non trouvé' };
   }

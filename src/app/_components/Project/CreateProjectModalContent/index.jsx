@@ -32,13 +32,15 @@ function CreateProjectModalContent({ onSubmitSuccess }) {
     e.preventDefault();
     startTransition(async () => {
       try {
-        const form = new FormData(e.currentTarget);
+        const form = new FormData();
+        form.append('title', formData.title);
+        form.append('description', formData.description);
         form.append('contributors', JSON.stringify(formData.members));
         const createProjectStatus = await createProject(form);
 
         if (!createProjectStatus.success) setError(createProjectStatus.error);
         else {
-          onSubmitSuccess();
+          await onSubmitSuccess();
         }
       } catch (error) {
         setError(

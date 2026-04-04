@@ -50,9 +50,6 @@ export async function decrypt(token) {
 
     return payload;
   } catch (error) {
-    return {
-      success: false,
-      error: `Failed to verify session : ${error.message}`,
-    };
+    throw new Error(`Failed to verify session : ${error.message}`);
   }
 }
