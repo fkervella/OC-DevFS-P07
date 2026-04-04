@@ -61,7 +61,6 @@ function ModifyTaskModalContent({ onSubmit, task }) {
         const updatedTaskStatus = await updateTask(form);
         if (!updatedTaskStatus.success) setError(updatedTaskStatus.error);
         else {
-          console.log('formData', formData);
           onSubmit(formData);
         }
       } catch (error) {
