@@ -57,6 +57,7 @@ function ProjectTaskCard({
                   name={member.user.name}
                   bgColor="bg-grey-background"
                   withUserName={true}
+                  size="small"
                 />
               ))}
             </div>

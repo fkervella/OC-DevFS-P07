@@ -54,8 +54,8 @@ function HeaderClient({ userName }) {
         />
       </nav>
 
-      <div className="h-full">
-        <Link href="/profile" className="h-full">
+      <div className="h-16">
+        <Link href="/profile" className="h-auto">
           <UserAvatar
             name={userName}
             bgColor={
@@ -64,6 +64,7 @@ function HeaderClient({ userName }) {
             textColor={
               pathname.startsWith('/profile') ? 'text-white' : 'text-black-font'
             }
+            size="normal"
           />
         </Link>
       </div>

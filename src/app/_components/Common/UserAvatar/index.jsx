@@ -20,11 +20,19 @@ function UserAvatar({
   left = 0,
   zIndex = 0,
   withUserName = false,
+  size = 'small',
 }) {
+  const sizeClasses = {
+    small: 'w-7.5 h-7.5',
+    normal: 'w-16 w-16',
+  };
+
+  const classe = sizeClasses[size];
+  console.log('classe', classe);
   return (
     <div className="flex flex-rox gap-2">
       <div
-        className={`${bgColor} rounded-full h-fit w-fit pt-1 pr-1 pb-1 pl-1 aspect-square flex justify-center items-center relative border border-solid border-white max-h-8`}
+        className={`${bgColor} rounded-full ${classe} pt-1 pr-1 pb-1 pl-1 aspect-square flex justify-center items-center relative border border-solid border-white`}
         style={{ left: `-${left}px`, zIndex }}
       >
         <span className={`text-sm font-normal ${textColor}`}>
@@ -33,7 +41,7 @@ function UserAvatar({
       </div>
       {withUserName && (
         <div
-          className={`${bgColor} rounded-full h-full pt-1 pr-4 pb-1 pl-4 flex justify-center items-center relative border border-solid border-white`}
+          className={`${bgColor} rounded-full h-full pt-1 pr-4 pb-1 pl-4 flex justify-center items-center relative border border-solid border-white text-nowrap`}
           style={{ left: `-${left}px`, zIndex }}
         >
           <span className={`text-sm font-normal ${textColor}`}>{name}</span>

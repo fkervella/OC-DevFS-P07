@@ -21,7 +21,11 @@ function ProjectInfos({ project }) {
         {/*TODO le calcul n'est pas vraiment exact si administrateur et aussi contributeur*/}
       </div>
       <div className="flex flex-row gap-2 h-8 mt-4">
-        <UserAvatar name={project.owner.name} bgColor="bg-light-orange" />
+        <UserAvatar
+          name={project.owner.name}
+          bgColor="bg-light-orange"
+          size="small"
+        />
         <TaskStatus status="PROPRIETAIRE" />
         {project.members.map((member, index) => (
           <UserAvatar
@@ -30,6 +34,7 @@ function ProjectInfos({ project }) {
             bgColor="bg-grey-background"
             left={index * 18}
             zIndex={index}
+            size="small"
           />
         ))}
       </div>

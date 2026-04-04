@@ -23,7 +23,7 @@ function Contributors({ members = [], owner }) {
         </div>
       </div>
       <div className="flex flex-col lg:flex-row gap-2 h-fit ">
-        <UserAvatar name={owner} bgColor="bg-light-orange" />
+        <UserAvatar name={owner} bgColor="bg-light-orange" size="small" />
         <TaskStatus status="PROPRIETAIRE" />
         {members.map((member) => (
           <UserAvatar
@@ -31,6 +31,7 @@ function Contributors({ members = [], owner }) {
             name={member.user.name}
             bgColor="bg-grey-background"
             withUserName={true}
+            size="small"
           />
         ))}
       </div>

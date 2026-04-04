@@ -16,6 +16,7 @@ function Comment({ comment }) {
         name={authorName}
         bgColor="bg-grey-background"
         withUserName={false}
+        size="small"
       />
       <div className="flex flex-row gap-4 justify-between pt-3 pr-3 pb-3 pl-3 rounded-lg bg-grey2-background w-full">
         <div className="flex flex-col gap-2">

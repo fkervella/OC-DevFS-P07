@@ -18,6 +18,7 @@ function AssignedTo({ assignees }) {
           key={assignee.user.id}
           name={assignee.user.name}
           bgColor="bg-grey-background"
+          size="small"
         />
       ))}
     </div>
