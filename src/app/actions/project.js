@@ -194,12 +194,37 @@ export async function updateProject(formData) {
   }
 }
 export async function getProjectData(projectId) {
-  const projectsResponse = await getMyProjects();
+  const token = await getSession();
 
-  const { projects: myProjects } = projectsResponse;
-  const project = myProjects.find((p) => p.id === projectId);
+  if (!token) {
+    return {
+      success: false,
+      error: 'Erreur lors de la récupération du cookie',
+    };
+  }
 
-  return project;
+  try {
+    const response = await fetch(
+      `http://localhost:8000/projects/${projectId}`,
+      {
+        method: 'GET',
+        headers: {
+          Authorization: `Bearer ${token.user.token}`,
+          'content-type': 'application/json',
+        },
+      }
+    );
+
+    const data = await response.json();
+
+    if (!response.ok) throw new Error(`${data.error} ${data.message}`);
+
+    return { project: data.data.project };
+  } catch (error) {
+    throw new Error(
+      `Erreur lors de la récupération du projet : ${error.message}`
+    );
+  }
 }
 /**
  * Synchronise la liste des membres en comparant l'état initial et l'état final.

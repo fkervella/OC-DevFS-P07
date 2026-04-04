@@ -82,9 +82,7 @@ export function ProjectClient({
       getProjectData(projectData.id),
       getProjectTasks(projectData.id),
     ]);
-
     setProjectData(project);
-
     setAllTasks([...tasksResponse.tasks]); // ⚡ filtre conservé automatiquement
   };
 
