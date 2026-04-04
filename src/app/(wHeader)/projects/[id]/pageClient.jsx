@@ -1,7 +1,7 @@
 'use client';
 
 import Image from 'next/image';
-import { useState } from 'react';
+import { useMemo, useState } from 'react';
 import Select from 'react-select';
 
 import BlackButton from '@/app/_components/Common/BlackButton';
@@ -21,6 +21,13 @@ import {
   synchronizeMembers,
 } from '@/app/actions/project';
 import useModal from '@/hooks/useModal';
+
+const selectOptions = [
+  { value: 'NONE', label: 'Tous' },
+  { value: 'TODO', label: 'A faire' },
+  { value: 'IN_PROGRESS', label: 'En cours' },
+  { value: 'DONE', label: 'Terminé' },
+];
 
 /**
  * ProjectClient Partie client pour l'affichage des données d'un projet
@@ -49,34 +56,22 @@ export function ProjectClient({
     status: '',
   });
 
-  const selectOptions = [
-    { value: 'NONE', label: 'Tous' },
-    { value: 'TODO', label: 'A faire' },
-    { value: 'IN_PROGRESS', label: 'En cours' },
-    { value: 'DONE', label: 'Terminé' },
-  ];
-
-  const filterTasks = (tasks, { text, status }) => {
-    let filtered = tasks;
-
-    if (text) {
+  const projectTasks = useMemo(() => {
+    let filtered = allTasks;
+    if (filters.text) {
       filtered = filtered.filter(
         (task) =>
-          task.title.toLowerCase().includes(text.toLowerCase()) ||
-          task.description.toLowerCase().includes(text.toLowerCase())
+          task.title.toLowerCase().includes(filters.text.toLowerCase()) ||
+          task.description.toLowerCase().includes(filters.text.toLowerCase())
       );
     }
-
-    if (status && status !== 'NONE') {
+    if (filters.status && filters.status !== 'NONE') {
       filtered = filtered.filter((task) =>
-        task.status.toLowerCase().includes(status.toLowerCase())
+        task.status.toLowerCase().includes(filters.status.toLowerCase())
       );
     }
-
     return filtered;
-  };
-
-  const projectTasks = filterTasks(allTasks, filters);
+  }, [allTasks, filters]);
 
   const refreshProject = async () => {
     setError(null);

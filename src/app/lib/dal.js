@@ -59,9 +59,9 @@ export const getUser = cache(async () => {
  * @returns {user} données de l'utilisateur
  */
 
-export async function getUserData() {
+export const getUserData = cache(async () => {
   const token = await getSession();
   const userData = token ? token.user : null;
 
   return userData;
-}
+});

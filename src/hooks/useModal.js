@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useCallback, useState } from 'react';
 
 /**
  * useModal hook de gestion de l'état d'une modale
@@ -13,13 +13,13 @@ function useModal() {
     content: null,
   });
 
-  const openModal = (title, content) => {
+  const openModal = useCallback((title, content) => {
     setModalState({ isOpen: true, title, content });
-  };
+  }, []);
 
-  const closeModal = () => {
+  const closeModal = useCallback(() => {
     setModalState({ isOpen: false, title: '', content: null });
-  };
+  }, []);
 
   const renderContent = () => {
     if (!modalState.content) return null;

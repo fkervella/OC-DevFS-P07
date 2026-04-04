@@ -1,6 +1,5 @@
 'use server';
 
-import { getProjectTasks } from '@/app/actions/project';
 import { getSession } from '@/app/lib/session';
 
 export async function createTask(formData) {
@@ -82,8 +81,6 @@ export async function updateTask(formData) {
   }
 
   try {
-    await getProjectTasks(projectId);
-
     const assigneeIds = contributors.map((assigneeId) => assigneeId.value);
     const formatedDueDate = new Date(dueDate).toISOString();
 
