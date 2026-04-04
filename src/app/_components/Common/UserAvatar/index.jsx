@@ -28,7 +28,7 @@ function UserAvatar({
   };
 
   const classe = sizeClasses[size];
-  console.log('classe', classe);
+
   return (
     <div className="flex flex-rox gap-2">
       <div

@@ -29,8 +29,9 @@ function TaskInfos({ className, task = [], projectName = '' }) {
         <Image
           src="/kanbanGreyIcon.png"
           alt="Logo Abricot orange"
-          width={18}
+          width={17}
           height={15}
+          className="self-start h4 w-auto"
         />
         <div className="font-inter font-normal text-xs text-grey-font">
           {formatDateFR(task.dueDate)}

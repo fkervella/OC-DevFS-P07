@@ -14,11 +14,16 @@ function ProjectInfos({ project }) {
   return (
     <div className="flex flex-col">
       <div className="flex flex-row gap-2">
-        <Image src="/teamGreyIcon.png" alt="team icon" width={16} height={14} />
+        <Image
+          src="/teamGreyIcon.png"
+          alt="team icon"
+          width={22}
+          height={24}
+          className="self-start h-4 w-auto"
+        />
         <div className="text-grey-font text-normal text-xs">
           Equipe({project.members.length + 1})
         </div>
-        {/*TODO le calcul n'est pas vraiment exact si administrateur et aussi contributeur*/}
       </div>
       <div className="flex flex-row gap-2 h-8 mt-4">
         <UserAvatar
