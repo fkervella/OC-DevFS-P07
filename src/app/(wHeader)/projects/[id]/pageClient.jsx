@@ -38,6 +38,7 @@ export function ProjectClient({
   userName,
   isProjectAdministrator,
 }) {
+  const [error, setError] = useState(null);
   const { modalState, openModal, closeModal } = useModal();
   const [projectData, setProjectData] = useState(projectDataProp);
   const [activeTab, setActiveTab] = useState('list');
@@ -78,12 +79,22 @@ export function ProjectClient({
   const projectTasks = filterTasks(allTasks, filters);
 
   const refreshProject = async () => {
-    const [project, tasksResponse] = await Promise.all([
-      getProjectData(projectData.id),
-      getProjectTasks(projectData.id),
-    ]);
-    setProjectData(project);
-    setAllTasks([...tasksResponse.tasks]); // ⚡ filtre conservé automatiquement
+    setError(null);
+    try {
+      const [project, tasksResponse] = await Promise.all([
+        getProjectData(projectData.id),
+        getProjectTasks(projectData.id),
+      ]);
+
+      setProjectData((prev) => ({
+        ...prev,
+        ...project,
+      }));
+
+      setAllTasks([...tasksResponse.tasks]); // ⚡ filtre conservé automatiquement
+    } catch (err) {
+      setError(`${err.message}`);
+    }
   };
 
   const handleSubmit = async (formData) => {
@@ -179,6 +190,11 @@ export function ProjectClient({
           {modalState.content}
         </ModalLayout>
       </div>
+      {error && (
+        <div className="p-4 mb-4 text-red-font bg-light-orange rounded-lg">
+          {error}
+        </div>
+      )}
       <Contributors members={projectData.members} owner={userName} />
       <div className="flex flex-col gap-4 bg-white pt-10 pr-10 pb-10 pl-10 border border-solid border-grey-background rounded-lg content-center">
         <div className="flex flex-col lg:flex-row gap-2 justify-between items-start lg:items-center">

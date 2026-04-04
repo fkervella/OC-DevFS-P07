@@ -96,21 +96,6 @@ export async function createProject(formData) {
   }
 
   try {
-    const projectsResponse = await getMyProjects();
-
-    const { projects: myProjects } = projectsResponse;
-
-    const existingProject = myProjects.find(
-      (project) => project.name === name && project.description === description
-    );
-
-    if (existingProject) {
-      return {
-        success: false,
-        error: 'Un projet avec le même nom et la même description existe déjà',
-      };
-    }
-
     const normalizedMembers = Array.isArray(members)
       ? members
       : members

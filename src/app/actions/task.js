@@ -22,21 +22,6 @@ export async function createTask(formData) {
   }
 
   try {
-    const tasksResponse = await getProjectTasks(projectId);
-
-    const { tasks } = tasksResponse;
-
-    const existingTask = tasks.find(
-      (task) => task.title === title && task.description === description
-    );
-
-    if (existingTask) {
-      return {
-        success: false,
-        error: 'Une tâche avec le même nom et la même description existe déjà',
-      };
-    }
-
     const assigneeIds = contributors.map((assigneeId) => assigneeId.value);
     const formatedDueDate = new Date(dueDate).toISOString();
 
