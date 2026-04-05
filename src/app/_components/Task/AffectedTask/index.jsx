@@ -24,7 +24,7 @@ function AffectedTask({
 }) {
   return (
     <div className="border border-solid border-grey-background flex flex-col rounded-lg pt-8 pr-10 pb-6 pl-10">
-      <div className="flex flex-col gap-4 justify-between lg:flex-row">
+      <div className="flex flex-col gap-4 justify-between lg:flex-row flex-wrap">
         <CardTitle title={task.title} />
         <TaskStatus status={task.status} />
       </div>

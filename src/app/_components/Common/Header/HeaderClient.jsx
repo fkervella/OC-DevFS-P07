@@ -3,6 +3,7 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
+import { useState } from 'react';
 
 import NavButton from '@/app/_components/Common/NavButton';
 import UserAvatar from '@/app/_components/Common/UserAvatar';
@@ -16,20 +17,39 @@ import UserAvatar from '@/app/_components/Common/UserAvatar';
 
 function HeaderClient({ userName }) {
   const pathname = usePathname();
+  const [isOpenMenu, setIsOpenMenu] = useState(false);
 
   return (
-    <div className="bg-white flex flex-col lg:flex-row lg:justify-between gap-2 pt-1 pr-30 pb-1 pl-30 items-center h-18">
-      <div className="w-fit">
-        <Image
-          src="/logoAbricot.png"
-          alt="logo"
-          width={150}
-          height={20}
-          loading="eager"
-        />
+    <div className="bg-white flex flex-col lg:flex-row justify-between gap-2 pt-1 pr-30 pb-1 pl-30 items-center min-h-18">
+      <div className="flex flex-row justify-between items-center w-full">
+        {/* barre de menu */}
+        <div className="w-fit">
+          <Image
+            src="/logoAbricot.png"
+            alt="logo"
+            width={150}
+            height={20}
+            loading="eager"
+          />
+        </div>
+
+        {/* Bouton burger */}
+        <button
+          className="lg:hidden cursor-pointer"
+          onClick={() => setIsOpenMenu(!isOpenMenu)}
+        >
+          <div className="flex flex-col gap-1">
+            <span className="w-6 h-0.5 bg-black-background"></span>
+            <span className="w-6 h-0.5 bg-black-background"></span>
+            <span className="w-6 h-0.5 bg-black-background"></span>
+          </div>
+        </button>
       </div>
 
-      <nav className="flex flex-col lg:flex-row gap-6 items-center">
+      {/* Navigation */}
+      <nav
+        className={`lg:absolute lg:left-1/2 lg:-translate-x-1/2 flex-col lg:flex-row gap-6 items-center ${isOpenMenu ? 'flex' : 'hidden'} lg:flex lg:mx-auto`}
+      >
         <NavButton
           name="Tableau de bord"
           imagePath={
@@ -54,20 +74,21 @@ function HeaderClient({ userName }) {
         />
       </nav>
 
-      <div className="h-16">
-        <Link href="/profile" className="h-auto">
-          <UserAvatar
-            name={userName}
-            bgColor={
-              pathname.startsWith('/profile') ? 'bg-orange' : 'bg-light-orange'
-            }
-            textColor={
-              pathname.startsWith('/profile') ? 'text-white' : 'text-black-font'
-            }
-            size="normal"
-          />
-        </Link>
-      </div>
+      <Link
+        href="/profile"
+        className={`h-auto ${isOpenMenu ? 'flex' : 'hidden'} lg:flex`}
+      >
+        <UserAvatar
+          name={userName}
+          bgColor={
+            pathname.startsWith('/profile') ? 'bg-orange' : 'bg-light-orange'
+          }
+          textColor={
+            pathname.startsWith('/profile') ? 'text-white' : 'text-black-font'
+          }
+          size="normal"
+        />
+      </Link>
     </div>
   );
 }

@@ -30,7 +30,7 @@ function UserAvatar({
   const classe = sizeClasses[size];
 
   return (
-    <div className="flex flex-rox gap-2">
+    <div className="flex flex-row gap-2">
       <div
         className={`${bgColor} rounded-full ${classe} pt-1 pr-1 pb-1 pl-1 aspect-square flex justify-center items-center relative border border-solid border-white`}
         style={{ left: `-${left}px`, zIndex }}
