@@ -20,7 +20,7 @@ function HeaderClient({ userName }) {
   const [isOpenMenu, setIsOpenMenu] = useState(false);
 
   return (
-    <div className="bg-white flex flex-col lg:flex-row justify-between gap-2 pt-1 pr-30 pb-1 pl-30 items-center min-h-18">
+    <div className="bg-white flex flex-col lg:flex-row justify-between gap-2 pt-5 lg:pt-1 pr-30 pb-1 pl-30 items-center min-h-18">
       <div className="flex flex-row justify-between items-center w-full">
         {/* barre de menu */}
         <div className="w-fit">

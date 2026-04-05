@@ -138,135 +138,141 @@ export function ProjectClient({
   }
 
   return (
-    <div className="flex flex-col gap-4 mt-4 pt-10 pr-30 pb-10 pl-30 bg-background">
-      <div className="flex flex-col lg:flex-row gap-2 justify-between">
-        <LeftArrowButton page="/projects" />
-        <div className="flex flex-col gap-2">
-          <div className="flex flex-col lg:flex-row gap-2 items-start lg:items-center">
-            <PageTitle title={projectData.name} />
-            {isProjectAdministrator && (
-              <a
-                href="#"
-                onClick={() =>
-                  openModal(
-                    'Modifier un projet',
-                    <ModifyProjectModalContent
-                      onSubmit={handleSubmit}
-                      project={projectData}
-                    />
-                  )
-                }
-                className="underline text-orange font-inter"
-              >
-                Modifier
-              </a>
-            )}
+    <>
+      <div
+        className="flex flex-col gap-4 mt-4 pt-10 pr-30 pb-10 pl-30 bg-background"
+        inert={modalState.isOpen}
+      >
+        <div className="flex flex-col lg:flex-row gap-2 justify-between">
+          <LeftArrowButton page="/projects" />
+          <div className="flex flex-col gap-2">
+            <div className="flex flex-col lg:flex-row gap-2 items-start lg:items-center">
+              <PageTitle title={projectData.name} />
+              {isProjectAdministrator && (
+                <button
+                  href="#"
+                  onClick={() =>
+                    openModal(
+                      'Modifier un projet',
+                      <ModifyProjectModalContent
+                        onSubmit={handleSubmit}
+                        project={projectData}
+                      />
+                    )
+                  }
+                  className="underline text-orange font-inter bg-transparent border-none cursor-pointer"
+                  aria-haspopup="dialog"
+                >
+                  Modifier
+                </button>
+              )}
+            </div>
+            <PageSubtitle subtitle={projectData.description} />
           </div>
-          <PageSubtitle subtitle={projectData.description} />
-        </div>
-        <BlackButton
-          text="Créer une tâche"
-          onClick={() =>
-            openModal(
-              'Créer une tâche',
-              <CreateTaskModalContent
-                onSubmit={handleSubmitNewTask}
-                projectId={projectData.id}
-              />
-            )
-          }
-        />
-        {/* Modale générique */}
-        <ModalLayout
-          isOpen={modalState.isOpen}
-          onClose={closeModal}
-          title={modalState.title}
-        >
-          {modalState.content}
-        </ModalLayout>
-      </div>
-      {error && (
-        <div className="p-4 mb-4 text-red-font bg-light-orange rounded-lg">
-          {error}
-        </div>
-      )}
-      <Contributors members={projectData.members} owner={userName} />
-      <div className="flex flex-col gap-4 bg-white pt-10 pr-10 pb-10 pl-10 border border-solid border-grey-background rounded-lg content-center">
-        <div className="flex flex-col lg:flex-row gap-2 justify-between items-start lg:items-center">
-          <div className="flex flex-col">
-            <div className="text-lg text-black-font font-semibold font-manrope ">
-              Tâches
-            </div>
-            <div className="text-base text-grey-font font-normal font-inter ">
-              Par ordre de priorité
-            </div>
-          </div>
-          <div className="flex flex-col lg:flex-row gap-4">
-            <div className="flex flex-row">
-              <ListeCalendarSelector
-                activeTab={activeTab}
-                setActiveTab={setActiveTab}
-              />
-            </div>
-            <form
-              onChange={handleChangeFilter}
-              className="flex flex-col lg:flex-row gap-4"
-            >
-              <Select
-                key="status-filter"
-                instanceId="status-filter"
-                options={selectOptions}
-                placeholder="Statut"
-                value={
-                  selectOptions.find((opt) => opt.value === filters.status) ||
-                  null
-                }
-                onChange={handleStatusChange}
-                styles={{
-                  control: (base) => ({
-                    ...base,
-                    borderColor: '#E5E7EB',
-                    borderWidth: '1px',
-                    borderRadius: '0.5rem',
-                    padding: '0',
-                    paddingTop: '3px',
-                    paddingRight: '10px',
-                    paddingBottom: '3px',
-                    paddingLeft: '10px',
-                    indicatorSeparator: 'none',
-                  }),
-                }}
-              />
-              <div className="pt-2 pr-10 pb-2 pl-10 border-2 border-grey-background rounded-lg items-center flex flex-row gap-2">
-                <input
-                  name="searchText"
-                  placeholder="Rechercher une tâche"
-                  className="font-inter"
+          <BlackButton
+            text="Créer une tâche"
+            onClick={() =>
+              openModal(
+                'Créer une tâche',
+                <CreateTaskModalContent
+                  onSubmit={handleSubmitNewTask}
+                  projectId={projectData.id}
                 />
-                <Image
-                  src="/search.png"
-                  alt="Icône recherche"
-                  width={14}
-                  height={14}
+              )
+            }
+          />
+        </div>
+        {error && (
+          <div className="p-4 mb-4 text-red-font bg-light-orange rounded-lg">
+            {error}
+          </div>
+        )}
+        <Contributors members={projectData.members} owner={userName} />
+        <div className="flex flex-col gap-4 bg-white pt-10 pr-10 pb-10 pl-10 border border-solid border-grey-background rounded-lg content-center">
+          <div className="flex flex-col lg:flex-row gap-2 justify-between items-start lg:items-center">
+            <div className="flex flex-col">
+              <div className="text-lg text-black-font font-semibold font-manrope ">
+                Tâches
+              </div>
+              <div className="text-base text-grey-font font-normal font-inter ">
+                Par ordre de priorité
+              </div>
+            </div>
+            <div className="flex flex-col lg:flex-row gap-4">
+              <div className="flex flex-row">
+                <ListeCalendarSelector
+                  activeTab={activeTab}
+                  setActiveTab={setActiveTab}
                 />
               </div>
-            </form>
+              <form
+                onChange={handleChangeFilter}
+                className="flex flex-col lg:flex-row gap-4"
+              >
+                <Select
+                  key="status-filter"
+                  instanceId="status-filter"
+                  options={selectOptions}
+                  placeholder="Statut"
+                  value={
+                    selectOptions.find((opt) => opt.value === filters.status) ||
+                    null
+                  }
+                  onChange={handleStatusChange}
+                  styles={{
+                    control: (base) => ({
+                      ...base,
+                      borderColor: '#E5E7EB',
+                      borderWidth: '1px',
+                      borderRadius: '0.5rem',
+                      padding: '0',
+                      paddingTop: '3px',
+                      paddingRight: '10px',
+                      paddingBottom: '3px',
+                      paddingLeft: '10px',
+                      indicatorSeparator: 'none',
+                    }),
+                  }}
+                />
+                <div className="pt-2 pr-10 pb-2 pl-10 border-2 border-grey-background rounded-lg items-center flex flex-row gap-2">
+                  <input
+                    name="searchText"
+                    placeholder="Rechercher une tâche"
+                    className="font-inter"
+                  />
+                  <Image
+                    src="/search.png"
+                    alt="Icône recherche"
+                    width={14}
+                    height={14}
+                  />
+                </div>
+              </form>
+            </div>
           </div>
+          {activeTab === 'list' && (
+            <ProjectTasksList
+              tasks={projectTasks}
+              openModal={openModal}
+              handleSubmitModifyTask={handleSubmitModifyTask}
+              username={userName}
+              projectId={projectData.id}
+            />
+          )}
+          {activeTab === 'calendar' && (
+            <ProjectTasksCalendar tasks={projectTasks} />
+          )}
         </div>
-        {activeTab === 'list' && (
-          <ProjectTasksList
-            tasks={projectTasks}
-            openModal={openModal}
-            handleSubmitModifyTask={handleSubmitModifyTask}
-            username={userName}
-            projectId={projectData.id}
-          />
-        )}
-        {activeTab === 'calendar' && (
-          <ProjectTasksCalendar tasks={projectTasks} />
-        )}
       </div>
-    </div>
+      {/* Modale générique */}
+      <ModalLayout
+        isOpen={modalState.isOpen}
+        onClose={closeModal}
+        title={modalState.title}
+      >
+        {modalState.content}
+      </ModalLayout>
+    </>
   );
 }
 

@@ -62,6 +62,7 @@ function CreateProjectModalContent({ onSubmitSuccess }) {
           value={formData.title}
           onChange={handleChange}
           required
+          autoFocus
         />
       </div>
       <div className="mb-4">

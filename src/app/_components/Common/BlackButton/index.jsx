@@ -14,6 +14,7 @@ export default function BlackButton({ text = '', type = 'button', onClick }) {
       onClick={onClick}
       aria-label={text}
       className="bg-black text-white rounded-lg pt-3 pb-3 pr-12 pl-12 font-inter h-fit w-fit cursor-pointer"
+      aria-haspopup="dialog"
     >
       {text}
     </button>
