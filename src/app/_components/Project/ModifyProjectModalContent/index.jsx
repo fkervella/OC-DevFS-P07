@@ -100,7 +100,7 @@ function ModifyProjectModalContent({ onSubmit, project }) {
           text={isPending ? 'Enregistrement ...' : 'Modifier'}
           type="submit"
           disabled={isPending}
-          className="px-4 py-2 bg-black text-white rounded-lg hover:bg-gray-800 transition-colors"
+          className="px-4 py-2 bg-black text-white rounded-lg hover:bg-gray-800 transition-colors cursor-pointer"
         >
           Modifier
         </button>

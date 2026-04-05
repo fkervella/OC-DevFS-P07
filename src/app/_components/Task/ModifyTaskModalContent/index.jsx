@@ -138,6 +138,7 @@ function ModifyTaskModalContent({ onSubmit, task }) {
               key={status}
               type="button"
               onClick={() => handleStatusChange(status)}
+              className="cursor-pointer"
             >
               <TaskStatus
                 status={status}
@@ -156,7 +157,7 @@ function ModifyTaskModalContent({ onSubmit, task }) {
         <button
           type="submit"
           disabled={isPending}
-          className="px-4 py-2 bg-black text-white rounded hover:bg-gray-800 transition-colors"
+          className="px-4 py-2 bg-black text-white rounded hover:bg-gray-800 transition-colors cursor-pointer"
         >
           {isPending ? 'Enregistrement ...' : 'Enregistrer'}
         </button>

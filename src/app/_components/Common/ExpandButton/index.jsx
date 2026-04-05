@@ -12,7 +12,7 @@ function ExpandButton({ handleSubmit, rotation }) {
 
   return (
     <button
-      className={`bg-white w-14.25 justify-center flex ${rotate}`}
+      className={`bg-white w-14.25 justify-center flex ${rotate} cursor-pointer`}
       onClick={handleSubmit}
     >
       <Image

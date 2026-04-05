@@ -74,6 +74,7 @@ function ProjectTaskCard({
                   />
                 )
               }
+              className="cursor-pointer"
             >
               <div className="border border-solid border-grey-background bg-white rounded-lg w-14.25 h-14.25 flex justify-center items-center">
                 <Image

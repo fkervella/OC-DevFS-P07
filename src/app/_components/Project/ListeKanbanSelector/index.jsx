@@ -25,7 +25,7 @@ function ListeKanbanSelector({ activeTab, setActiveTab }) {
   return (
     <ul className="flex flex-row gap-4 pl-2">
       <li
-        className={`flex flex-row gap-2 pt-3 pl-4 pb-3 pr-4 ${listStyleBg} rounded-lg w-fit`}
+        className={`flex flex-row gap-2 pt-3 pl-4 pb-3 pr-4 ${listStyleBg} rounded-lg w-fit cursor-pointer`}
         onClick={() => setActiveTab('list')}
       >
         <Image
@@ -38,7 +38,7 @@ function ListeKanbanSelector({ activeTab, setActiveTab }) {
         <div className="text-sm font-normal text-orange">Liste</div>
       </li>
       <li
-        className={`flex flex-row gap-2 pt-3 pl-4 pb-3 pr-4 ${kanbanStyleBg} rounded-lg w-fit`}
+        className={`flex flex-row gap-2 pt-3 pl-4 pb-3 pr-4 ${kanbanStyleBg} rounded-lg w-fit cursor-pointer`}
         onClick={() => setActiveTab('kanban')}
       >
         <Image

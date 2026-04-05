@@ -127,6 +127,7 @@ function CreateTaskModalContent({ onSubmit, projectId }) {
               key={status}
               type="button"
               onClick={() => handleStatusChange(status)}
+              className="cursor-pointer"
             >
               <TaskStatus
                 status={status}
@@ -144,7 +145,7 @@ function CreateTaskModalContent({ onSubmit, projectId }) {
       <div className="flex justify-end">
         <button
           type="submit"
-          className="px-4 py-2 bg-black text-white rounded hover:bg-gray-800 transition-colors"
+          className="px-4 py-2 bg-black text-white rounded hover:bg-gray-800 transition-colors cursor-pointer"
           disabled={isPending}
         >
           {isPending ? 'Enregistrement ...' : '+ Ajouter une tâche'}

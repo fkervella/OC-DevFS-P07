@@ -56,7 +56,7 @@ export default function ModalLayout({ isOpen, onClose, title, children }) {
           <h2 className="text-xl font-bold text-black-font">{title}</h2>
           <button
             onClick={onClose}
-            className="text-gray-500 hover:text-gray-700 focus:outline-none"
+            className="text-gray-500 hover:text-gray-700 focus:outline-none cursor-pointer"
             aria-label="Fermer la modale"
           >
             ✕

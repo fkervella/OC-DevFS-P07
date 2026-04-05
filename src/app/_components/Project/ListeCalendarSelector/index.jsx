@@ -25,7 +25,7 @@ function ListeCalendarSelector({ activeTab, setActiveTab }) {
   return (
     <ul className="flex flex-row gap-4 pl-2">
       <li
-        className={`flex flex-row gap-2 pt-3 pl-4 pb-3 pr-4 ${listStyleBg} rounded-lg w-fit h-fit`}
+        className={`flex flex-row gap-2 pt-3 pl-4 pb-3 pr-4 ${listStyleBg} rounded-lg w-fit h-fit cursor-pointer`}
         onClick={() => setActiveTab('list')}
       >
         <Image
@@ -38,7 +38,7 @@ function ListeCalendarSelector({ activeTab, setActiveTab }) {
         <div className="text-sm font-normal text-orange">Liste</div>
       </li>
       <li
-        className={`flex flex-row gap-2 pt-3 pl-4 pb-3 pr-4 ${calendarStyleBg} rounded-lg w-fit h-fit`}
+        className={`flex flex-row gap-2 pt-3 pl-4 pb-3 pr-4 ${calendarStyleBg} rounded-lg w-fit h-fit cursor-pointer`}
         onClick={() => setActiveTab('calendar')}
       >
         <Image
