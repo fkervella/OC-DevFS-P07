@@ -1,0 +1,50 @@
+import Image from 'next/image';
+
+import UserAvatar from '@/app/_components/Common/UserAvatar';
+import TaskStatus from '@/app/_components/Task/TaskStatus';
+
+/**
+ * ProjectInfos Composant d'affichage des données d'un projet
+ *
+ * @param {project} project Données du projet
+ * @returns {string} Code HTML d'affichage des données d'un projet
+ */
+
+function ProjectInfos({ project }) {
+  return (
+    <div className="flex flex-col">
+      <div className="flex flex-row gap-2">
+        <Image
+          src="/teamGreyIcon.png"
+          alt="team icon"
+          width={22}
+          height={24}
+          className="self-start h-4 w-auto"
+        />
+        <div className="text-grey-font text-normal text-xs">
+          Equipe({project.members.length + 1})
+        </div>
+      </div>
+      <div className="flex flex-row gap-2 h-8 mt-4">
+        <UserAvatar
+          name={project.owner.name}
+          bgColor="bg-light-orange"
+          size="small"
+        />
+        <TaskStatus status="PROPRIETAIRE" />
+        {project.members.map((member, index) => (
+          <UserAvatar
+            key={member.user.id}
+            name={member.user.name}
+            bgColor="bg-grey-background"
+            left={index * 18}
+            zIndex={index}
+            size="small"
+          />
+        ))}
+      </div>
+    </div>
+  );
+}
+
+export default ProjectInfos;
