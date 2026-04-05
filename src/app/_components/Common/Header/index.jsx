@@ -12,10 +12,11 @@ import HeaderClient from './HeaderClient';
  */
 
 async function HeaderServer() {
+  // Récupération de la session en cours et redirection vers la page de login si aucun utilisateur n'est connecté
   const token = await getSession();
-
   if (!token) redirect('/login');
 
+  // A partie de la session en cours, obtention du nom de l'utilisateur
   const userName = token ? token.user.name : '';
 
   return <HeaderClient userName={userName} />;

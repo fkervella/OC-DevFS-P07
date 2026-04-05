@@ -19,12 +19,14 @@ function ModifyTaskModalContent({ onSubmit, task }) {
   const [error, setError] = useState(null);
   const [isPending, startTransition] = useTransition();
 
+  // Récupération des contributeurs déjà sélectionnés
   const initialAssignees = (task?.assignees || []).map((a) => ({
     value: a.user.id,
     label: a.user.name,
     email: a.user.email,
   }));
 
+  // Initialisation des valeurs du formulaire, comme il s'agit d'une page de modification
   const [formData, setFormData] = useState({
     title: task?.title || '',
     description: task?.description || '',
@@ -39,11 +41,13 @@ function ModifyTaskModalContent({ onSubmit, task }) {
   const [selectedStatus, setSelectedStatus] = useState(task?.status || 'TODO');
   const statusOptions = ['TODO', 'IN_PROGRESS', 'DONE'];
 
+  // Conservation des données pendant la saisie utilisateur
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
   };
 
+  // Validation du formulaire
   const handleSubmit = (e) => {
     e.preventDefault();
     startTransition(async () => {
@@ -58,6 +62,7 @@ function ModifyTaskModalContent({ onSubmit, task }) {
         form.append('state', formData.state);
         form.append('contributors', JSON.stringify(formData.members));
 
+        // Mise à jour des données dans le backend
         const updatedTaskStatus = await updateTask(form);
         if (!updatedTaskStatus.success) setError(updatedTaskStatus.error);
         else {

@@ -23,10 +23,12 @@ function DashboardClient({ projectsProp, userName }) {
   const [activeTab, setActiveTab] = useState('list');
   const [projects, setProjects] = useState(projectsProp);
 
+  // Action de cette page à l'issue de la création du projet : fermeture de la modale
   const handleSubmitCreateProject = () => {
     closeModal();
   };
 
+  // Action de cette page à l'issue de la modification d'une tâche : Mise à joru des données de la page
   const handleSubmitSeeAssignedTask = async () => {
     const projectsResponse = await getDashboardProjectsTasks();
     setProjects(projectsResponse.projects);

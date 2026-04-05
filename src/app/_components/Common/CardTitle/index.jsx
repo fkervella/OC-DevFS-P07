@@ -1,5 +1,5 @@
 /**
- * CarrdTitle affiche le titre de la carte au format prévu
+ * CardTitle affiche le titre de la carte au format prévu
  *
  * @param {string} title - Titre à afficher
  * @returns {string} - code HTML du titre de la carte

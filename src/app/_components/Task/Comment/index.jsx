@@ -2,8 +2,10 @@ import UserAvatar from '@/app/_components/Common/UserAvatar';
 import { formatDateFR } from '@/app/lib/utils';
 
 function Comment({ comment }) {
+  // Si pas de commentaire, rien à afficher
   if (!comment) return null;
 
+  // Récupération des valeurs à afficher
   const authorId = comment.author?.id || 'Id inconnu';
   const authorName = comment.author?.name || 'Utilisateur inconnu';
   const content = comment.content || 'Commentaire indéterminé';

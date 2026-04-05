@@ -26,6 +26,7 @@ function Register() {
   const [isPending, startTransition] = useTransition();
   const router = useRouter();
 
+  // Conservation des valeurs lors de la saisie utilisateur
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData((prev) => ({
@@ -34,16 +35,19 @@ function Register() {
     }));
   };
 
+  // Enregistrment des données dans le backend
   const handleRegisterSubmit = async (e) => {
     e.preventDefault();
     startTransition(async () => {
       try {
         const form = new FormData(e.currentTarget);
+        // Enregistrment des données dans le backend
         const registerStatus = await registerUser(form);
 
         if (!registerStatus.success) {
           setRegisterError(registerStatus.error);
         } else {
+          // Déplacement à la page de connexion
           router.push('/');
         }
       } catch (error) {

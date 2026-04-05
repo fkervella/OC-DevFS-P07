@@ -27,6 +27,7 @@ function ProfileClient({ user }) {
   const [isPending, startTransition] = useTransition();
   const router = useRouter();
 
+  // Conservation des données durant la saisie utilisateur
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData((prev) => ({
@@ -35,16 +36,20 @@ function ProfileClient({ user }) {
     }));
   };
 
+  // Enregistrement des données dans le backend en cas de soumission du formulaire
   const handleSubmit = async (e) => {
     e.preventDefault();
     startTransition(async () => {
       try {
         const form = new FormData(e.currentTarget);
+
+        // Enregistrement des données dans le backend
         const updateStatus = await updateProfile(form);
 
         if (!updateStatus.success) setError(updateStatus.error);
         else setError(null);
 
+        // rafraichissement de la page après enregistrement des modifications dans le backend
         router.refresh();
       } catch (error) {
         setError('Erreur lors de la modification : ', error.message);

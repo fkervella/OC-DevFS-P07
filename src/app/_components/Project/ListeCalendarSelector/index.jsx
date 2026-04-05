@@ -9,6 +9,7 @@ import Image from 'next/image';
  */
 
 function ListeCalendarSelector({ activeTab, setActiveTab }) {
+  // Définition des couleurs de fond des bouton en fonction de l'onglet sélectionné
   let listStyleBg = '';
   let calendarStyleBg = '';
 
@@ -22,6 +23,7 @@ function ListeCalendarSelector({ activeTab, setActiveTab }) {
     listStyleBg = 'bg-light-orange';
     calendarStyleBg = 'bg-white';
   }
+
   return (
     <ul className="flex flex-row gap-4 pl-2">
       <li

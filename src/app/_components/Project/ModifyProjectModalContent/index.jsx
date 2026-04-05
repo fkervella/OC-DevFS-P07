@@ -17,12 +17,14 @@ function ModifyProjectModalContent({ onSubmit, project }) {
   const [error, setError] = useState(null);
   const [isPending, startTransition] = useTransition();
 
+  // Création de la liste initiale des utilisateurs
   const initialMembers = (project?.members || []).map((m) => ({
     value: m.user.id,
     label: m.user.name,
     email: m.user.email,
   }));
 
+  // Initialisation des valeurs du formulaire, comme il s'agit d'une modale de modification
   const [formData, setFormData] = useState({
     id: project?.id || '',
     title: project?.name || '',
@@ -30,24 +32,29 @@ function ModifyProjectModalContent({ onSubmit, project }) {
     members: initialMembers,
   });
 
+  // En cas de saisie utilisateur, conservation de la saisie
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
   };
 
+  // En cas de validation par l'utilisateur, modification des informations dans le backend
   const handleSubmit = (e) => {
     e.preventDefault();
     startTransition(async () => {
       try {
         const form = new FormData(e.currentTarget);
+        // Enregistrement des données dans le backend
         const updateStatus = await updateProject(form);
 
+        // Affichage d'erreur à l'utilisateur si nécessaire
         if (!updateStatus.success) setError(updateStatus.error);
         else setError(null);
       } catch (error) {
         setError('Erreur lors de la modification : ', error.message);
       }
     });
+    // Envoi des informations de validation du formulaire à la page parente
     onSubmit(formData);
   };
 

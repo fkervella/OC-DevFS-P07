@@ -33,9 +33,10 @@ const selectOptions = [
  * ProjectClient Partie client pour l'affichage des données d'un projet
  *
  * @export
- * @param {project} param0.projectData Données du projec
- * @param {task[]} param0.projectTasks Liste des tâches du projet
+ * @param {project} param0.projectDataProp Données du projec
+ * @param {task[]} param0.projectTasksProp Liste des tâches du projet
  * @param {string} param0.userName Nom de l'utilisateur connecté
+ * @param {boolean} isProjectAdministrator Statut administrateur du projet de l'utilisateur
  * @returns {string} Code HTML d'affichage des données d'un projet
  */
 
@@ -56,6 +57,7 @@ export function ProjectClient({
     status: '',
   });
 
+  // Filtrage de l'affichage des tâches en fonction de la saisie utilisateur
   const projectTasks = useMemo(() => {
     let filtered = allTasks;
     if (filters.text) {
@@ -73,6 +75,7 @@ export function ProjectClient({
     return filtered;
   }, [allTasks, filters]);
 
+  // Rafraichissement des données du projet
   const refreshProject = async () => {
     setError(null);
     try {
@@ -92,7 +95,9 @@ export function ProjectClient({
     }
   };
 
+  // Lors de la modification des données du projet
   const handleSubmit = async (formData) => {
+    // Recherche des utilisateurs ajoutés et ceux supprimés
     await synchronizeMembers(
       projectData.id,
       projectData.members,
@@ -106,16 +111,19 @@ export function ProjectClient({
     closeModal();
   };
 
+  // Retour de la modale de modification de tâche
   const handleSubmitModifyTask = async () => {
     await refreshProject();
     closeModal();
   };
 
+  // Retour de la modale de création de tâche
   const handleSubmitNewTask = async () => {
     await refreshProject();
     closeModal();
   };
 
+  // Action lors du filtrage par statut de tâche
   const handleStatusChange = (selectedOption) => {
     setFilters((prev) => ({
       ...prev,
@@ -123,6 +131,7 @@ export function ProjectClient({
     }));
   };
 
+  // Action lors du filtrage par nom/description de tâche
   const handleChangeFilter = (e) => {
     e.preventDefault();
     const formData = new FormData(e.currentTarget);

@@ -25,6 +25,7 @@ async function ProjectServer({ params }) {
   if (!userData)
     throw new Error('Echec de la récupération des informations utilisateur');
 
+  // Récupération des informations du projet
   const { id: projectId } = await params;
 
   const projectsResponse = await getMyProjects();
@@ -38,6 +39,7 @@ async function ProjectServer({ params }) {
       "L'utilisateur ne fait pas partie des contributeurs du projet."
     );
 
+  // Récupération des tâches du projet
   const tasksResponse = await getProjectTasks(project.id);
 
   const projectTasks = tasksResponse.tasks;

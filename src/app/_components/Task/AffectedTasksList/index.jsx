@@ -23,6 +23,7 @@ function AffectedTasksList({
     searchText,
   });
 
+  // Traitement de la recherche des tâches selon le texte saisi
   const handleChangeSearchTask = (e) => {
     e.preventDefault();
     const formData = new FormData(e.currentTarget);

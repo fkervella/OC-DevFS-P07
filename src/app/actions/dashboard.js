@@ -13,6 +13,7 @@ import { getSession } from '@/app/lib/session';
  */
 
 export async function getDashboardProjectsTasks() {
+  // Récupération des informations de l'utilisateur connecté
   const token = await getSession();
 
   if (!token) {

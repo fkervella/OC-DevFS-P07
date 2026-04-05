@@ -3,6 +3,9 @@ import { getTasksByStatus } from '@/app/lib/utils';
 /**
  * AffectedTasksKanban Composant d'affichage sous forme de kanban des tâches affectées à un utilisateur
  *
+ * @param {Project[]} projects Liste des projets de l'utilisateur connecté
+ * @param {Function} openModal Fonction d'affichage de la fenêtre modale
+ * @param {Function} handleSubmitSeeAssignedTask Fonction à appeler lors de la soumission de l'afficahge de tâche
  * @returns {string} Code HTML d'affichage sous forme de kanban des tâches affectées à un utilisateur
  */
 
@@ -11,6 +14,7 @@ function AffectedTasksKanban({
   openModal,
   handleSubmitSeeAssignedTask,
 }) {
+  // Récupération du nombre de tâches par status
   const inProgressTasks = getTasksByStatus(projects, 'IN_PROGRESS');
   const todoTasks = getTasksByStatus(projects, 'TODO');
   const doneTasks = getTasksByStatus(projects, 'DONE');

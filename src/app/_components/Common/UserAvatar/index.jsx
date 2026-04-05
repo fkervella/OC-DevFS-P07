@@ -10,6 +10,7 @@ import { getInitials } from '@/app/lib/utils';
  * @param {number} [param0.left=0] décalage à gauche de l'avatar et du nom de l'utilisateur
  * @param {number} [param0.zIndex=0] zindex de l'avatar
  * @param {boolean} [param0.withUserName=false] Affichage du nom complet de l'utilisateur en plus des initiales
+ * @param {string} [param0.size='small'] Taille d'affichage de l'avatar utilisateur
  * @returns {string} Code HTML d'affichage de l'avatar d'un utilisateur
  */
 
@@ -22,11 +23,11 @@ function UserAvatar({
   withUserName = false,
   size = 'small',
 }) {
+  // Correspondance entre la taille passée en paramètre et le style correspondant
   const sizeClasses = {
     small: 'w-7.5 h-7.5',
     normal: 'w-16 w-16',
   };
-
   const classe = sizeClasses[size];
 
   return (

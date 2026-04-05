@@ -8,6 +8,11 @@ import { addComment } from '@/app/actions/task';
  * Comments Composant d'affichage des commentaires d'une tâche
  *
  * @param {Comment[]} comments Commentaires de la tâche
+ * @param {boolean} isVisibleComment visibilité du commentaire
+ * @param {string} username Nom de l'utilisateur connecté
+ * @param {string} projectId Identifiant du projet
+ * @param {string} taskId Identifiant de la tâche
+ * @param {Function} refreshData Fonction pour rafraichir les données de la page
  * @returns {string} Code HTML d'affichage du nombre de commentaires d'une tâche
  */
 
@@ -27,10 +32,12 @@ function Comments({
   const [addCommentError, setAddCommentError] = useState(null);
   const [, startTransition] = useTransition();
 
+  // Si pas de commentaire, affichage de l'information
   if (comments.length === 0) {
     return <div>Pas de commentaire</div>;
   }
 
+  // Conservation de la saisie d'un nouveau commentaire
   const handleChangeNewComment = (e) => {
     const { name, value } = e.target;
     setFormData((prev) => ({
@@ -39,21 +46,27 @@ function Comments({
     }));
   };
 
+  // Validation d'un nouveau commentaire
   const handleSubmitNewComment = async (e) => {
     e.preventDefault();
     startTransition(async () => {
       try {
         const form = new FormData(e.currentTarget);
+        //Enregistrement dans le backend
         const addCommentStatus = await addComment(form);
 
+        // Si nécessaire, affichage de l'erreur à l'utilisateur
         if (!addCommentStatus.success) {
           setAddCommentError(addCommentStatus.error);
         }
 
+        // Effacement du formulaire pour saisir un nouveau commentaire si besoin
         setFormData((prev) => ({
           ...prev,
           ['comment']: '',
         }));
+
+        //Rafraichissement des données de la page
         refreshData();
       } catch (error) {
         setAddCommentError("Erreur lors de l'inscription : ", error.message);

@@ -6,6 +6,8 @@ import AffectedTask from '@/app/_components/Task/AffectedTask';
  *
  * @param {string} title Titre de la liste de tâches
  * @param {tasks[]} tasks Tâches à afficher
+ * @param {Function} openModal Fonction d'affichage de la modale
+ * @param {Function} handleSubmit Fonction à appeler lors de la soumission du formulaire
  * @returns {string} Code HTML d'afficahge de la liste de tâches sous forme de kanban
  */
 

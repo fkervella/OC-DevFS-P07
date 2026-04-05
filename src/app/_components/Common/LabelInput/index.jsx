@@ -6,6 +6,10 @@
  * @param {string} text - Texte à afficher dans le label
  * @param {string} type - Type de l'objet input
  * @param {string} placeHolder Placeholder de l'objet input
+ * @param {string} value Valeur initiale de l'objet input
+ * @param {string} defaultValue Valeur par défaut de l'objet input
+ * @param {Function} onChange Fonction appelée lors du changement de valeur de l'objet input
+ * @param {boolean} autoFocus Fixe le focus sur cet objet input
  * @returns {string} code HTML contenant le label et l'input concernés
  */
 

@@ -5,7 +5,7 @@ import { formatDateFR } from '@/app/lib/utils';
 /**
  * Date affiche la date passée en paramètre, au format prévu
  *
- * @param {string} date - date à affichée
+ * @param {string} date - date à afficher
  * @returns {string} - code HTML de la date passée en paramètre
  */
 

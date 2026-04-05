@@ -10,7 +10,8 @@ import { createTask } from '@/app/actions/task';
 /**
  * CreateTaskModalContent Composant d'affichage du formulaire de création d'une tâche dans une fenêtre modale
  *
- * @param {Function} param0.onSubmit fonction exécutée à la validation du formulaire
+ * @param {Function} onSubmit fonction exécutée à la validation du formulaire
+ * @param {string} projectId Identifiant du projet
  * @returns {string} Code HTML d'affichage du formulaire de création d'une tâche dans une fenêtre modale
  */
 
@@ -31,11 +32,13 @@ function CreateTaskModalContent({ onSubmit, projectId }) {
   const [selectedStatus, setSelectedStatus] = useState('TODO');
   const statusOptions = ['TODO', 'IN_PROGRESS', 'DONE'];
 
+  // Conservation des données saisies par l'utilisateur
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
   };
 
+  // Validation de la création d'une nouvelle tâche
   const handleSubmit = async (e) => {
     e.preventDefault();
     startTransition(async () => {
@@ -49,9 +52,12 @@ function CreateTaskModalContent({ onSubmit, projectId }) {
         form.append('state', formData.state);
         form.append('contributors', JSON.stringify(formData.members));
 
+        // Enregistrement de la nouvelle tâche dans le backend
         const createTaskStatus = await createTask(form);
+
         if (!createTaskStatus.success) setError(createTaskStatus.error);
         else {
+          // Appel de la fonction de soumission de la page parente si pas d'erreur
           await onSubmit(formData);
         }
       } catch (error) {

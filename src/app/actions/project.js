@@ -14,6 +14,7 @@ import { getSession } from '@/app/lib/session';
  */
 
 export async function getMyProjects() {
+  // Récupération des informations de l'utilisateur connecté
   const token = await getSession();
   if (!token) throw new Error('Erreur lors de la récupération du cookie');
 
@@ -51,6 +52,7 @@ export async function getMyProjects() {
  */
 
 export async function getProjectTasks(projectId) {
+  // Récupération des informations de l'utilisateur connecté
   const token = await getSession();
 
   if (!token) {
@@ -81,7 +83,17 @@ export async function getProjectTasks(projectId) {
   }
 }
 
+/**
+ * Fonction de création d'un projet
+ *
+ * @export
+ * @async
+ * @param {*} formData Données issues du formulaire de création de projet saisi par l'utilisateur
+ * @returns {unknown} Données du projet
+ */
+
 export async function createProject(formData) {
+  // Récupération des informations de l'utilisateur connecté
   const token = await getSession();
   const name = formData.get('title');
   const description = formData.get('description');
@@ -96,6 +108,7 @@ export async function createProject(formData) {
   }
 
   try {
+    // Mise en forme de la liste des membres du projet
     const normalizedMembers = Array.isArray(members)
       ? members
       : members
@@ -138,7 +151,17 @@ export async function createProject(formData) {
   }
 }
 
+/**
+ * Fonction de mise à jour des données d'un projet
+ *
+ * @export
+ * @async
+ * @param {*} formData Données issues du formulaire de création de projet saisi par l'utilisateur
+ * @returns {unknown}  Données du projet
+ */
+
 export async function updateProject(formData) {
+  // Récupération des informations de l'utilisateur connecté
   const token = await getSession();
   const id = formData.get('projectId');
   const name = formData.get('title');
@@ -178,7 +201,17 @@ export async function updateProject(formData) {
     };
   }
 }
+/**
+ * Fonction de récupération des données du projet selon l'identifiant passé en paramètre
+ *
+ * @export
+ * @async
+ * @param {*} projectId Identifiant du projet
+ * @returns {unknown} Données du projet
+ */
+
 export async function getProjectData(projectId) {
+  // Récupération des informations de l'utilisateur connecté
   const token = await getSession();
 
   if (!token) {
@@ -211,10 +244,12 @@ export async function getProjectData(projectId) {
     );
   }
 }
+
 /**
  * Synchronise la liste des membres en comparant l'état initial et l'état final.
  * Appelle addMember pour les nouveaux membres et deleteMember pour les supprimés.
  *
+ * @param {string} projectId - identifiant du projet
  * @param {Array} initialMembers - Liste initiale [{ id, userId }]
  * @param {Array} finalMembers - Liste finale [{ label, value }] où value correspond à userId
  * @returns {Promise<void>}
@@ -225,18 +260,17 @@ export async function synchronizeMembers(
   initialMembers,
   finalMembers
 ) {
-  // 1. Créer des Sets pour une recherche rapide (O(1))
-  // On extrait les userIds de la liste initiale
+  // 1. Création des Sets pour une recherche rapide (O(1)) : extraction des userIds de la liste initiale
   const initialUsers = new Map(
     initialMembers.map((member) => [String(member.userId), member])
   );
 
-  // On extrait les userIds de la liste finale (la propriété 'value' correspond au userId)
+  // Exraction des userIds de la liste finale ('value' -> userId)
   const finalUsers = new Map(
     finalMembers.map((member) => [String(member.value), member])
   );
 
-  // 2. Identifier les suppressions : présents dans initial mais absents dans final
+  // 2. Identification des suppressions : présents dans initial mais absents dans final
   const usersToRemove = [];
   for (const userId of initialUsers.keys()) {
     if (!finalUsers.has(userId)) {
@@ -244,8 +278,7 @@ export async function synchronizeMembers(
     }
   }
 
-  // 3. Identifier les ajouts : présents dans final mais absents dans initial
-  // On filtre ceux qui ne sont pas dans le Set initial
+  // 3. Identification des ajouts : présents dans final mais absents dans initial par filtrage de ceux qui ne sont pas dans le Set initial
   const usersToAdd = [];
   for (const [userId, memberData] of finalUsers) {
     if (!initialUsers.has(userId)) {
@@ -256,19 +289,29 @@ export async function synchronizeMembers(
     }
   }
 
-  // 4. Exécuter les suppressions
-  // On utilise Promise.all pour exécuter les suppressions en parallèle si elles sont asynchrones
+  // 4. Suppressions des utilisateurs dans le backend Promise.all permet d'exécuter les suppressions en parallèle si elles sont asynchrones
   const removalPromises = usersToRemove.map((userId) =>
     deleteMember(projectId, userId)
   );
   await Promise.all(removalPromises);
 
-  // 5. Exécuter les ajouts
+  // 5. Ajouts des utilisateurs dans le backend
   const additionPromises = usersToAdd.map((member) =>
     addMember(projectId, member.value, member.userEmail)
   );
   await Promise.all(additionPromises);
 }
+
+/**
+ * Ajout d'un utilisateur à un projet
+ *
+ * @export
+ * @async
+ * @param {*} projectId identifiant du projet
+ * @param {*} userId identifiant de l'utilisateur
+ * @param {*} userEmail email de l'utilisateur
+ * @returns {unknown} Données de l'utilisateur
+ */
 
 export async function addMember(projectId, userId, userEmail) {
   const token = await getSession();
@@ -299,6 +342,16 @@ export async function addMember(projectId, userId, userEmail) {
     );
   }
 }
+
+/**
+ * Suppression d'un utilisateur dans un projet
+ *
+ * @export
+ * @async
+ * @param {*} projectId identifiant du projet
+ * @param {*} userId identifiant de l'utilisateur
+ * @returns {unknown} Données de l'utilisateur
+ */
 
 export async function deleteMember(projectId, userId) {
   const token = await getSession();

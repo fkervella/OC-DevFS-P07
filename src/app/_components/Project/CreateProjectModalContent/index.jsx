@@ -9,7 +9,7 @@ import { createProject } from '@/app/actions/project';
 /**
  * CreateProjectModalContent Composant d'afficahge du contenu de la modale de création de projet
  *
- * @param {Function} onSubmit action à réaliser à la soumission du formulaire
+ * @param {Function} onSubmitSuccess action à réaliser à la soumission du formulaire
  * @returns {string} Code HTML du formulaire de création de projet
  */
 
@@ -23,23 +23,30 @@ function CreateProjectModalContent({ onSubmitSuccess }) {
   const [error, setError] = useState(null);
   const [isPending, startTransition] = useTransition();
 
+  // En cas de saisie utilisateur, conservation de la saisie
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
   };
 
+  // En cas de validation par l'utilisateur, création du rojet
   const handleSubmit = async (e) => {
     e.preventDefault();
     startTransition(async () => {
       try {
+        // Enregistrement des données dans un nouvel objet qui sera utilisé pour l'enregistrement dans le backend
         const form = new FormData();
         form.append('title', formData.title);
         form.append('description', formData.description);
         form.append('contributors', JSON.stringify(formData.members));
+
+        // Enregistrement des données dans le backend
         const createProjectStatus = await createProject(form);
 
+        // Affichage d'erreur à l'utilisateur si nécessaire
         if (!createProjectStatus.success) setError(createProjectStatus.error);
         else {
+          // Envoi de l'information de validation du formulaire à la page parente
           await onSubmitSuccess();
         }
       } catch (error) {

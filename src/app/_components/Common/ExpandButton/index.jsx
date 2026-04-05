@@ -3,8 +3,9 @@ import Image from 'next/image';
 /**
  * ExpandButton affiche le bouton d'expansion d'informations
  *
- * @param {string} page - page vers laquelle rediriger lorsque le bouton est cliqué
- * @returns {string} Code HTML du boutn à afficher
+ * @param {string} handleSubmit - action à réaliser lorsque le bouton est cliqué
+ * @param {string} rotation - Angle de rotation de l'image du bouton
+ * @returns {string} Code HTML du bouton à afficher
  */
 
 function ExpandButton({ handleSubmit, rotation }) {

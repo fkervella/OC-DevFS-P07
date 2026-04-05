@@ -5,6 +5,10 @@ import { organizeTasksByPriority } from '@/app/lib/utils';
  * ProjectTaskList Composant d'affichage sous forme de liste des tâches d'un projet
  *
  * @param {tasks[]} tasks tâches du projet
+ * @param {Function} openModal Fonction d'affichage de la fenêtre modale
+ * @param {Function} handleSubmitModifyTask Fonction à appeler lors de la soumission de la modification de tache
+ * @param {string} username Nom de l'utilisateur
+ * @param {string} projectId Identifiant du projet
  * @returns {string} Code HTML d'affichage sous forme de liste des tâches d'un projet
  */
 

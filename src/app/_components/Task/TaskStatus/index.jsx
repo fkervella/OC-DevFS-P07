@@ -1,11 +1,13 @@
 /**
  * TaskStatus Composant d'affichage du statut d'une tâche
  *
- * @param {string} param0.status Statut de la tâche
+ * @param {string} status Statut de la tâche
+ * @param {boolean} selected Statut passé en paramètre sélectionné (dans le cas d'un usage comme un bouton)
  * @returns {string} Code HTML d'afficahge du statut d'une tâche
  */
 
 function TaskStatus({ status, selected = false }) {
+  // Sélection du style d'affichage selon le statut passé en paramètre
   const statusStyle = {
     DONE: {
       text: 'Terminée',
@@ -29,6 +31,7 @@ function TaskStatus({ status, selected = false }) {
     },
   };
 
+  // Gestion de l'affichage lorsque le statut est sélectionné
   const selectedStyle = selected ? 'border-2 border-blue-600' : '';
 
   return (

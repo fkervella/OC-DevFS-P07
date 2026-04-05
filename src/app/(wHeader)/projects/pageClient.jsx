@@ -23,6 +23,7 @@ function ProjectsClient({ projectsProp }) {
 
   const [projects, setProjects] = useState(projectsProp);
 
+  // Rafraichissement des données après le retour de la modale de création de projet
   const handleSubmit = async () => {
     const newProjects = await getMyProjects();
     if (newProjects) {

@@ -8,11 +8,14 @@ import { calculateProgressPercentage, getActiveTasks } from '@/app/lib/utils';
  */
 
 function Progress({ tasks }) {
+  // Si pas de tâche, pas d'affichage de données
   if (!tasks) return null;
 
+  // Filtrage des tâches actives
   const activeTasks = getActiveTasks(tasks);
-  const progress = calculateProgressPercentage(tasks);
 
+  // Calcul du pourcentage d'avancement du projet
+  const progress = calculateProgressPercentage(tasks);
   const clampedPercentage = Math.min(Math.max(progress, 0), 100);
 
   return (

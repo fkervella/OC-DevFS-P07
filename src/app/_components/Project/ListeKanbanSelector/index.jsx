@@ -9,6 +9,7 @@ import Image from 'next/image';
  */
 
 function ListeKanbanSelector({ activeTab, setActiveTab }) {
+  // Définition des couleurs de fond des bouton en fonction de l'onglet sélectionné
   let listStyleBg = '';
   let kanbanStyleBg = '';
 
@@ -22,6 +23,7 @@ function ListeKanbanSelector({ activeTab, setActiveTab }) {
     listStyleBg = 'bg-light-orange';
     kanbanStyleBg = 'bg-white';
   }
+
   return (
     <ul className="flex flex-row gap-4 pl-2">
       <li

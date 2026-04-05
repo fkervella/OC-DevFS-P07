@@ -16,6 +16,7 @@ import { createSession, getSession } from '@/app/lib/session';
  */
 
 export async function getUserProfile() {
+  // Récupération des informations de l'utilisateur connecté
   const token = await getSession();
 
   if (!token) throw new Error('Erreur lors de la récupération du cookie');
@@ -59,6 +60,7 @@ export async function updateProfile(formData) {
   const newPassword = formData.get('newPassword');
   const name = `${firstname} ${lastname}`;
 
+  // Récupération des informations de l'utilisateur connecté
   if (!token) {
     return { success: false, error: 'Session non trouvée : cookie non trouvé' };
   }
@@ -82,12 +84,14 @@ export async function updateProfile(formData) {
       };
     }
 
+    // Mise à jour des données du cookie lors de la mise à jour du profil utilisateur
     await createSession({
       ...token.user,
       name: updatedUser.data.user.name,
       email: updatedUser.data.user.email,
     });
 
+    // Si saisie du mot de passe, enregistrement de celui-ci
     if (newPassword) {
       const passwordUpdate = await updateProfilePassword(
         currentPassword,
@@ -112,11 +116,13 @@ export async function updateProfile(formData) {
  *
  * @export
  * @async
- * @param {string} password Mot de passe de l'utilisateur
+ * @param {string} currentPassword Mot de passe actuel de l'utilisateur
+ * @param {string} newPassword Nouveau mot de passe de l'utilisateur
  * @returns {*}
  */
 
 export async function updateProfilePassword(currentPassword, newPassword) {
+  // Récupération des informations de l'utilisateur connecté
   const token = await getSession();
   if (!token) {
     return { success: false, error: 'Session non trouvée : cookie non trouvé' };
@@ -151,7 +157,17 @@ export async function updateProfilePassword(currentPassword, newPassword) {
   }
 }
 
+/**
+ * Récupération de l'utilisateur selon son nom
+ *
+ * @export
+ * @async
+ * @param {string} inputValue nom de l'utilisateur
+ * @returns {unknown}
+ */
+
 export async function getUserByName(inputValue) {
+  // Récupération des informations de l'utilisateur connecté
   const token = await getSession();
   if (!token) {
     return { success: false, error: 'Session non trouvée : cookie non trouvé' };
@@ -188,6 +204,15 @@ export async function getUserByName(inputValue) {
     };
   }
 }
+
+/**
+ * Fonction d'enregistrement d'un utilisateur dans le backend
+ *
+ * @export
+ * @async
+ * @param {*} formData Données de l'utilisateur (nom, email, mot de passe)
+ * @returns {unknown}
+ */
 
 export async function registerUser(formData) {
   const name = formData.get('username');

@@ -15,7 +15,8 @@ import { getUserByName } from '@/app/actions/profile';
  * @param {Array} options - Options initiales (ex: membres déjà assignés)
  * @param {Function} onChange - Fonction appelée lors du changement de sélection
  * @param {boolean} required - Si le champ est requis
- * @param {string} placeholder - Texte d'invite
+ * @param {string} placeholder - Texte affiché par défaut
+ * @returns {string} code HTML contenant l'objet de sélection
  */
 
 export default function LabelSelect({
@@ -29,18 +30,19 @@ export default function LabelSelect({
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
 
-  // Fonction pour charger les options depuis l'API
+  // Fonction pour récupérer depuis le backend les utilisateurs correspondant à la saisie
   const loadOptions = useCallback(async (inputValue) => {
-    if (!inputValue || inputValue.length < 2) {
-      // On ne cherche pas si moins de 2 caractères (optionnel, mais recommandé)
-      return [];
-    }
+    // Recherche non effectuée si inputValue ne contient pas 2 caractères minimum
+    if (!inputValue || inputValue.length < 2) return [];
 
+    // Indicateur pour l'utilisateur que la récupération des informations est en cours
     setIsLoading(true);
 
     try {
+      // Récupération des informations du backend
       const usernameResponse = await getUserByName(inputValue);
 
+      // Gestion du retour du backend et affichage d'erreur si nécessaire
       if (!usernameResponse.success) {
         setError(String(usernameResponse.error));
         return [];
@@ -48,15 +50,18 @@ export default function LabelSelect({
         setError(null);
       }
 
+      // Renvoi de la liste des utilisateurs trouvés avec id, nom et email
       return usernameResponse.users.map((user) => ({
         value: user.id,
         label: user.name,
         email: user.email,
       }));
     } catch (error) {
-      console.error("Erreur lors de la recherche d'utilisateurs:", error);
+      // En cas d'erreur, affichage à l'utilisateur
+      setError("Erreur lors de la recherche d'utilisateurs:", error);
       return [];
     } finally {
+      // Fin de l'indication à l'utilisateur de l'action en cours
       setIsLoading(false);
     }
   }, []);
@@ -71,8 +76,7 @@ export default function LabelSelect({
     });
   };
 
-  // Formatage des options initiales (celles venant du projet existant)
-  // Elles doivent avoir la même structure { value, label }
+  // Affectation de la valeur initiale des utilisateurs sélectionnés
   const initialOptions = options || [];
 
   return (
@@ -89,7 +93,7 @@ export default function LabelSelect({
       <AsyncSelect
         id={name}
         name={name}
-        cacheOptions={true} // Cache les résultats pour éviter de recharger la même recherche
+        cacheOptions={true} // Mise en cache des résultats pour éviter de recharger la même recherche
         value={initialOptions} // Affiche les membres déjà assignés au début
         loadOptions={loadOptions}
         onChange={handleChange}
@@ -104,37 +108,36 @@ export default function LabelSelect({
         loadingMessage={() => 'Recherche en cours...'}
         className="react-select-container"
         classNamePrefix="react-select"
-        // Styles personnalisés pour s'intégrer au design Tailwind
         styles={{
           control: (base, state) => ({
             ...base,
-            borderColor: state.isFocused ? '#3b82f6' : '#d1d5db', // blue-500 ou gray-300
+            borderColor: state.isFocused ? '#3b82f6' : '#d1d5db',
             boxShadow: state.isFocused ? '0 0 0 1px #3b82f6' : base.boxShadow,
             '&:hover': {
               borderColor: '#3b82f6',
             },
-            borderRadius: '0.375rem', // rounded-md
+            borderRadius: '0.375rem',
             padding: '0.25rem',
           }),
           menu: (base) => ({
             ...base,
-            zIndex: 50, // Important pour les modales
+            zIndex: 50,
           }),
           multiValue: (base) => ({
             ...base,
-            backgroundColor: '#f3f4f6', // gray-100
+            backgroundColor: '#f3f4f6',
             borderRadius: '0.25rem',
           }),
           multiValueLabel: (base) => ({
             ...base,
-            color: '#374151', // gray-700
+            color: '#374151',
           }),
           multiValueRemove: (base) => ({
             ...base,
             color: '#6b7280',
             ':hover': {
-              backgroundColor: '#fee2e2', // red-100
-              color: '#ef4444', // red-500
+              backgroundColor: '#fee2e2',
+              color: '#ef4444',
             },
           }),
         }}

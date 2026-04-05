@@ -2,6 +2,15 @@
 
 import { getSession } from '@/app/lib/session';
 
+/**
+ * Fonction de création d'une tâche
+ *
+ * @export
+ * @async
+ * @param {*} formData Données de la tâche issues du formulaire saisi par l'utilisateur
+ * @returns {unknown} Données de la tâche
+ */
+
 export async function createTask(formData) {
   const token = await getSession();
   const title = formData.get('title');
@@ -60,6 +69,15 @@ export async function createTask(formData) {
     };
   }
 }
+
+/**
+ * Fonction de mise à jour d'une tâche
+ *
+ * @export
+ * @async
+ * @param {*} formData Données de la tâche issues du formulaire saisi par l'utilisateur
+ * @returns {unknown} Données de la tâche
+ */
 
 export async function updateTask(formData) {
   const token = await getSession();
@@ -120,6 +138,15 @@ export async function updateTask(formData) {
     };
   }
 }
+
+/**
+ * Fonction d'ajout d'un commentaire
+ *
+ * @export
+ * @async
+ * @param {*} formData Données du commentaire issues du formulaire saisi par l'utilisateur
+ * @returns {unknown} Données du commentaire
+ */
 
 export async function addComment(formData) {
   const token = await getSession();

@@ -149,6 +149,16 @@ export function getProjectById(projects, projectId) {
   return project || null;
 }
 
+/**
+ * Fonction qui renvoie la liste des tâches de plusieurs projects, organisées par priorité et selon les filtres indiqués par l'utilisateur
+ *
+ * @export
+ * @param {{ projects: any; searchText: any; }} param0
+ * @param {*} param0.projects Liste des projets dont les tâches sont à ordonner
+ * @param {*} param0.searchText Texte de filtrage des tâches
+ * @returns {*} Liste des tâches, filtrées et organisées par priorité
+ */
+
 export function organizeProjectsTasksByPriority({ projects, searchText }) {
   const priorityOrder = { HIGH: 1, MEDIUM: 2, LOW: 3 };
   const tasksByPriority = { HIGH: [], MEDIUM: [], LOW: [] };
@@ -194,6 +204,14 @@ export function organizeProjectsTasksByPriority({ projects, searchText }) {
     return filteredTasks;
   }
 }
+
+/**
+ * Renvoie la liste des tâches passée en paramètre, classées par priorité
+ *
+ * @export
+ * @param {*} tasks Liste des tâches à organiser
+ * @returns {*} Liste des tâches classées par priorité
+ */
 
 export function organizeTasksByPriority(tasks) {
   const priorityOrder = { HIGH: 1, MEDIUM: 2, LOW: 3 };

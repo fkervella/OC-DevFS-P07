@@ -14,6 +14,10 @@ import TaskStatus from '@/app/_components/Task/TaskStatus';
  * ProjectTaskCard Composant d'affichage des données d'une tâche d'un projet
  *
  * @param {task} task Données de la tâche d'un projet
+ * @param {Function} openModal Fonction d'affichage de la fenêtre modale
+ * @param {Function} handleSubmitModifyTask Fonction à appeler lors de la soumission de la modification de tache
+ * @param {string} username Nom de l'utilisateur
+ * @param {string} projectId Identifiant du projet
  * @returns {string} Code HTML d'afficahge des données d'une tâche
  */
 
@@ -27,6 +31,7 @@ function ProjectTaskCard({
   const [isVisibleComment, setIsVisibleComment] = useState(false);
   const [buttonRotation, setButtonRotation] = useState(false);
 
+  // Gestion de l'affichage ou non des commentaires
   const handleSubmitCommentsVisibility = () => {
     setIsVisibleComment(!isVisibleComment);
     setButtonRotation(!buttonRotation);

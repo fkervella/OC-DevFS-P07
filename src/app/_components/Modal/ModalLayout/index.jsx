@@ -46,6 +46,7 @@ export default function ModalLayout({ isOpen, onClose, title, children }) {
     };
   }, [isOpen, onClose]);
 
+  // Si la modale est fermée, il n'y a rien à afficher
   if (!isOpen) return null;
 
   return (
