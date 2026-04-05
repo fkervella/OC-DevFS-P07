@@ -18,10 +18,12 @@ function Comment({ comment }) {
         withUserName={false}
         size="small"
       />
-      <div className="flex flex-row gap-4 justify-between pt-3 pr-3 pb-3 pl-3 rounded-lg bg-grey2-background w-full">
-        <div className="flex flex-col gap-2">
+      <div className="flex flex-row gap-4 justify-between pt-3 pr-3 pb-3 pl-3 rounded-lg bg-grey2-background min-w-0 flex-1">
+        <div className="flex flex-col gap-2 min-w-0 flex-1">
           <div className="font-inter font-normal text-sm">{authorName}</div>
-          <div className="font-inter font-normal text-xs">{content}</div>
+          <div className="font-inter font-normal text-xs break-words whitespace-pre-wrap">
+            {content}
+          </div>
         </div>
         <div className="font-inter font-normal text-xs text-grey-font">
           {commentDate}

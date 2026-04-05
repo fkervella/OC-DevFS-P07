@@ -67,7 +67,7 @@ function Comments({
         Commentaires ({comments.length})
       </div>
       {isVisibleComment && (
-        <div className="flex flex-col gap-4 flex-wrap">
+        <div className="flex flex-col gap-4">
           {comments.map((comment) => (
             <Comment key={comment.id} comment={comment} />
           ))}
