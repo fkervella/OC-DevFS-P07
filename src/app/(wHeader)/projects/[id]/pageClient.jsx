@@ -152,8 +152,10 @@ export function ProjectClient({
         className="flex flex-col gap-4 mt-4 pt-10 pr-30 pb-10 pl-30 bg-background"
         inert={modalState.isOpen}
       >
-        <div className="flex flex-col lg:flex-row gap-2 justify-between">
+        <div className="absolute left-0 pl-10">
           <LeftArrowButton page="/projects" />
+        </div>
+        <div className="flex flex-col lg:flex-row gap-2 justify-between">
           <div className="flex flex-col gap-2">
             <div className="flex flex-col lg:flex-row gap-2 items-start lg:items-center">
               <PageTitle title={projectData.name} />
