@@ -105,10 +105,15 @@ function Comments({
                   className="font-inter w-full"
                   onChange={handleChangeNewComment}
                   value={formData.comment}
+                  aria-label="Ajouter un commentaire"
                 />
               </form>
               {addCommentError && (
-                <div className="p-4 mb-4 text-red-font bg-light-orange rounded-lg">
+                <div
+                  className="p-4 mb-4 text-red-font bg-light-orange rounded-lg"
+                  role="alert"
+                  aria-live="assertive"
+                >
                   {addCommentError}
                 </div>
               )}

@@ -93,7 +93,11 @@ function Register() {
             onChange={handleChange}
           />
           {registerError && (
-            <div className="p-4 mb-4 text-red-font bg-light-orange rounded-lg">
+            <div
+              className="p-4 mb-4 text-red-font bg-light-orange rounded-lg"
+              role="alert"
+              aria-live="assertive"
+            >
               {registerError}
             </div>
           )}
@@ -101,6 +105,8 @@ function Register() {
             text={isPending ? 'Inscription en cours ...' : "S'inscrire"}
             type="submit
             disabled={isPending}"
+            aria-live="polite"
+            aria-busy={isPending}
           />
         </form>
         <div className="font-inter font-normal text-sm">

@@ -155,7 +155,11 @@ function ModifyTaskModalContent({ onSubmit, task }) {
         </div>
       </div>
       {error && (
-        <div className="p-4 mb-4 text-red-font bg-light-orange rounded-lg">
+        <div
+          className="p-4 mb-4 text-red-font bg-light-orange rounded-lg"
+          role="alert"
+          aria-live="assertive"
+        >
           {error}
         </div>
       )}
@@ -164,6 +168,8 @@ function ModifyTaskModalContent({ onSubmit, task }) {
           type="submit"
           disabled={isPending}
           className="px-4 py-2 bg-black text-white rounded hover:bg-gray-800 transition-colors cursor-pointer"
+          aria-live="polite"
+          aria-busy={isPending}
         >
           {isPending ? 'Enregistrement ...' : 'Enregistrer'}
         </button>

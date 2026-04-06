@@ -25,10 +25,12 @@ function ListeKanbanSelector({ activeTab, setActiveTab }) {
   }
 
   return (
-    <ul className="flex flex-row gap-4 pl-2">
-      <li
+    <div className="flex flex-row gap-4 pl-2" role="tablist">
+      <button
         className={`flex flex-row gap-2 pt-3 pl-4 pb-3 pr-4 ${listStyleBg} rounded-lg w-fit cursor-pointer`}
         onClick={() => setActiveTab('list')}
+        role="tab"
+        aria-selected={activeTab === 'list'}
       >
         <Image
           src="/tasksOrangeIcon.png"
@@ -38,10 +40,12 @@ function ListeKanbanSelector({ activeTab, setActiveTab }) {
           className="self-start h-5 w-auto"
         />
         <div className="text-sm font-normal text-orange">Liste</div>
-      </li>
-      <li
+      </button>
+      <button
         className={`flex flex-row gap-2 pt-3 pl-4 pb-3 pr-4 ${kanbanStyleBg} rounded-lg w-fit cursor-pointer`}
         onClick={() => setActiveTab('kanban')}
+        role="tab"
+        aria-selected={activeTab === 'list'}
       >
         <Image
           src="/kanbanOrangeIcon.png"
@@ -51,8 +55,8 @@ function ListeKanbanSelector({ activeTab, setActiveTab }) {
           className="self-start h-5 w-auto"
         />
         <div className="text-sm font-normal text-orange">Kanban</div>
-      </li>
-    </ul>
+      </button>
+    </div>
   );
 }
 

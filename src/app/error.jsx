@@ -26,19 +26,21 @@ function Error({ error }) {
                 <Link href="/">
                   <Image
                     src="/logoAbricot.png"
-                    alt="logo"
+                    alt="logo Abricot"
                     width={150}
                     height={20}
                     loading="eager"
+                    aria-label="Retour à l'accueil"
                   />
                 </Link>
               </div>
             </div>
-            <div className="text-center pt-2 pr-2 pb-2 pl-2">
+            <p className="text-center pt-2 pr-2 pb-2 pl-2" role="alert">
+              <h1>Une erreur est survenue</h1>
               {error
                 ? `An error ${error} occurred on server`
                 : 'An error occurred on client'}
-            </div>
+            </p>
             <div className="bg-white flex flex-col lg:flex-row lg:justify-between gap-2 items-center pt-5 pr-10 pb-5 pl-10">
               <Link href="/">
                 <Image

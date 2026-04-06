@@ -20,13 +20,16 @@ function HeaderClient({ userName }) {
   const [isOpenMenu, setIsOpenMenu] = useState(false);
 
   return (
-    <div className="bg-white flex flex-col lg:flex-row justify-between gap-2 pt-5 lg:pt-1 pr-30 pb-1 pl-30 items-center min-h-18">
+    <header
+      role="banner"
+      className="bg-white flex flex-col lg:flex-row justify-between gap-2 pt-5 lg:pt-1 pr-30 pb-1 pl-30 items-center min-h-18"
+    >
       <div className="flex flex-row justify-between items-center w-full">
         {/* barre de menu */}
         <div className="w-fit">
           <Image
             src="/logoAbricot.png"
-            alt="logo"
+            alt="logo Abricot"
             width={150}
             height={20}
             loading="eager"
@@ -37,6 +40,9 @@ function HeaderClient({ userName }) {
         <button
           className="lg:hidden cursor-pointer"
           onClick={() => setIsOpenMenu(!isOpenMenu)}
+          aria-label="Ouvrir el menu"
+          aria-expanded={isOpenMenu}
+          aria-controls="nav-menu"
         >
           <div className="flex flex-col gap-1">
             <span className="w-6 h-0.5 bg-black-background"></span>
@@ -48,6 +54,7 @@ function HeaderClient({ userName }) {
 
       {/* Navigation */}
       <nav
+        id="nav-menu"
         className={`lg:absolute lg:left-1/2 lg:-translate-x-1/2 flex-col lg:flex-row gap-6 items-center ${isOpenMenu ? 'flex' : 'hidden'} lg:flex lg:mx-auto`}
       >
         <NavButton
@@ -77,6 +84,7 @@ function HeaderClient({ userName }) {
       <Link
         href="/profile"
         className={`h-auto ${isOpenMenu ? 'flex' : 'hidden'} lg:flex`}
+        aria-label={`Profil de ${userName}`}
       >
         <UserAvatar
           name={userName}
@@ -89,7 +97,7 @@ function HeaderClient({ userName }) {
           size="normal"
         />
       </Link>
-    </div>
+    </header>
   );
 }
 

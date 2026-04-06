@@ -52,14 +52,14 @@ export default function ModalLayout({ isOpen, onClose, title, children }) {
   return (
     <div
       className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50"
-      role="dialog"
-      aria-modal="true"
       aria-labelledby="modal-title"
     >
       <div
         ref={modalRef}
         tabIndex={-1}
         className="bg-white rounded-lg p-6 max-w-md w-full shadow-lg transform transition-all duration-300"
+        role="dialog"
+        aria-modal="true"
       >
         {/* En-tête de la modale */}
         <div className="flex justify-between items-center mb-4">

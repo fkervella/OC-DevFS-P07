@@ -22,7 +22,10 @@ function Contributors({ members = [], owner }) {
           {membersNumber} personnes
         </div>
       </div>
-      <div className="flex flex-col lg:flex-row gap-2 h-fit ">
+      <div
+        className="flex flex-col lg:flex-row gap-2 h-fit "
+        aria-label="Liste des contributeurs"
+      >
         <UserAvatar name={owner} bgColor="bg-light-orange" size="small" />
         <TaskStatus status="PROPRIETAIRE" />
         {members.map((member) => (

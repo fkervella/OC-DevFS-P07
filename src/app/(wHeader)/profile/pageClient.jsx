@@ -109,6 +109,8 @@ function ProfileClient({ user }) {
             }
             type="submit"
             disabled={isPending}
+            aria-live="polite"
+            aria-busy={isPending}
           />
           {error && (
             <div className="p-4 mb-4 text-red-font bg-light-orange rounded-lg">

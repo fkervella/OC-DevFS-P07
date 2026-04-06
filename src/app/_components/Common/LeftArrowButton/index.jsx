@@ -10,7 +10,7 @@ import Link from 'next/link';
 
 function LeftArrowButton({ page }) {
   return (
-    <Link href={page}>
+    <Link href={page} aria-label="Retour à la liste des projets">
       <div className="border border-solid border-grey-background bg-white rounded-lg w-14.25 h-14.25 flex justify-center items-center">
         <Image
           src="/leftArrowBlackIcon.png"

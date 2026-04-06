@@ -250,6 +250,7 @@ export function ProjectClient({
                     name="searchText"
                     placeholder="Rechercher une tâche"
                     className="font-inter"
+                    aria-label="Rechercher une tâche"
                   />
                   <Image
                     src="/search.png"

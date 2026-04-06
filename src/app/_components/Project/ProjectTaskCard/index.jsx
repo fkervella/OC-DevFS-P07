@@ -84,7 +84,9 @@ function ProjectTaskCard({
               <div className="border border-solid border-grey-background bg-white rounded-lg w-14.25 h-14.25 flex justify-center items-center">
                 <Image
                   src="/3DotsGreyIcon.png"
-                  alt="Bouton retour"
+                  aria-label={`Modifier la tâche ${task.title}`}
+                  aria-haspopup="dialog"
+                  alt=""
                   width={16}
                   height={8}
                   className="w-auto h-auto"

@@ -82,7 +82,11 @@ export default function LabelSelect({
   return (
     <div className="flex flex-col gap-1 w-full">
       {error && (
-        <div className="p-4 mb-4 text-red-font bg-light-orange rounded-lg">
+        <div
+          className="p-4 mb-4 text-red-font bg-light-orange rounded-lg"
+          role="alert"
+          aria-live="assertive"
+        >
           {error}
         </div>
       )}

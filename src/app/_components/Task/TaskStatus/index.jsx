@@ -37,6 +37,7 @@ function TaskStatus({ status, selected = false }) {
   return (
     <div
       className={`flex pt-1 pr-4 pb-1 pl-4 ${statusStyle[status].bgColor} ${statusStyle[status].textColor} ${selectedStyle} rounded-full text-sm font-normal items-center w-fit h-fit text-nowrap`}
+      role="status"
     >
       {statusStyle[status].text}
     </div>

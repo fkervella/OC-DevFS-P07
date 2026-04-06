@@ -15,6 +15,10 @@ function ExpandButton({ handleSubmit, rotation }) {
     <button
       className={`bg-white w-14.25 justify-center flex ${rotate} cursor-pointer`}
       onClick={handleSubmit}
+      aria-label={
+        rotation ? 'Masquer les commentaires' : 'Afficher les commentaires'
+      }
+      aria-expanded={rotation}
     >
       <Image
         src="/tickBlackIcon.png"

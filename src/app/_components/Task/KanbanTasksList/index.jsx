@@ -13,7 +13,10 @@ import AffectedTask from '@/app/_components/Task/AffectedTask';
 
 function KanbanTasksList({ title, tasks, openModal, handleSubmit }) {
   return (
-    <div className="flex flex-col gap-2 bg-white pt-10 pr-10 pb-10 pl-10 rounded-lg border border-solid border-light-orange w-[33%]">
+    <section
+      aria-label={`${title}`}
+      className="flex flex-col gap-2 bg-white pt-10 pr-10 pb-10 pl-10 rounded-lg border border-solid border-light-orange w-[33%]"
+    >
       <div className="flex flex-row gap-4">
         <div className="text-lg text-black-font font-semibold font-manrope ">
           {title}
@@ -29,7 +32,7 @@ function KanbanTasksList({ title, tasks, openModal, handleSubmit }) {
           handleSubmit={handleSubmit}
         />
       ))}
-    </div>
+    </section>
   );
 }
 

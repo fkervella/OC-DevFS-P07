@@ -36,7 +36,7 @@ export default function GlobalNotFound() {
                 <Link href="/">
                   <Image
                     src="/logoAbricot.png"
-                    alt="logo"
+                    alt="logo Abricot"
                     width={150}
                     height={20}
                     loading="eager"

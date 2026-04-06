@@ -21,13 +21,11 @@ function AffectedTasksListHeader({ handleChange }) {
         onChange={handleChange}
         className="pt-2 pr-10 pb-2 pl-10 border-2 border-grey-background rounded-lg flex flex-row gap-2 items-center"
       >
-        <label htmlFor="searcText" className="hidden">
-          Recherche de tâche
-        </label>
         <input
           name="searchText"
           placeholder="Rechercher une tâche"
           className="font-inter w-full"
+          aria-label="Recherche de tâche"
         ></input>
         <Image src="/search.png" alt="Icône recherche" width={14} height={14} />
       </form>

@@ -10,6 +10,7 @@
  * @param {string} defaultValue Valeur par défaut de l'objet input
  * @param {Function} onChange Fonction appelée lors du changement de valeur de l'objet input
  * @param {boolean} autoFocus Fixe le focus sur cet objet input
+ * @param {boolean} required Champ requis
  * @returns {string} code HTML contenant le label et l'input concernés
  */
 
@@ -22,6 +23,7 @@ export default function LabelInput({
   defaultValue,
   onChange,
   autoFocus,
+  required,
 }) {
   return (
     <div className="flex flex-col gap-1">
@@ -30,6 +32,7 @@ export default function LabelInput({
         className="black font-normal mt-4 text-sm text-black-font font-inter"
       >
         {text}
+        {required && <span aria-hidden="true"> *</span>}
       </label>
       <input
         name={name}
@@ -40,6 +43,8 @@ export default function LabelInput({
         defaultValue={defaultValue}
         onChange={onChange}
         autoFocus={autoFocus}
+        required={required}
+        aria-required={required}
         className="rounded-lg pt-2 pr-2 pb-2 pl-2 border border-gray-200 bg-white font-inter font-normal text-grey-font"
       ></input>
     </div>

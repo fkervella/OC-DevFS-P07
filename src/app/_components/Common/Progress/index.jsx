@@ -24,7 +24,14 @@ function Progress({ tasks }) {
         <div className="text-grey-font text-normal text-xs">Progression</div>
         <div className="text-black-font text-normal text-xs">{progress}%</div>
       </div>
-      <div className="w-full h-1.25 bg-grey-background rounded-full overflow-hidden mt-2 mb-1">
+      <div
+        role="progressbar"
+        aria-valuenow={progress}
+        aria-valuemin={0}
+        aria-valuemax={100}
+        aria-label="Progression du projet"
+        className="w-full h-1.25 bg-grey-background rounded-full overflow-hidden mt-2 mb-1"
+      >
         <div
           className="h-full bg-orange rounded-full transition-all duration-300 ease-out"
           style={{ width: `${clampedPercentage}%` }}

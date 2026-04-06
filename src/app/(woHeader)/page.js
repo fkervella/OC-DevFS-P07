@@ -71,7 +71,7 @@ function Login() {
           <LabelInput
             name="email"
             text="Email"
-            type="text"
+            type="email"
             value={formData.email}
             onChange={handleChange}
           />
@@ -86,9 +86,15 @@ function Login() {
             text={isPending ? 'Connexion en cours ...' : 'Se connecter'}
             type="submit"
             disabled={isPending}
+            aria-live="polite"
+            aria-busy={isPending}
           />
           {loginError && (
-            <div className="p-4 mb-4 text-red-font bg-light-orange rounded-lg">
+            <div
+              className="p-4 mb-4 text-red-font bg-light-orange rounded-lg"
+              role="alert"
+              aria-live="assertive"
+            >
               {loginError}
             </div>
           )}

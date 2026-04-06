@@ -109,11 +109,17 @@ function ModifyProjectModalContent({ onSubmit, project }) {
           type="submit"
           disabled={isPending}
           className="px-4 py-2 bg-black text-white rounded-lg hover:bg-gray-800 transition-colors cursor-pointer"
+          aria-live="polite"
+          aria-busy={isPending}
         >
           Modifier
         </button>
         {error && (
-          <div className="p-4 mb-4 text-red-font bg-light-orange rounded-lg">
+          <div
+            className="p-4 mb-4 text-red-font bg-light-orange rounded-lg"
+            role="alert"
+            aria-live="assertive"
+          >
             {error}
           </div>
         )}

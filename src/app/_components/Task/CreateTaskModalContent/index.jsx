@@ -145,7 +145,11 @@ function CreateTaskModalContent({ onSubmit, projectId }) {
         </div>
       </div>
       {error && (
-        <div className="p-4 mb-4 text-red-font bg-light-orange rounded-lg">
+        <div
+          className="p-4 mb-4 text-red-font bg-light-orange rounded-lg"
+          role="alert"
+          aria-live="assertive"
+        >
           {error}
         </div>
       )}
@@ -154,6 +158,8 @@ function CreateTaskModalContent({ onSubmit, projectId }) {
           type="submit"
           className="px-4 py-2 bg-black text-white rounded hover:bg-gray-800 transition-colors cursor-pointer"
           disabled={isPending}
+          aria-live="polite"
+          aria-busy={isPending}
         >
           {isPending ? 'Enregistrement ...' : '+ Ajouter une tâche'}
         </button>
