@@ -1,5 +1,5 @@
 import UserAvatar from '@/app/_components/Common/UserAvatar';
-import { formatDateFR } from '@/app/lib/utils';
+import { formatDateHeureFR } from '@/app/lib/utils';
 
 function Comment({ comment }) {
   // Si pas de commentaire, rien à afficher
@@ -9,7 +9,8 @@ function Comment({ comment }) {
   const authorId = comment.author?.id || 'Id inconnu';
   const authorName = comment.author?.name || 'Utilisateur inconnu';
   const content = comment.content || 'Commentaire indéterminé';
-  const commentDate = formatDateFR(comment.createdAt) || 'Date indéterminée';
+  const commentDate =
+    formatDateHeureFR(comment.createdAt) || 'Date indéterminée';
 
   return (
     <div className="flex flex-row gap-2 w-full">

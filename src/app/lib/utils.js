@@ -126,6 +126,36 @@ export function formatDateFR(isoString) {
 }
 
 /**
+ * formatDateHeureFR fonction de formatage de la date passée en paramètre, au format français
+ *
+ * @export
+ * @param {string} isoString date à formatter
+ * @returns {string} date formattée
+ */
+
+export function formatDateHeureFR(isoString) {
+  try {
+    const date = new Date(isoString);
+
+    if (isNaN(date.getTime())) {
+      return null;
+    }
+
+    const options = {
+      day: 'numeric',
+      month: 'long',
+      year: 'numeric',
+      hour: 'numeric',
+      minute: 'numeric',
+    };
+
+    return new Intl.DateTimeFormat('fr-FR', options).format(date);
+  } catch (error) {
+    throw new Error(`Erreur de formatage de l'heure : ${error.message}`);
+  }
+}
+
+/**
  * getProjectById fonction de renvoi d'un projet à partir de son identifiant
  *
  * @export
