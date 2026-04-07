@@ -17,22 +17,23 @@ import { createSession, deleteSession } from '@/app/lib/session';
  */
 
 export async function LoginAction(formData) {
-  const data = await authenticate(
-    formData.get('email'),
-    formData.get('password')
-  );
+  try {
+    const data = await authenticate(
+      formData.get('email'),
+      formData.get('password')
+    );
 
-  if (!data.success) {
+    await createSession(data.user);
+
+    return {
+      success: true,
+    };
+  } catch (error) {
     return {
       success: false,
-      error: data.error,
+      error: error.message,
     };
   }
-  await createSession(data.user);
-
-  return {
-    success: true,
-  };
 }
 
 /**
