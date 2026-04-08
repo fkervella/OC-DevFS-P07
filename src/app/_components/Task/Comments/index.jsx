@@ -32,11 +32,6 @@ function Comments({
   const [addCommentError, setAddCommentError] = useState(null);
   const [, startTransition] = useTransition();
 
-  // Si pas de commentaire, affichage de l'information
-  if (comments.length === 0) {
-    return <div>Pas de commentaire</div>;
-  }
-
   // Conservation de la saisie d'un nouveau commentaire
   const handleChangeNewComment = (e) => {
     const { name, value } = e.target;
@@ -77,7 +72,9 @@ function Comments({
   return (
     <div className="flex flex-col gap-2 min-w-0 flex-1">
       <div className="font-inter font-normal text-sm text-black">
-        Commentaires ({comments.length})
+        {comments.length > 0
+          ? `Commentaires (${comments.length})`
+          : 'Pas de commentaire'}
       </div>
       {isVisibleComment && (
         <div className="flex flex-col gap-4">
